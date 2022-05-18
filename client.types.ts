@@ -1,4 +1,4 @@
-import { Order, User } from "./resources";
+import { Order, User } from "./server/resources";
 
 // Ta bort customer från order och lägg till den igen med typen User
 export type ClientOrder = Omit<Order, "customer"> & {
