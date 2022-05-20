@@ -1,3 +1,4 @@
+import cookieSession from "cookie-session";
 import express from "express";
 import mongoose from "mongoose";
 
@@ -8,6 +9,16 @@ const app = express();
 
 // Add global middlewares
 app.use(express.json());
+
+app.use(
+  cookieSession({
+    secret: "aVeryS3cr3tK3y",
+    sameSite: "strict",
+    httpOnly: false,
+    secure: false,
+    maxAge: 1000 * 60000, // 1000 mins for now
+  })
+);
 
 // Add routers
 app.use("/api", userRouter);
