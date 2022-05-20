@@ -14,6 +14,8 @@ app.use("/api", categoryRouter);
 // app.use("/api", productRouter);
 // Add more routers here....
 
+//app.use(errorRequestHandler);
+
 // Connect to DB & start server
 mongoose.connect(
   "mongodb+srv://Admin:Admin@nftheaven.rs7yi.mongodb.net/?retryWrites=true&w=majority",
@@ -22,9 +24,7 @@ mongoose.connect(
       console.error(err);
     } else {
       console.log("Connection to database established!");
-      app.listen(5500, () =>
-        console.log("Server is running in the Atlas Cloud")
-      );
+      app.listen(5500, () => console.log("Server is running on MongoDB Atlas"));
     }
   }
 );
