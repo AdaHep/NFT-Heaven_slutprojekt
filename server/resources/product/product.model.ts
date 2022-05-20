@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 export interface Product {
   categories: Types.ObjectId[];
@@ -12,13 +12,13 @@ export interface Product {
 
 const ProductSchema = new mongoose.Schema(
   {
-    categories: { type: Schema.Types.ObjectId, required: true },
+    categories: { type: Schema.Types.ObjectId, required: false },
     name: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: Image, required: true },
+    image: { type: String, required: true },
     price: { type: Number, required: true },
-    stock: { type: Number, required: true },
-    quantity: { type: Number, required: true },
+    stock: { type: Number, required: false },
+    quantity: { type: Number, required: false },
   },
   {
     timestamps: true,

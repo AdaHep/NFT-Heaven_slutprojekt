@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getProductsFromCategory,
   updateProductStock,
+  addProduct,
 } from "./product.controller";
 
 export const productRouter = express
@@ -13,4 +14,5 @@ export const productRouter = express
   .get("/product", /* adminSecure, */ getAllProducts)
   // not sure how to do this one
   .get("/product", /* adminSecure, */ getProductsFromCategory) //
-  .put("/product/:id", updateProductStock);
+  .put("/product/:id", updateProductStock)
+  .post("/", addProduct);

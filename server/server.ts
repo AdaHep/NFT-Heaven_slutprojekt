@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import { userRouter, orderRouter } from "./resources";
-import { productRouter } from "./resources/product";
+import { userRouter, orderRouter, productRouter } from "./resources";
+
 const app = express();
 
 // Add global middlewares

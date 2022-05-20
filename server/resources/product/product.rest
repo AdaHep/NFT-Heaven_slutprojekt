@@ -14,7 +14,19 @@ GET http://localhost:5500/api/product
 
 // Each category needs an ID to find a specific product from that category
 
+###
 
+POST http://localhost:5500/api/product
+Content-Type: application/json
+
+{
+  "name": "Zlatan",
+  "description": "This is a product",
+  "image": "This is an image",
+  "price": 10
+}
+
+###
 
 
 PUT http://localhost:5500/api/order/
@@ -22,7 +34,7 @@ PUT http://localhost:5500/api/order/
 Content-Type: application/json
 
 {
-  "stock": "5",
+  "stock": 5,
 }
 
 ###
