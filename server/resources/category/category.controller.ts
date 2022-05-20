@@ -2,11 +2,29 @@ import { NextFunction, Request, Response } from "express";
 import { User, UserModel } from "../user";
 import { Category, CategoryModel } from "./category.model";
 
+// Get ALL Categories
 export const getAllCategories = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   const categories = await CategoryModel.find({});
   res.status(200).json(categories);
 };
+
+// Get ONE Category
+export const getOneCategory = async (
+  req: Request<{}, {}, Category>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const oneCategory = await CategoryModel.findOne(req.body);
+    console.log(oneCategory);
+    res.status(200).json(oneCategory);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Add a new Category
 export const addCategory = async (
   req: Request<{}, {}, Category>,
   res: Response,
@@ -34,7 +52,18 @@ export const addCategory = async (
 //   res.status(200).json(user);
 // };
 
-// Delete a category
-export const deleteCategory = (req: Request, res: Response) => {
-  res.status(200).json("DELETED CATEGORY");
+// Delete a category -  doesnt work for some reason
+export const deleteCategory = async (
+  req: Request<{}, {}, Category>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const foundCategory = await CategoryModel.findOne(req.params);
+    console.log(foundCategory);
+    foundCategory?.delete();
+    res.status(200).json("DELETED CATEGORY");
+  } catch (err) {
+    next(err);
+  }
 };
