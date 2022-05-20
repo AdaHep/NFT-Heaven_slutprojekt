@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
+
 import { userRouter, orderRouter, categoryRouter } from "./resources";
+import { productRouter } from "./resources/product";
 
 const app = express();
 
@@ -11,7 +13,8 @@ app.use(express.json());
 app.use("/api", userRouter);
 app.use("/api", orderRouter);
 app.use("/api", categoryRouter);
-// app.use("/api", productRouter);
+app.use("/api", productRouter);
+
 // Add more routers here....
 
 //app.use(errorRequestHandler);
