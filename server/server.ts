@@ -1,7 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import { userRouter, orderRouter } from "./resources";
+
+import { userRouter, orderRouter, categoryRouter } from "./resources";
 import { productRouter } from "./resources/product";
+
 const app = express();
 
 // Add global middlewares
@@ -10,7 +12,9 @@ app.use(express.json());
 // Add routers
 app.use("/api", userRouter);
 app.use("/api", orderRouter);
+app.use("/api", categoryRouter);
 app.use("/api", productRouter);
+
 // Add more routers here....
 
 //app.use(errorRequestHandler);
