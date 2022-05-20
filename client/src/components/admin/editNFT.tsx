@@ -29,6 +29,7 @@ function EditNFT() {
       nftImage: selectedNFT.image,
       description: selectedNFT.description,
       price: selectedNFT.price,
+      //category: selectedNFT.category,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -37,6 +38,7 @@ function EditNFT() {
         image: values.nftImage,
         description: values.description,
         price: values.price,
+        //category: values.category,
         count: 1,
         collectionID: selectedNFT.collectionID,
       };
@@ -88,6 +90,15 @@ function EditNFT() {
                   helperText={
                     formik.touched.description && formik.errors.description
                   }
+                />
+                <TextField
+                  style={textFieldStyle}
+                  fullWidth
+                  autoComplete="off"
+                  id="category"
+                  name="category"
+                  label="NFT category"
+                
                 />
                 <TextField
                   style={textFieldStyle}

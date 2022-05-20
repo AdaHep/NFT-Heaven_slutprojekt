@@ -1,12 +1,53 @@
-import { Button, TextField } from "@mui/material";
+import * as React from 'react'
+import { Button, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Theme} from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { NftItem } from "../../data/collections/collection";
 import { useProducts } from "../context/ProductContext";
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const categories = [
+  'Selfies',
+  'Logos',
+];
+
+// function getStyles(category: string, chosenCategory: String[]) {
+//   return {
+//     fontWeight:
+//       chosenCategory.indexOf(category) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
+
+
 function AddNewNFT() {
   const { addNft, addNftModal, closeAddNftModal, selectedCollectionID } =
     useProducts();
+  const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
+
+
+  const handleChange = (event: SelectChangeEvent<typeof chosenCategory>) => {
+    const {
+      target: { value },
+    } = event;
+    setChosenCategory(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+
   //   const handleChange = (event: any) => {
   //     setCollectionID(event.target.value);
   //   };
@@ -95,6 +136,27 @@ function AddNewNFT() {
                   error={formik.touched.price && Boolean(formik.errors.price)}
                   helperText={formik.touched.price && formik.errors.price}
                 />
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="category">Category</InputLabel>
+                  <Select
+                    id="category"
+                    multiple
+                    value={chosenCategory}
+                    onChange={handleChange}
+                    input={<OutlinedInput label="Category" />}
+                    MenuProps={MenuProps}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem
+                        key={category}
+                        value={category}
+                        //style={getStyles(category, chosenCategory, theme)}
+                      >
+                        {category}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
               <Button
                 style={addNewNFTButton}
