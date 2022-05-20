@@ -6,8 +6,8 @@ POST http://localhost:5500/api/user
 Content-Type: application/json
 
 {
-  "firstname": "David",
-  "lastname": "Jensen",
+  "firstname": "Arne",
+  "lastname": "Weisse",
   "password": "123",
   "address": {
     "street": "Åkannavägen",

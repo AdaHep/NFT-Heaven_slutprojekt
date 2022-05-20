@@ -13,14 +13,17 @@ app.use("/api", orderRouter);
 // app.use("/api", productRouter);
 // Add more routers here....
 
+//app.use(errorRequestHandler);
+
 // Connect to DB & start server
-mongoose.connect("mongodb://localhost:27017/layered-backend", (err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log("Connection to database established!");
-    app.listen(5500, () =>
-      console.log("Server is running on http://localhost:5500")
-    );
+mongoose.connect(
+  "mongodb+srv://Admin:Admin@nftheaven.rs7yi.mongodb.net/?retryWrites=true&w=majority",
+  (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("Connection to database established!");
+      app.listen(5500, () => console.log("Server is running on MongoDB Atlas"));
+    }
   }
-});
+);
