@@ -7,7 +7,7 @@ export interface Order {
   updatedAt: Date;
 }
 
-const orderSchema = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
   {
     customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
     products: { type: [String], required: true },
@@ -17,4 +17,4 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-export const OrderModel = mongoose.model<Order>("order", orderSchema);
+export const OrderModel = mongoose.model<Order>("order", OrderSchema);
