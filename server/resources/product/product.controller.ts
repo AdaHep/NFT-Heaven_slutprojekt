@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Product, ProductModel } from "./product.model";
 
 export const getOneProduct = async (req: Request, res: Response) => {
@@ -22,6 +22,20 @@ export const getAllProducts = async (req: Request, res: Response) => {
     if (err instanceof Error) {
       return res.status(500).json(err.message);
     }
+  }
+};
+
+export const addNewProduct = async (
+  req: Request<{}, {}, Product>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const newProduct = new ProductModel(req.body);
+    await newProduct.save();
+    res.status(200).json(newProduct);
+  } catch (err) {
+    next(err);
   }
 };
 

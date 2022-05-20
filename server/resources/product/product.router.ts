@@ -5,10 +5,12 @@ import {
   getAllProducts,
   getProductsFromCategory,
   updateProductStock,
+  addNewProduct,
 } from "./product.controller";
 
 export const productRouter = express
   .Router()
+  .post("/product", addNewProduct)
   .get("/product/:id", getOneProduct)
   .get("/product", /* adminSecure, */ getAllProducts)
   // not sure how to do this one
