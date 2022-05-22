@@ -38,7 +38,7 @@ function Header(headerProps: any) {
           </Button>
         </div>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <Link to="/">
+          <Link to="/LogInPage">
             <button>
               <p style={{ display: "flex", flexDirection: "row" }}>Log in</p>
             </button>
