@@ -37,6 +37,13 @@ function Header(headerProps: any) {
             <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
         </div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Link to="/LogInPage">
+            <button>
+              <p style={{ display: "flex", flexDirection: "row" }}>Log in</p>
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -63,13 +70,13 @@ const innerHeader: CSSProperties = {
 const headline: CSSProperties = {
   textDecoration: "none",
   color: "white",
-  fontSize: 'clamp(3vmin, 4vmin, 4rem)'
+  fontSize: "clamp(3vmin, 4vmin, 4rem)",
 };
 
 const headerCartLink: CSSProperties = {
   color: "white",
   position: "relative",
-  fontSize: 'clamp(5vmin, 7vmin, 2.7rem)'
+  fontSize: "clamp(5vmin, 7vmin, 2.7rem)",
 };
 
 const headerDiv1: CSSProperties = {
@@ -111,7 +118,7 @@ const itemCountBadge: CSSProperties = {
 };
 
 const countStyle: CSSProperties = {
-  textAlign: 'center',
+  textAlign: "center",
   margin: 0,
   width: "100%",
   lineHeight: 0,

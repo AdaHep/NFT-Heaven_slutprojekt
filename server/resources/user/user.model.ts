@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import { Address, addressSchema } from "./address.schema";
 
 export interface User {
   firstname: string;
   lastname: string;
+  email: string;
   /** Virtual */ fullname: string;
   password: string;
   isAdmin: boolean;
@@ -16,6 +18,7 @@ const UserSchema = new mongoose.Schema(
   {
     firstname: { type: String, required: true },
     lastname: { type: String, required: true },
+    email: { type: String, required: true },
     password: { type: String, required: true, select: false },
     isAdmin: { type: Boolean, required: true, default: false },
     address: { type: addressSchema, required: true },
@@ -34,8 +37,8 @@ UserSchema.virtual("fullname").get(function (this: User) {
 UserSchema.pre("save", encryptPassword);
 UserSchema.pre("updateOne", encryptPassword);
 
-function encryptPassword(this: User, next: Function) {
-  this.password = "qwerty"; // TODO: use bcrypt...
+async function encryptPassword(this: User, next: Function) {
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 }
 

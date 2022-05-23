@@ -5,6 +5,7 @@ import CheckoutPageDetails from "../pages/CheckoutPageDetails";
 import CollectionPage from "../pages/CollectionPage";
 import Collections from "../pages/Collections";
 import StartPage from "../pages/Startpage";
+import LogInPage from "../pages/LogInPage";
 import CartModal from "./CartModal";
 import Header from "./Header";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
@@ -37,6 +38,7 @@ function Layout() {
               <Routes>
                 <Route path="/" element={<StartPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/LogInPage" element={<LogInPage />} />
                 <Route path="/CollectionPage" element={<CollectionPage />} />
                 <Route path="/Collections/:id" element={<Collections />} />
                 <Route
@@ -77,7 +79,7 @@ function Layout() {
                   }
                 />
               </Routes>
-              <Footer/>
+              <Footer />
             </div>
             <ToastContainer />
           </BrowserRouter>

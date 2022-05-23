@@ -1,23 +1,44 @@
+
+// Get all users
 GET http://localhost:5500/api/user
 
 ###
 
+// Create new User
 POST http://localhost:5500/api/user
 Content-Type: application/json
 
 {
-  "firstname": "David",
-  "lastname": "Jensen",
-  "password": "123",
+  "firstname": "test",
+  "lastname": "test",
+  "email": "test@test.com",
+  "password": "test",
   "address": {
-    "street": "Åkannavägen",
-    "zipcode": 43540,
-    "city": "Mölnlycke"
+    "street": "test",
+    "zipcode": 12345,
+    "city": "test"
   }
 }
 
 ###
 
+//Login user
+POST http://localhost:5500/api/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "test"
+}
+
+###
+
+// Logout user
+DELETE http://localhost:5500/api/logout
+
+###
+
+//Edit a User
 PUT http://localhost:5500/api/user/6283515af3f6ab16ccf62710
 Content-Type: application/json
 
@@ -27,4 +48,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5500/api/user/1234
+
+// Delete a User
+DELETE http://localhost:5500/api/user/62877b41565ce79ffc7f6a74

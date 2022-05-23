@@ -25,6 +25,20 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+export const addNewProduct = async (
+  req: Request<{}, {}, Product>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const newProduct = new ProductModel(req.body);
+    await newProduct.save();
+    res.status(200).json(newProduct);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Not sure how to find products by category
 export const getProductsFromCategory = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
