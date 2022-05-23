@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UserModel, User } from "./user.model";
 import bcrypt from "bcrypt";
-import { nextTick } from "process";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
@@ -17,7 +16,6 @@ export const addUser = async (
   try {
     const user = new UserModel(req.body);
     await user.save();
-    console.log(user.fullname);
     res.status(200).json(user);
   } catch (err) {
     next(err);
@@ -52,6 +50,7 @@ export const loginUser = async (
     console.log(user);
     res.json(user);
   } catch (err) {
+    res.status(400).json(err);
     next(err);
   }
 };

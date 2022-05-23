@@ -1,17 +1,42 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, FormEvent, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../components/context/LoginContext";
 
 export default function LogInPage() {
+const navigate = useNavigate();
+ const { fetchUser, logIn } = useContext(UserContext);
+const [logInEmail, setLogInEmail] = useState("");
+const [logInPassword, setLogInPassword] = useState("");
+
+
+const handleEmailChange = (e: any) => {
+    setLogInEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: any) => {
+    setLogInPassword(e.target.value);
+  };
+
+  const handleLogin = () => {
+    fetchUser();
+    logIn(logInEmail, logInPassword);
+    navigate('/')
+  }
+
+  const handleSignUp = () => {}
+
+ 
   return (
     <div style={container}>
       <div style={innerContainer}>
         <h2 style={textCenter}>Log In</h2>
         <div style={innerContainer}>
           <label htmlFor="email">Email</label>
-          <input name="email" type="text" />
+          <input name="email" type="text" onChange={handleEmailChange}/>
           <label htmlFor="password">Password</label>
-          <input name="password" type="text" />
-          <Button>Log in</Button>
+          <input name="password" type="text" onChange={handlePasswordChange}/>
+          <Button onClick={handleLogin}>Log in</Button>
         </div>
         <h4 style={textCenter}>
           Don't have account? <br /> Sign up here!
@@ -21,7 +46,7 @@ export default function LogInPage() {
           <input name="email" type="text" />
           <label htmlFor="password">Password</label>
           <input name="password" type="text" />
-          <Button>Sign up</Button>
+          <Button onClick={handleSignUp}>Sign up</Button>
         </div>
       </div>
     </div>
