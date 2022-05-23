@@ -1,15 +1,34 @@
-import { Button, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CSSProperties, useState } from "react";
 import { NftItem } from "../../data/collections/collection";
 import { useProducts } from "../context/ProductContext";
+import React from "react";
 
 const validationSchema = yup.object({
   nftImage: yup.string().required("Please enter new image URL").min(10),
   description: yup.string().required("Please enter new description").min(2),
   price: yup.number().required("Please enter new price").min(1),
 });
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const categories = [
+  'Selfies',
+  'Logos',
+  'Things',
+];
+
 
 function EditNFT() {
   const {
@@ -19,6 +38,19 @@ function EditNFT() {
     selectedNFT,
     selectedCollection,
   } = useProducts();
+
+    const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
+
+
+  const handleChange = (event: SelectChangeEvent<typeof chosenCategory>) => {
+    const {
+      target: { value },
+    } = event;
+    setChosenCategory(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
 
   // if(!editNftModal) return
@@ -112,6 +144,29 @@ function EditNFT() {
                   error={formik.touched.price && Boolean(formik.errors.price)}
                   helperText={formik.touched.price && formik.errors.price}
                 />
+                <FormControl sx={{ m: 1, width: 300, zIndex: 1000}}>
+                  <InputLabel id="multiple-category">Category</InputLabel>
+                  <Select
+                    id="multiple-category"
+                    multiple
+                    value={chosenCategory}
+                    onChange={handleChange}
+                    input={<OutlinedInput label="Category" />}
+                    MenuProps={MenuProps}
+                    style={{color: "white"}}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem
+                        sx={{ zIndex: 10000 }}
+                        key={category}
+                        value={category}
+                        style={{backgroundColor: '#333', color: "white"}}
+                      >
+                        {category}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
               <Button
                 style={saveCloseEditButton}
@@ -149,7 +204,7 @@ const newCollectionContainer: CSSProperties = {
   transform: "translate(-50%, -50%)",
   background: "#202225",
   border: "2px solid #000",
-  zIndex: "9001",
+  zIndex: "1",
   textAlign: "center",
   width: "clamp(10rem, 90vmin, 40rem",
 };
