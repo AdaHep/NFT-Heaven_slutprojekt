@@ -2,9 +2,13 @@ import cookieSession from "cookie-session";
 import express from "express";
 import mongoose from "mongoose";
 
-import { userRouter, orderRouter, categoryRouter } from "./resources";
-import { mediaRouter } from "./resources/media/media.router";
-import { productRouter } from "./resources/product";
+import {
+  userRouter,
+  orderRouter,
+  categoryRouter,
+  mediaRouter,
+  productRouter,
+} from "./resources";
 
 const app = express();
 
