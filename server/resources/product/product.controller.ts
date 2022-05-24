@@ -4,7 +4,7 @@ import { Product, ProductModel } from "./product.model";
 export const getOneProduct = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
-    const product = await ProductModel.findById({});
+    const product = await ProductModel.findById({ _id: req.params });
     res.status(200).json(product);
   } catch (err: unknown) {
     if (err instanceof Error) {

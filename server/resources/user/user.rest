@@ -17,7 +17,8 @@ Content-Type: application/json
     "street": "test",
     "zipcode": 12345,
     "city": "test"
-  }
+  },
+  "imageURL": "628b6bc9a28a6e44e24949a6"
 }
 
 ###
