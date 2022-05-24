@@ -1,29 +1,34 @@
 import { createContext, useContext, useState } from "react";
 import { makeReq } from "../../helper";
 
-
 export interface User {
     email: string,
     password: string,
     // isAdmin: boolean
 }
-
 interface UserContext {
+    isLoggedIn: boolean,
+    setIsLoggedIn: (isLoggedIn: boolean) => void,
     fetchUser: () => void;
     //signUp: () => void;
     logIn: (email: string, password: string) => void;
     signOut: () => void;
+    currentUser: User | any;
 }
 
 export const UserContext = createContext<UserContext>({
+    isLoggedIn: false,
+    setIsLoggedIn: () => {},
     fetchUser: () => { },
     //signUp: () => { },
     logIn: () => { },
     signOut: () => { },
+    currentUser: Function,
 });
 
 export function UserProvider(props: any) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [currentUser, setCurrentUser] = useState<string>('')
 
   const fetchUser = async () => {
     try {
@@ -32,7 +37,7 @@ export function UserProvider(props: any) {
       if (!response.email) {
         setIsLoggedIn(false);
       } else {
-        // setLoggedInUser(response);
+        setCurrentUser(response.email);
         setIsLoggedIn(true);
       }
     } catch (err) {
@@ -52,8 +57,6 @@ export function UserProvider(props: any) {
       }
     }
   };
-
-
 
     // const signUp = async () => {
     //     try {
@@ -78,18 +81,8 @@ export function UserProvider(props: any) {
 
 
 const signOut = async () => {
-    let response = fetch(`http://localhost:8080/account/logout`, {
-        method: "DELETE",
-        credentials: "include",
-    });
+    let response = await makeReq('api/logout', 'DELETE')
     setIsLoggedIn(false);
-    // setLoggedInUser({
-    //     _id: 1,
-    //     username: "wagwan",
-    //     userRealName: "test",
-    //     userPassword: "wagwan",
-    //     isAdmin: true,
-    // });
     window.location.reload();
 };
 
@@ -97,10 +90,13 @@ const signOut = async () => {
 return (
     <UserContext.Provider
         value={{
+            isLoggedIn,
+            setIsLoggedIn,
             fetchUser,
             logIn,
             //signUp,
             signOut,
+            currentUser,
         }}
     >
         {props.children}
