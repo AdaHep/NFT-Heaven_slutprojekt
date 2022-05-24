@@ -33,7 +33,7 @@ export const loginUser = async (
     );
 
     //Om användaren inte finns
-    if (!user) return res.status(404).send("No user with that email found");
+    if (!user) return res.status(404).json("No user with that email found");
 
     // Match password for loginq
     let matchPassword = await bcrypt.compare(req.body.password, user.password); // boolean
@@ -47,6 +47,7 @@ export const loginUser = async (
       req.session.user = { _id: user._id };
     }
 
+    delete (user as any).password;
     console.log(user);
     res.json(user);
   } catch (err) {

@@ -2,11 +2,12 @@ import { createContext, useContext, useState } from "react";
 import { makeReq } from "../../helper";
 
 
-export interface userInterface {
+export interface User {
     email: string,
     password: string,
     // isAdmin: boolean
 }
+
 interface UserContext {
     fetchUser: () => void;
     //signUp: () => void;
@@ -23,17 +24,10 @@ export const UserContext = createContext<UserContext>({
 
 export function UserProvider(props: any) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const [loggedInUser, setLoggedInUser] = useState({
-    //     _id: 1,
-    //     username: "wagwan",
-    //     userRealName: "test",
-    //     userPassword: "wagwan",
-    //     isAdmin: true,
-    // });
 
   const fetchUser = async () => {
     try {
-      let response = await makeReq(`api/login`, 'GET');
+      let response = await makeReq<User>(`api/login`, 'GET');
 
       if (!response.email) {
         setIsLoggedIn(false);
@@ -48,8 +42,15 @@ export function UserProvider(props: any) {
 
   const logIn = async (email: string, password: string) => {
     const user = { email, password };
-    let response = await makeReq('api/login', 'POST', user);
-    alert(response);
+    try {
+      let response = await makeReq<User>('api/login', 'POST', user);
+      console.log(response);
+    } catch(err: any) {
+      console.error(err);
+      if (err.message === "No user with that email found") {
+        // TODO: Present info to user....
+      }
+    }
   };
 
 
