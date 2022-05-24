@@ -2,20 +2,32 @@ import { Button } from "@mui/material";
 import { CSSProperties, FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/context/LoginContext";
+import { makeReq } from "../helper";
 
-export default function LogInPage() {
-const navigate = useNavigate();
-const { fetchUser, logIn, currentUser, setIsLoggedIn } = useContext(UserContext);
-const [logInEmail, setLogInEmail] = useState("");
-const [logInPassword, setLogInPassword] = useState("");
-const [failedLogin, setFailedLogin] = useState(false);
+  export default function LogInPage() {
+  const navigate = useNavigate();
+  const { fetchUser, logIn, signUp} = useContext(UserContext);
+  const [logInEmail, setLogInEmail] = useState("");
+  const [logInPassword, setLogInPassword] = useState("");
+  const [failedLogin, setFailedLogin] = useState(false);
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
 
-const handleEmailChange = (e: any) => {
+  const handleEmailChange = (e: any) => {
     setLogInEmail(e.target.value);
   };
 
   const handlePasswordChange = (e: any) => {
     setLogInPassword(e.target.value);
+  };
+
+
+  const handleSignUpEmailChange = (e: any) => {
+    setSignUpEmail(e.target.value);
+  };
+
+  const handleSignUpPasswordChange = (e: any) => {
+    setSignUpPassword(e.target.value);
   };
 
   const handleSubmit = () => {
@@ -36,13 +48,14 @@ const handleEmailChange = (e: any) => {
     fetchUser();
     logIn(logInEmail, logInPassword);
     navigate("/");
-  
   }
 
 
-  const handleSignUp = () => {}
+  const handleSignUp = () => {
+    signUp(signUpEmail, signUpPassword);
+  }
 
- 
+
   return (
     <div style={container}>
       <div style={innerContainer}>
@@ -63,11 +76,11 @@ const handleEmailChange = (e: any) => {
         </h4>
         <div style={innerContainer}>
           <label htmlFor="email">Email</label>
-          <input name="email" type="text" />
+          <input name="email" type="text" onChange={handleSignUpEmailChange} />
            
           <label htmlFor="password">Password</label>
-          <input name="password" type="password" />
-          <Button>Sign up</Button>
+          <input name="password" type="password" onChange={handleSignUpPasswordChange} />
+          <Button onClick={handleSignUp}>Sign up</Button>
         </div>
       </div>
     </div>
