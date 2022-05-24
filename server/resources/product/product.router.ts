@@ -15,4 +15,5 @@ export const productRouter = express
   .get("/product", /* adminSecure, */ getAllProducts)
   // not sure how to do this one
   .get("/product", /* adminSecure, */ getProductsFromCategory) //
-  .put("/product/:id", updateProductStock);
+  .put("/product/:id", updateProductStock)
+  .post("/", addProduct);

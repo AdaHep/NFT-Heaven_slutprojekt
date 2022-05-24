@@ -77,3 +77,21 @@ export const updateProductStock = async (
     }
   }
 };
+
+export const addProduct = async (req: Request, res: Response) => {
+  try {
+    const newProduct = new ProductModel({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      price: req.body.price,
+    });
+    await newProduct.save();
+    console.log(newProduct);
+    res.status(200).json(newProduct);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(500).json(err.message);
+    }
+  }
+};

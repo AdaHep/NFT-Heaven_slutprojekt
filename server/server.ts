@@ -1,9 +1,7 @@
 import cookieSession from "cookie-session";
 import express from "express";
 import mongoose from "mongoose";
-
-import { userRouter, orderRouter, categoryRouter } from "./resources";
-import { productRouter } from "./resources/product";
+import { userRouter, orderRouter, productRouter, categoryRouter } from "./resources";
 
 const app = express();
 
