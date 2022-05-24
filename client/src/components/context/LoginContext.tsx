@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { makeReq } from "../../helper";
 
 export interface User {
     email: string,
     password: string,
-    // isAdmin: boolean
+    isAdmin: boolean
 }
 interface UserContext {
     isLoggedIn: boolean,
@@ -14,7 +15,10 @@ interface UserContext {
     logIn: (email: string, password: string) => void;
     signOut: () => void;
     currentUser: User | any;
+    isAdmin: boolean;
+    setIsAdmin: (isAdmin: boolean) => void;
 }
+
 
 export const UserContext = createContext<UserContext>({
     isLoggedIn: false,
@@ -24,11 +28,14 @@ export const UserContext = createContext<UserContext>({
     logIn: () => { },
     signOut: () => { },
     currentUser: Function,
+    isAdmin: false,
+    setIsAdmin: () => { }
 });
 
 export function UserProvider(props: any) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<string>('')
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const fetchUser = async () => {
     try {
@@ -81,7 +88,7 @@ export function UserProvider(props: any) {
       let response = await makeReq('api/logout', 'DELETE')
       setIsLoggedIn(false);
       window.location.reload();
-  };
+  }
 
 
   return (
@@ -94,6 +101,8 @@ export function UserProvider(props: any) {
               signUp,
               signOut,
               currentUser,
+              isAdmin,
+              setIsAdmin,
           }}
       >
           {props.children}

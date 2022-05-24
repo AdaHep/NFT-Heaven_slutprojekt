@@ -6,7 +6,7 @@ import { makeReq } from "../helper";
 
   export default function LogInPage() {
   const navigate = useNavigate();
-  const { fetchUser, logIn, signUp} = useContext(UserContext);
+  const { fetchUser, logIn, signUp, isAdmin, setIsAdmin} = useContext(UserContext);
   const [logInEmail, setLogInEmail] = useState("");
   const [logInPassword, setLogInPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(false);
@@ -47,7 +47,14 @@ import { makeReq } from "../helper";
     // } else 
     fetchUser();
     logIn(logInEmail, logInPassword);
-    navigate("/");
+      if(isAdmin) {
+        setIsAdmin(true);
+        console.log(isAdmin + "user");
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+   
   }
 
 
