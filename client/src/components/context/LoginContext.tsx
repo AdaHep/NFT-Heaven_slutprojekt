@@ -65,6 +65,9 @@ export function UserProvider(props: any) {
     try {
     let response = await makeReq<User>('api/user', 'POST', newUser);
     console.log(response);
+    await makeReq<User>('api/login', 'POST', newUser);
+    console.log(newUser)
+    setIsLoggedIn(true);
     } catch(err: any) {
       console.error(err);
       if (err.message === "That email does already have an account") {

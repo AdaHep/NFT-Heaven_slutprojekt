@@ -53,6 +53,7 @@ import { makeReq } from "../helper";
 
   const handleSignUp = () => {
     signUp(signUpEmail, signUpPassword);
+    navigate('/');
   }
 
 
