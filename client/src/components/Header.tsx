@@ -9,9 +9,13 @@ import { UserContext } from "./context/LoginContext";
 
 const Header = (headerProps: any) => {
   const { cart } = useCart();
- const { isLoggedIn, currentUser } = useContext(UserContext);
+ const { isLoggedIn, signOut } = useContext(UserContext);
 
   const openModal = () => headerProps.setModalState(true);
+
+  const handleSignOut = () => {
+    signOut();
+  }
 
   return (
     <div style={rootStyle}>
@@ -45,14 +49,14 @@ const Header = (headerProps: any) => {
            <div style={{ display: "flex", flexDirection: "row" }}>
             <Link to="/LogInPage">
               <Button>
-                <p style={{ display: "flex", flexDirection: "row" }}>Log in</p>
+                <p style={{ display: "flex", flexDirection: "row" }}>Sign in</p>
               </Button>
             </Link>
           </div>
           </>
         ) : (
           <>
-            <Button>
+            <Button onClick={handleSignOut}>
               Sign Out
             </Button>
           </>

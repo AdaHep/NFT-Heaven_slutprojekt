@@ -5,10 +5,10 @@ import { UserContext } from "../components/context/LoginContext";
 
 export default function LogInPage() {
 const navigate = useNavigate();
- const { fetchUser, logIn } = useContext(UserContext);
+const { fetchUser, logIn, currentUser, setIsLoggedIn } = useContext(UserContext);
 const [logInEmail, setLogInEmail] = useState("");
 const [logInPassword, setLogInPassword] = useState("");
-
+const [failedLogin, setFailedLogin] = useState(false);
 
 const handleEmailChange = (e: any) => {
     setLogInEmail(e.target.value);
@@ -18,11 +18,27 @@ const handleEmailChange = (e: any) => {
     setLogInPassword(e.target.value);
   };
 
+  const handleSubmit = () => {
+    // let user = {
+    //   email: logInEmail,
+    //   password: logInPassword
+    // }
+    // handleLogin(user.email, user.password) 
+  }
+
   const handleLogin = () => {
+    // const existingUser = await logIn(email, password);
+    // // jag får fel medelanden wrong password o email när jag logga in med rätt email och fel lösenord
+    // if (!currentUser) {
+    //   setFailedLogin(true)
+    //   console.log(failedLogin)
+    // } else 
     fetchUser();
     logIn(logInEmail, logInPassword);
-    navigate('/')
+    navigate("/");
+  
   }
+
 
   const handleSignUp = () => {}
 
@@ -35,8 +51,12 @@ const handleEmailChange = (e: any) => {
           <label htmlFor="email">Email</label>
           <input name="email" type="text" onChange={handleEmailChange}/>
           <label htmlFor="password">Password</label>
-          <input name="password" type="text" onChange={handlePasswordChange}/>
-          <Button onClick={handleLogin}>Log in</Button>
+          <input name="password" type="password" onChange={handlePasswordChange}/>
+          <Button onClick={() => {
+            handleLogin();
+            }}
+            >Log in</Button>
+           {failedLogin ? "Wrong username or password" : undefined}
         </div>
         <h4 style={textCenter}>
           Don't have account? <br /> Sign up here!
@@ -44,9 +64,10 @@ const handleEmailChange = (e: any) => {
         <div style={innerContainer}>
           <label htmlFor="email">Email</label>
           <input name="email" type="text" />
+           
           <label htmlFor="password">Password</label>
-          <input name="password" type="text" />
-          <Button onClick={handleSignUp}>Sign up</Button>
+          <input name="password" type="password" />
+          <Button>Sign up</Button>
         </div>
       </div>
     </div>

@@ -50,6 +50,7 @@ export function UserProvider(props: any) {
     try {
       let response = await makeReq<User>('api/login', 'POST', user);
       console.log(response);
+      setIsLoggedIn(true);
     } catch(err: any) {
       console.error(err);
       if (err.message === "No user with that email found") {
