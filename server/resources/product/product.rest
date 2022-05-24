@@ -1,19 +1,20 @@
-GET http://localhost:5500/api/product/628b91e600903aa79365db67
-
 // Add an id to find a specific product
-
+GET http://localhost:5500/api/product/628b91e600903aa79365db67
 ###
 
+// Get all products should be adminSecure
 GET http://localhost:5500/api/product
 
-// Get all products should be adminSecure
 
 ###
 
 ///////// CATEGORIES
-//SELFIES: 62875632b98b2d20ac23d547
-//THINGS: 62875635b98b2d20ac23d549
-//LOGOS: 62875639b98b2d20ac23d54b
+// Formula1NFT: 628c92aa1c4eb76ecbc12f4a
+// PappaNFT: 628c92af1c4eb76ecbc12f4c
+// DCNFT: 628c92b71c4eb76ecbc12f4e
+// NoccoNFT: 628c92bc1c4eb76ecbc12f50
+// BakkumNFT: 628c92c41c4eb76ecbc12f53
+// MeinerNFT: 628c92cd1c4eb76ecbc12f55
 
 ###
 
@@ -22,12 +23,12 @@ POST http://localhost:5500/api/product
 Content-Type: application/json
 
 {
-  "categories": "62875632b98b2d20ac23d547",
-  "name": "BakkumNFT #7",
-  "description": "Bakkum with a black eye. Legend says it was given to him by the bouncer at Excet who got jealous of Felix one night.",
-  "price": 16,
-  "stock": 10,
-  "imageId": "628b90e800903aa79365db65"
+  "categories": ["628c92bc1c4eb76ecbc12f50"],
+  "name": "NoccoNFT #36",
+  "description": "Sylvester Stalone, please don't sue us! This is Ramonade NFT, not Rambonade NFT.",
+  "price": 21,
+  "stock": 100,
+  "imageId": "628cc7581c4eb76ecbc1301a"
 }
 
 ###

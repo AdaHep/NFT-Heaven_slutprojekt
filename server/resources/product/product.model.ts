@@ -11,9 +11,9 @@ export interface Product {
   /** Virtual */ imageURL: string;
 }
 
-const ProductSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema<Product>(
   {
-    categories: { type: Schema.Types.ObjectId, required: true },
+    categories: { type: [Schema.Types.ObjectId], required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
@@ -30,7 +30,7 @@ const ProductSchema = new mongoose.Schema(
 );
 
 ProductSchema.virtual("imageURL").get(function () {
-  return "api/media/ + this.imageId";
+  return "/api/media/" + this.imageId;
 });
 
-export const ProductModel = mongoose.model<Product>("product", ProductSchema);
+export const ProductModel = mongoose.model("product", ProductSchema);
