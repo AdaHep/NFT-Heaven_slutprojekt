@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
-import { CSSProperties, FormEvent, useContext, useState } from "react";
+import { CSSProperties, FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/context/LoginContext";
 import { makeReq } from "../helper";
 
   export default function LogInPage() {
   const navigate = useNavigate();
-  const { fetchUser, logIn, signUp, isAdmin, setIsAdmin} = useContext(UserContext);
+  const { logIn, signUp, currentUser } = useContext(UserContext);
   const [logInEmail, setLogInEmail] = useState("");
   const [logInPassword, setLogInPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(false);
@@ -38,22 +38,22 @@ import { makeReq } from "../helper";
     // handleLogin(user.email, user.password) 
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // const existingUser = await logIn(email, password);
     // // jag får fel medelanden wrong password o email när jag logga in med rätt email och fel lösenord
     // if (!currentUser) {
     //   setFailedLogin(true)
     //   console.log(failedLogin)
     // } else 
-    fetchUser();
-    logIn(logInEmail, logInPassword);
-      if(isAdmin) {
-        setIsAdmin(true);
-        console.log(isAdmin + "user");
-        navigate('/admin');
-      } else {
-        navigate('/');
-      }
+    if (!await logIn(logInEmail, logInPassword)) {
+      setFailedLogin(true);
+    }
+      // if(isAdmin) { 
+      //   console.log(isAdmin + "user");
+      //   navigate('/admin');
+      // } else {
+        //  navigate('/');
+      // }
    
   }
 
@@ -62,6 +62,16 @@ import { makeReq } from "../helper";
     signUp(signUpEmail, signUpPassword);
     navigate('/');
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      if (currentUser.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [currentUser])
 
 
   return (

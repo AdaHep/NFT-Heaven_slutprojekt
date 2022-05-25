@@ -9,7 +9,7 @@ import { UserContext } from "./context/LoginContext";
 
 const Header = (headerProps: any) => {
   const { cart } = useCart();
- const { isLoggedIn, signOut } = useContext(UserContext);
+ const { currentUser, signOut } = useContext(UserContext);
 
   const openModal = () => headerProps.setModalState(true);
 
@@ -44,7 +44,7 @@ const Header = (headerProps: any) => {
             <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
         </div>
-        {!isLoggedIn ? (
+        {!currentUser ? (
           <>
            <div style={{ display: "flex", flexDirection: "row" }}>
             <Link to="/LogInPage">

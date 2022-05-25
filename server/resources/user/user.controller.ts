@@ -29,7 +29,7 @@ export const loginUser = async (
 ) => {
   try {
     let user = await UserModel.findOne({ email: req.body.email }).select(
-      "password"
+      "+password"
     );
 
     //Om användaren inte finns
@@ -39,16 +39,17 @@ export const loginUser = async (
     let matchPassword = await bcrypt.compare(req.body.password, user.password); // boolean
 
     // If password doesnt match
-    if (!matchPassword)
+    if (!matchPassword) {
       return res.status(401).json("Wrong password or username");
+    }
+
+    (user as any).password = undefined;
 
     // If password match -> set cookie to include user
     if (req.session) {
-      req.session.user = { _id: user._id };
+      req.session.user = user;
     }
 
-    delete (user as any).password;
-    console.log(user);
     res.json(user);
   } catch (err) {
     res.status(400).json(err);
@@ -87,4 +88,8 @@ export const updateUser = async (
 };
 export const deleteUser = (req: Request, res: Response) => {
   res.status(200).json("DELETED USER");
+};
+
+export const getCurrentUser = (req: Request, res: Response) => {
+  res.status(200).json(req.session?.user);
 };
