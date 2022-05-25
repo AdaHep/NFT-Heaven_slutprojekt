@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./Footer";
 import TestPage from "../pages/TestPage";
 import ProductPage from "../pages/ProductPage";
+import { UserProvider } from "./context/LoginContext";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -26,9 +27,10 @@ function Layout() {
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
   return (
     <div>
+      <UserProvider>
       <CartProvider>
         <ProductProvider>
-          <BrowserRouter>
+            <BrowserRouter>
             <Header
               modalState={modalState}
               setModalState={setModalState}
@@ -91,6 +93,7 @@ function Layout() {
           </BrowserRouter>
         </ProductProvider>
       </CartProvider>
+      </UserProvider>
     </div>
   );
 }

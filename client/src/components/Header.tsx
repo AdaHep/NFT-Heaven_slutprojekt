@@ -1,16 +1,26 @@
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
-import { Link } from "react-router-dom";
+import { width, color, textAlign } from "@mui/system";
+import { CSSProperties, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
 import { useProducts } from "./context/ProductContext";
+import { UserContext } from "./context/LoginContext";
 
-function Header(headerProps: any) {
+
+const Header = (headerProps: any) => {
   const { cart } = useCart();
+ const { currentUser, signOut } = useContext(UserContext);
+ const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
   const { fetchProductsFromDb } = useProducts();
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/");  
+  }
 
   return (
     <div style={rootStyle}>
@@ -44,14 +54,24 @@ function Header(headerProps: any) {
             <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
         </div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <Link to="/LogInPage">
-            <button>
-              <p style={{ display: "flex", flexDirection: "row" }}>Log in</p>
-            </button>
-          </Link>
-        </div>
-      </div>
+        {!currentUser ? (
+          <>
+           <div style={{ display: "flex", flexDirection: "row" }}>
+            <Link to="/LogInPage">
+              <Button>
+                <p style={{ display: "flex", flexDirection: "row" }}>Sign in</p>
+              </Button>
+            </Link>
+          </div>
+          </>
+        ) : (
+          <>
+            <Button onClick={handleSignOut}>
+              Sign Out
+            </Button>
+          </>
+        )}
+    </div>
     </div>
   );
 }
@@ -89,6 +109,7 @@ const headerCartLink: CSSProperties = {
 const headerDiv1: CSSProperties = {
   width: "33%",
 };
+
 const headerDiv2: CSSProperties = {
   width: "33%",
   display: "flex",
@@ -100,7 +121,9 @@ const headerDiv3: CSSProperties = {
   justifyContent: "flex-end",
 };
 
-const linkStyle: CSSProperties = { textDecoration: "none" };
+const linkStyle: CSSProperties = {
+  textDecoration: "none" 
+};
 
 const StyledButton: CSSProperties = {
   background: "#2081e2",

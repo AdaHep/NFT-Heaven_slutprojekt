@@ -16,4 +16,3 @@ export const productRouter = express
   // not sure how to do this one
   .get("/product", /* adminSecure, */ getProductsFromCategory) //
   .put("/product/:id", updateProductStock);
-// .post("/", addProduct);
