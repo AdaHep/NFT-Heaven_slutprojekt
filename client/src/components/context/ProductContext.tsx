@@ -5,16 +5,42 @@ import {
   collectionData,
 } from "../../data/collections/collection";
 
+///http://localhost:5500/api/product
+
+interface Product {
+  categories: String[];
+  name: String;
+  description: String;
+  price: Number;
+  stock?: Number;
+  quantity?: Number;
+  imageId: String;
+  /** Virtual */ imageURL: string;
+}
+
 interface ProductContext {
+  fetchProductsFromDb: () => void;
+  products: Product[];
+
+  // Sätta en array med products kanske?
+
   randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
+  addCollection: (collection: collectionDataItem) => void;
   closeAddCollectionModal: () => void;
+  removeCollection: (collectionID: number) => void;
   openAddCollectionModal: () => void;
+  editCollection: (collection: collectionDataItem) => void;
+  addNft: (nft: NftItem, collectionID: number) => void;
+  removeNft: (collectionID: number, nftID: number) => void;
+  editNft: (nft: NftItem, collectionID?: number) => void;
   selectedCollectionID: number;
   selectedNftID: number;
   addNftModal: boolean;
   openAddNftModal: (collectionID: number) => void;
   closeAddNftModal: () => void;
+  editNftModal: boolean;
+  editCollectionModal: boolean;
   openEditNftModal: (
     nft: NftItem,
     collectionID: number,
@@ -26,20 +52,29 @@ interface ProductContext {
   openEditCollectionModal: (collection: collectionDataItem) => void;
   closeEditCollectionModal: () => void;
   addCollectionModal: boolean;
-  
 }
 
 const ProductsContext = createContext<ProductContext>({
+  fetchProductsFromDb: () => [],
+  products: [],
+
   randomCollections: [],
   collections: [],
+  addCollection: (collection: collectionDataItem) => {},
+  removeCollection: (collectionID: number) => {},
   addCollectionModal: false,
   openAddCollectionModal: () => {},
   closeAddCollectionModal: () => {},
+  editCollection: (collection: collectionDataItem) => {},
+  addNft: (nft: NftItem, collectionID: number) => {},
+  removeNft: (collectionID: number, nftID: number) => {},
+  editNft: (nft: NftItem, collectionID?: number) => {},
   selectedCollectionID: 0,
   selectedNftID: 0,
   addNftModal: false,
   openAddNftModal: (collectionID: number) => {},
   closeAddNftModal: () => {},
+  editNftModal: false,
   openEditNftModal: (
     nft: NftItem,
     collectionID: number,
@@ -64,15 +99,29 @@ const ProductsContext = createContext<ProductContext>({
     count: 12,
     collectionID: 1,
   },
+  editCollectionModal: false,
   openEditCollectionModal: (collection: collectionDataItem) => {},
   closeEditCollectionModal: () => {},
-  
 });
 
 export const ProductProvider: FC = (props) => {
+  const [products, setProducts] = useState([]);
+  const fetchProductsFromDb = async () => {
+    let data = fetch("http://localhost:5500/api/product")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   let localData = localStorage.getItem("collections");
   const [addCollectionModal, setAddCollectionModal] = useState(false);
   const [addNftModal, setAddNftModal] = useState(false);
+  const [editCollectionModal, setEditCollectionModal] = useState(false);
+  const [editNftModal, setEditNftModal] = useState(false);
   const [collections, setCollections] = useState(
     localData ? JSON.parse(localData) : collectionData
   );
@@ -126,12 +175,12 @@ export const ProductProvider: FC = (props) => {
   };
 
   const openEditCollectionModal = (collection: collectionDataItem) => {
-    //setEditCollectionModal(true);
+    setEditCollectionModal(true);
     setSelectedCollection(collection);
   };
 
   const closeEditCollectionModal = () => {
-    //setEditCollectionModal(false);
+    setEditCollectionModal(false);
   };
 
   const openEditNftModal = (
@@ -142,23 +191,106 @@ export const ProductProvider: FC = (props) => {
     setSelectedCollectionID(collectionID);
     setSelectedNFT(nft);
     setSelectedCollection(collection);
+    // setSelectedNftID(nftID)
+    // setSelectedCollection(collections.find((collectionItem : collectionDataItem) => selectedCollectionID === collectionItem.id))
+    // setSelectedNFT(collections.find((collectionItem : collectionDataItem) => selectedCollectionID === collectionItem.id)?.NFTS.find((item : NftItem) => item.NFTid === selectedNftID))
+    setEditNftModal(true);
   };
   const closeEditNftModal = () => {
-    //setEditNftModal(false);
+    setEditNftModal(false);
+  };
+
+  const addCollection = (collection: collectionDataItem) => {
+    collection.id = collections.length + 1;
+    let updatedList = [...collections, collection];
+    setCollections(updatedList);
+    localStorage.setItem("collections", JSON.stringify(updatedList));
+  };
+
+  const removeCollection = (collectionID: number) => {
+    let updatedList = collections.filter(
+      (item: any) => item.id !== collectionID
+    );
+    setCollections(updatedList);
+    localStorage.setItem("collections", JSON.stringify(updatedList));
+  };
+
+  const editCollection = (newCollection: collectionDataItem) => {
+    let updatedList = collections.map((collection: collectionDataItem) => {
+      if (collection.id === newCollection.id) {
+        collection = newCollection;
+        return collection;
+      }
+      return collection;
+    });
+    setCollections(updatedList);
+    localStorage.setItem("collections", JSON.stringify(updatedList));
+  };
+
+  const editNft = (nft: NftItem, collectionID?: number) => {
+    let updatedList = collections.map((collection: collectionDataItem) => {
+      if (collection.id === collectionID) {
+        collection.NFTS = collection.NFTS.map((nftItem: NftItem) => {
+          if (nftItem.NFTid === nft.NFTid) {
+            nftItem = nft;
+            // console.log(nftItem)
+            return nftItem;
+          }
+          return nftItem;
+        });
+      }
+      return collection;
+    });
+    console.log(updatedList);
+    setCollections(updatedList);
+    localStorage.setItem("collections", JSON.stringify(updatedList));
+  };
+  const addNft = (nft: NftItem, collectionID: number) => {
+    let updatedList = collections.map((collection: collectionDataItem) => {
+      if (collection.id === collectionID) {
+        nft.collectionID = collectionID;
+        collection.NFTS = [...collection.NFTS, nft];
+        console.log(collection.NFTS);
+      }
+      return collection;
+    });
+    setCollections(updatedList);
+    localStorage.setItem("collections", JSON.stringify(updatedList));
+  };
+  const removeNft = (collectionID: number, nftID: number) => {
+    let updatedList = collections.map((collection: collectionDataItem) => {
+      if (collection.id === collectionID) {
+        collection.NFTS = collection.NFTS.filter(
+          (nft: NftItem) => nft.NFTid !== nftID
+        );
+      }
+      return collection;
+    });
+    setCollections(updatedList);
   };
 
   return (
     <ProductsContext.Provider
       value={{
+        products,
+        fetchProductsFromDb,
         closeEditCollectionModal,
         randomCollections,
         openEditCollectionModal,
+        editCollectionModal,
         selectedNFT,
         selectedCollection,
         collections,
+        addCollection,
+        removeCollection,
+        editCollection,
+        addNft,
+        editNft,
+        removeNft,
         addNftModal,
         closeAddNftModal,
         openAddNftModal,
+        editNftModal,
         openEditNftModal,
         closeEditNftModal,
         selectedCollectionID,
