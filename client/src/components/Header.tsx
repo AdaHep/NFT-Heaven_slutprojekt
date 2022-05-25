@@ -8,19 +8,18 @@ import { useCart } from "./context/CartContext";
 import { useProducts } from "./context/ProductContext";
 import { UserContext } from "./context/LoginContext";
 
-
 const Header = (headerProps: any) => {
   const { cart } = useCart();
- const { currentUser, signOut } = useContext(UserContext);
- const navigate = useNavigate();
+  const { currentUser, signOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
   const { fetchProductsFromDb } = useProducts();
 
   const handleSignOut = () => {
     signOut();
-    navigate("/");  
-  }
+    navigate("/");
+  };
 
   return (
     <div style={rootStyle}>
@@ -56,25 +55,25 @@ const Header = (headerProps: any) => {
         </div>
         {!currentUser ? (
           <>
-           <div style={{ display: "flex", flexDirection: "row" }}>
-            <Link to="/LogInPage">
-              <Button>
-                <p style={{ display: "flex", flexDirection: "row" }}>Sign in</p>
-              </Button>
-            </Link>
-          </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <Link to="/LogInPage">
+                <Button>
+                  <p style={{ display: "flex", flexDirection: "row" }}>
+                    Sign in
+                  </p>
+                </Button>
+              </Link>
+            </div>
           </>
         ) : (
           <>
-            <Button onClick={handleSignOut}>
-              Sign Out
-            </Button>
+            <Button onClick={handleSignOut}>Sign Out</Button>
           </>
         )}
-    </div>
+      </div>
     </div>
   );
-}
+};
 
 const rootStyle: CSSProperties = {
   background: "#04111d",
@@ -122,7 +121,7 @@ const headerDiv3: CSSProperties = {
 };
 
 const linkStyle: CSSProperties = {
-  textDecoration: "none" 
+  textDecoration: "none",
 };
 
 const StyledButton: CSSProperties = {
@@ -130,6 +129,7 @@ const StyledButton: CSSProperties = {
   margin: "1rem",
   fontSize: "3vmin",
   fontWeight: "bold",
+  textTransform: "revert",
 };
 
 const itemCountBadge: CSSProperties = {
