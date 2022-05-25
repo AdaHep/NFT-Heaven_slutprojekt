@@ -9,6 +9,7 @@ import {
   categoryRouter,
   mediaRouter,
   productRouter,
+  deliveryOptionsRouter
 } from "./resources";
 
 const app = express();
@@ -39,6 +40,7 @@ app.use("/api", orderRouter);
 app.use("/api", categoryRouter);
 app.use("/api", productRouter);
 app.use("/api", mediaRouter);
+app.use("deliveryOptions", deliveryOptionsRouter)
 
 // Add more routers here....
 
@@ -48,6 +50,14 @@ const errorRequestHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 
 app.use(errorRequestHandler);
+
+
+const db = mongoose.connection;
+db.on("error", (err) => {
+  console.log("Mongoose Error");
+  console.log(err);
+});
+
 
 // Connect to DB & start server
 mongoose.connect(
