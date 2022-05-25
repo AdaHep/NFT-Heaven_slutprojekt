@@ -1,7 +1,7 @@
 import { CSSProperties, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProducts } from "../components/context/ProductContext";
-import ItemCard from "../components/ItemCard";
+// import CategoryCard from "../components/CategoryCard";
 
 function Collections() {
   // Använder ID från routern (:id) lägger det i en variabel
@@ -23,7 +23,7 @@ function Collections() {
 
   return (
     <div style={collectionsPage}>
-      <div style={collectionsContainer}>
+      {/* <div style={collectionsContainer}>
         <div style={CollectionDescriptionContainer}>
           <div style={collectionNameContainer}>
             <h1 style={collectionNameStyle}>{collection?.name}</h1>
@@ -43,7 +43,7 @@ function Collections() {
       <div>
         <div style={flexProducts}>
           {nft?.map((nftItem, index) => (
-            <ItemCard
+            <CategoryCard
               key={index}
               nftCard={nftItem}
               nftHeader={collection?.header}
@@ -51,7 +51,7 @@ function Collections() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

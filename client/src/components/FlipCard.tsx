@@ -1,9 +1,10 @@
 import { CSSProperties, useState } from "react";
 import { collectionDataItem, NftItem } from "../data/collections/collection";
 import "../CSS/FlipCard.css";
+import { Product } from "../ProductInterface";
 
 interface cardInfo {
-  nftCard?: NftItem;
+  nftCard?: Product;
   collectionCard?: collectionDataItem;
   nftHeader?: string;
   collectionName?: string;
@@ -20,7 +21,7 @@ function FlipCard(props: cardInfo) {
     >
       <div className="back"> {props.nftCard?.description}</div>
       <div className="front">
-        <img className="image" srcSet={props.nftCard?.image} alt="" />
+        <img className="image" srcSet={props.nftCard?.imageURL} alt="" />
       </div>
     </div>
   );
