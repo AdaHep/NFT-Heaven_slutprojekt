@@ -1,6 +1,7 @@
 import cookieSession from "cookie-session";
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 import {
   userRouter,
@@ -14,6 +15,13 @@ const app = express();
 
 // Add global middlewares
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 app.use(
   cookieSession({

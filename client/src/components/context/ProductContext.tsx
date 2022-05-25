@@ -5,7 +5,25 @@ import {
   collectionData,
 } from "../../data/collections/collection";
 
+///http://localhost:5500/api/product
+
+interface Product {
+  categories: String[];
+  name: String;
+  description: String;
+  price: Number;
+  stock?: Number;
+  quantity?: Number;
+  imageId: String;
+  /** Virtual */ imageURL: string;
+}
+
 interface ProductContext {
+  fetchProductsFromDb: () => void;
+  products: Product[];
+
+  // Sätta en array med products kanske?
+
   randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
   addCollection: (collection: collectionDataItem) => void;
@@ -34,10 +52,12 @@ interface ProductContext {
   openEditCollectionModal: (collection: collectionDataItem) => void;
   closeEditCollectionModal: () => void;
   addCollectionModal: boolean;
-  
 }
 
 const ProductsContext = createContext<ProductContext>({
+  fetchProductsFromDb: () => [],
+  products: [],
+
   randomCollections: [],
   collections: [],
   addCollection: (collection: collectionDataItem) => {},
@@ -82,10 +102,21 @@ const ProductsContext = createContext<ProductContext>({
   editCollectionModal: false,
   openEditCollectionModal: (collection: collectionDataItem) => {},
   closeEditCollectionModal: () => {},
-  
 });
 
 export const ProductProvider: FC = (props) => {
+  const [products, setProducts] = useState([]);
+  const fetchProductsFromDb = async () => {
+    let data = fetch("http://localhost:5500/api/product")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   let localData = localStorage.getItem("collections");
   const [addCollectionModal, setAddCollectionModal] = useState(false);
   const [addNftModal, setAddNftModal] = useState(false);
@@ -241,6 +272,8 @@ export const ProductProvider: FC = (props) => {
   return (
     <ProductsContext.Provider
       value={{
+        products,
+        fetchProductsFromDb,
         closeEditCollectionModal,
         randomCollections,
         openEditCollectionModal,

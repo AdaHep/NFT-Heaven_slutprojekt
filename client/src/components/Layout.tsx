@@ -16,6 +16,7 @@ import PurchaseComplete from "../pages/PurchaseComplete";
 import PaymentPage from "../pages/PaymentPage";
 import { ToastContainer } from "react-toastify";
 import Footer from "./Footer";
+import TestPage from "../pages/TestPage";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -37,6 +38,8 @@ function Layout() {
             <div style={rootStyle}>
               <Routes>
                 <Route path="/" element={<StartPage />} />
+                <Route path="/test" element={<TestPage />} />
+
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/LogInPage" element={<LogInPage />} />
                 <Route path="/CollectionPage" element={<CollectionPage />} />
