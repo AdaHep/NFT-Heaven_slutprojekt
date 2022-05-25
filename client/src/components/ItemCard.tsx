@@ -7,17 +7,34 @@ import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
 import FlipCard from "./FlipCard";
 import "react-toastify/dist/ReactToastify.css";
+import { useProducts } from "../components/context/ProductContext";
+import { name } from "assert";
 
-interface cardInfo {
-  nftCard?: NftItem;
-  collectionCard?: collectionDataItem;
-  nftHeader?: string;
-  collectionName?: string;
+// interface cardInfo {
+//   nftCard?: NftItem;
+//   collectionCard?: collectionDataItem;
+//   nftHeader?: string;
+//   collectionName?: string;
+// }
+
+//function ItemCard(props: cardInfo) {
+
+interface Product {
+  categories: String[];
+  name: String;
+  description: String;
+  price: Number;
+  stock?: Number;
+  quantity?: Number;
+  imageId: String;
+  /** Virtual */ imageURL: string;
 }
 
-function ItemCard(props: cardInfo) {
+function ItemCard(props: Product) {
+  const { products, fetchProductsFromDb } = useProducts();
   const { addProduct } = useCart();
 
+  fetchProductsFromDb();
   const nftInfo = {
     id: props.nftCard?.NFTid,
     buyPrice: props.nftCard?.price,
@@ -37,10 +54,10 @@ function ItemCard(props: cardInfo) {
 
   return (
     <div>
-      {props.collectionCard && (
+      {products && (
         <div>
           <div style={cardContainer}>
-            <h1> {collectionInfo.name}</h1>
+            <h1> {product}</h1>
             <div style={cardPicture}>
               <img
                 style={productImage}
