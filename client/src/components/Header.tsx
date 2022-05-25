@@ -3,18 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import { width, color, textAlign } from "@mui/system";
 import { CSSProperties, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
 import { UserContext } from "./context/LoginContext";
 
 const Header = (headerProps: any) => {
   const { cart } = useCart();
  const { currentUser, signOut } = useContext(UserContext);
+ const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
 
   const handleSignOut = () => {
     signOut();
+    navigate("/");  
   }
 
   return (
