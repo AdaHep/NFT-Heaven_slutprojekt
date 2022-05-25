@@ -8,6 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { CSSProperties } from "react";
 import OrderPage from "./OrderPage";
 
 // import product context
@@ -39,12 +40,11 @@ function AdminOrderList
         </TableHead>
         <TableBody>
           <OrderPage />
-        
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default AdminOrderList
-;
+
+export default AdminOrderList;

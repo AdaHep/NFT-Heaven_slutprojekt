@@ -25,7 +25,7 @@ function OrderPage() {
 
   return (
     <Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset", backgroundColor: "#888", color: "white" } }}>
+      <TableRow sx={{ "& > *": { borderBottom: "unset", backgroundColor: "rgb(48, 51, 57)", color: "white" } }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
