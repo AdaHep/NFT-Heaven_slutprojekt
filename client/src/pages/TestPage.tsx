@@ -1,3 +1,4 @@
+// import { useEffect } from "react";
 import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
@@ -8,7 +9,9 @@ function StartPage() {
     console.log(products);
   };
 
-  fetchProductsFromDb();
+  // useEffect(() => {
+  //   fetchProductsFromDb();
+  // });
 
   return (
     <div>

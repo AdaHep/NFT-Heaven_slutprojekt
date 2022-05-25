@@ -71,6 +71,7 @@ const cardContainer: CSSProperties = {
   background: "#303339",
   boxShadow: "1px 1px 6px black",
   position: "relative",
+  margin: "1rem",
 };
 const cardPicture: CSSProperties = {
   width: "18rem",

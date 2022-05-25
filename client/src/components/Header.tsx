@@ -19,7 +19,7 @@ function Header(headerProps: any) {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/CollectionPage">
+          <Link style={linkStyle} to="/ProductPage">
             <Button style={StyledButton} variant="contained" href="">
               EXPLORE
             </Button>
