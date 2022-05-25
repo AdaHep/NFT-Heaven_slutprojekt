@@ -4,11 +4,13 @@ import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
+import { useProducts } from "./context/ProductContext";
 
 function Header(headerProps: any) {
   const { cart } = useCart();
 
   const openModal = () => headerProps.setModalState(true);
+  const { fetchProductsFromDb } = useProducts();
 
   return (
     <div style={rootStyle}>
@@ -20,7 +22,12 @@ function Header(headerProps: any) {
         </div>
         <div style={headerDiv2}>
           <Link style={linkStyle} to="/ProductPage">
-            <Button style={StyledButton} variant="contained" href="">
+            <Button
+              style={StyledButton}
+              variant="contained"
+              href=""
+              onClick={fetchProductsFromDb}
+            >
               EXPLORE
             </Button>
           </Link>

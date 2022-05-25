@@ -3,12 +3,9 @@ import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
 function ProductPage() {
-  const { products, fetchProductsFromDb } = useProducts();
+  const { products } = useProducts();
   return (
     <div style={rootStyle}>
-      <div>
-        <button onClick={fetchProductsFromDb}>Fetch products</button>
-      </div>
       <div style={itemContainer}>
         {products.map((product, index) => (
           <ProductCard product={product} key={index} />
