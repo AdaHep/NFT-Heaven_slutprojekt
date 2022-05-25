@@ -52,7 +52,7 @@ export const addCategory = async (
 //   res.status(200).json(user);
 // };
 
-// Delete a category -  doesnt work for some reason
+// Delete a category
 export const deleteCategory = async (
   req: Request<{}, {}, Category>,
   res: Response,

@@ -14,6 +14,7 @@ function StartPage(startPageProps: any) {
           <h2 style={startPageHeadline}>
             Buy extreme NFTs and don't look back!
           </h2>
+          <img src="/api/media/628c9b941c4eb76ecbc12f7f" alt="" />
           <p style={headlineSubText}>
             Are you looking for insane NFTs? Do you want to make money quick?
             You've come to the right place. We scoured the internet and
@@ -113,5 +114,5 @@ const hottestStyle: CSSProperties = {
 
 const hottestTitle: CSSProperties = {
   textAlign: "center",
-  margin: '0 1rem'
+  margin: "0 1rem",
 };

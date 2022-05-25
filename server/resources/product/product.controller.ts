@@ -4,7 +4,7 @@ import { Product, ProductModel } from "./product.model";
 export const getOneProduct = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
-    const product = await ProductModel.findById({});
+    const product = await ProductModel.findById({ _id: req.params });
     res.status(200).json(product);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -71,6 +71,24 @@ export const updateProductStock = async (
     );
     if (stock) updatedProduct!.stock = stock;
     res.status(200).json(updatedProduct + req.params.id);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(500).json(err.message);
+    }
+  }
+};
+
+export const addProduct = async (req: Request, res: Response) => {
+  try {
+    const newProduct = new ProductModel({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      price: req.body.price,
+    });
+    await newProduct.save();
+    console.log(newProduct);
+    res.status(200).json(newProduct);
   } catch (err: unknown) {
     if (err instanceof Error) {
       return res.status(500).json(err.message);
