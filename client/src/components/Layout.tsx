@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
 import CollectionPage from "../pages/CollectionPage";
-import Collections from "../pages/Collections";
+// import Collections from "../pages/Collections";
 import StartPage from "../pages/Startpage";
 import LogInPage from "../pages/LogInPage";
 import CartModal from "./CartModal";
@@ -15,6 +15,8 @@ import PurchaseComplete from "../pages/PurchaseComplete";
 import PaymentPage from "../pages/PaymentPage";
 import { ToastContainer } from "react-toastify";
 import Footer from "./Footer";
+import TestPage from "../pages/TestPage";
+import ProductPage from "../pages/ProductPage";
 import { UserProvider } from "./context/LoginContext";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminPage from "../pages/AdminPage";
@@ -41,13 +43,17 @@ function Layout() {
             <div style={rootStyle}>
               <Routes>
                 <Route path="/" element={<StartPage />} />
+                <Route path="/test" element={<TestPage />} />
+
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/adminOrderPage" element={<AdminOrderPage />} />
                 <Route path="/adminProductPage" element={<AdminProductPage />} />
                 
                 <Route path="/LogInPage" element={<LogInPage />} />
                 <Route path="/CollectionPage" element={<CollectionPage />} />
-                <Route path="/Collections/:id" element={<Collections />} />
+                <Route path="/ProductPage" element={<ProductPage />} />
+
+                {/* <Route path="/Collections/:id" element={<Collections />} /> */}
                 <Route
                   path="/"
                   element={
@@ -98,7 +104,7 @@ function Layout() {
 }
 
 const rootStyle: CSSProperties = {
-  maxWidth: "1250px",
+  maxWidth: "1410px",
   display: "block",
   margin: "0 auto",
   marginTop: "2rem",

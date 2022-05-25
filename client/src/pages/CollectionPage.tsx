@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
+import CategoryCard from "../components/CategoryCard";
 import { useProducts } from "../components/context/ProductContext";
-import ItemCard from "../components/ItemCard";
+// import CategoryCard from "../components/CategoryCard";
 
 function CollectionPage() {
   const { collections } = useProducts();
@@ -17,9 +18,9 @@ function CollectionPage() {
       {/* <h1 style={collectionsTitle}>Here are all the available collections:</h1> */}
       <div style={flexProducts}>
         {collections.map((collection, index) => (
-          <ItemCard key={index} collectionCard={collection} />
+          <CategoryCard key={index} collectionCard={collection} />
         ))}
-      </div>
+      </div> 
     </div>
   );
 }

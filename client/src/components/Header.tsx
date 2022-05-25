@@ -5,8 +5,10 @@ import { width, color, textAlign } from "@mui/system";
 import { CSSProperties, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
+import { useProducts } from "./context/ProductContext";
 import { UserContext } from "./context/LoginContext";
 import SettingsIcon from '@mui/icons-material/Settings';
+
 
 const Header = (headerProps: any) => {
   const { cart } = useCart();
@@ -14,6 +16,7 @@ const Header = (headerProps: any) => {
  const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
+  const { fetchProductsFromDb } = useProducts();
 
   const handleSignOut = () => {
     signOut();
@@ -29,8 +32,13 @@ const Header = (headerProps: any) => {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/CollectionPage">
-            <Button style={StyledButton} variant="contained" href="">
+          <Link style={linkStyle} to="/ProductPage">
+            <Button
+              style={StyledButton}
+              variant="contained"
+              href=""
+              onClick={fetchProductsFromDb}
+            >
               EXPLORE
             </Button>
           </Link>
