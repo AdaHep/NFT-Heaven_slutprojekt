@@ -27,7 +27,6 @@ Developers 👨‍💻
 [Edwin Körner](https://github.com/EdwinKorner) &
 [Miranda Nilhag](http://github.com/mirrenil)
 
-
 ## Design system
 
 In this project we used components from [Material UI](https://mui.com/#/) that implements Google's [Material Design system](https://material.io/).

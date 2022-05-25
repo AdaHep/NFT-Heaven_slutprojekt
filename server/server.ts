@@ -1,5 +1,5 @@
 import cookieSession from "cookie-session";
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import mongoose from "mongoose";
 
 import {
@@ -34,7 +34,12 @@ app.use("/api", mediaRouter);
 
 // Add more routers here....
 
-//app.use(errorRequestHandler);
+const errorRequestHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
+  res.status(500).json(err.message);
+};
+
+app.use(errorRequestHandler);
 
 // Connect to DB & start server
 mongoose.connect(
