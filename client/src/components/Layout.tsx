@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
 import CollectionPage from "../pages/CollectionPage";
-import Collections from "../pages/Collections";
+// import Collections from "../pages/Collections";
 import StartPage from "../pages/Startpage";
 import LogInPage from "../pages/LogInPage";
 import CartModal from "./CartModal";
@@ -43,7 +43,7 @@ function Layout() {
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/LogInPage" element={<LogInPage />} />
                 <Route path="/CollectionPage" element={<CollectionPage />} />
-                <Route path="/Collections/:id" element={<Collections />} />
+                {/* <Route path="/Collections/:id" element={<Collections />} /> */}
                 <Route
                   path="/"
                   element={

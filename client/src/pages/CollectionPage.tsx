@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { useProducts } from "../components/context/ProductContext";
-import ItemCard from "../components/ItemCard";
+// import CategoryCard from "../components/CategoryCard";
 
 function CollectionPage() {
   const { collections } = useProducts();
@@ -8,11 +8,11 @@ function CollectionPage() {
   return (
     <div>
       <h1 style={collectionsTitle}>Here are all the available collections:</h1>
-      <div style={flexProducts}>
+      {/* <div style={flexProducts}>
         {collections.map((collection, index) => (
-          <ItemCard key={index} collectionCard={collection} />
+          <CategoryCard key={index} collectionCard={collection} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -7,38 +7,22 @@ import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
 import FlipCard from "./FlipCard";
 import "react-toastify/dist/ReactToastify.css";
-import { useProducts } from "../components/context/ProductContext";
-import { name } from "assert";
+import { Product } from "../ProductInterface";
 
-// interface cardInfo {
-//   nftCard?: NftItem;
-//   collectionCard?: collectionDataItem;
-//   nftHeader?: string;
-//   collectionName?: string;
-// }
-
-//function ItemCard(props: cardInfo) {
-
-interface Product {
-  categories: String[];
-  name: String;
-  description: String;
-  price: Number;
-  stock?: Number;
-  quantity?: Number;
-  imageId: String;
-  /** Virtual */ imageURL: string;
+interface cardInfo {
+  nftCard?: Product;
+  collectionCard?: collectionDataItem;
+  nftHeader?: string;
+  collectionName?: string;
 }
 
-function ItemCard(props: Product) {
-  const { products, fetchProductsFromDb } = useProducts();
+function CategoryCard(props: cardInfo) {
   const { addProduct } = useCart();
 
-  fetchProductsFromDb();
   const nftInfo = {
-    id: props.nftCard?.NFTid,
+    // id: props.nftCard?.,
     buyPrice: props.nftCard?.price,
-    image: props.nftCard?.image,
+    image: props.nftCard?.imageURL,
     headerImage: props.nftHeader,
     collectionName: props.collectionName,
     description: props.nftCard?.description,
@@ -54,10 +38,10 @@ function ItemCard(props: Product) {
 
   return (
     <div>
-      {products && (
+      {/* {props.collectionCard && (
         <div>
           <div style={cardContainer}>
-            <h1> {product}</h1>
+            <h1> {collectionInfo.name}</h1>
             <div style={cardPicture}>
               <img
                 style={productImage}
@@ -116,12 +100,12 @@ function ItemCard(props: Product) {
             </Button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
 
-export default ItemCard;
+export default CategoryCard;
 
 const cardContainer: CSSProperties = {
   width: "20rem",

@@ -1,9 +1,9 @@
 import { CSSProperties } from "react";
 import { useProducts } from "../components/context/ProductContext";
-import ItemCard from "../components/ItemCard";
+// import CategoryCard from "../components/CategoryCard";
 
 function StartPage(startPageProps: any) {
-  const { randomCollections } = useProducts();
+  const { randomCollections: products } = useProducts();
 
   // let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
 
@@ -21,30 +21,30 @@ function StartPage(startPageProps: any) {
             handpicked the best NFTS for you! Enjoy!
           </p>
         </div>
-        <div style={hottestStyle}>
+        {/* <div style={hottestStyle}>
           <div style={hottestTitle}>
             <h1>HOTTEST COLLECTIONS RIGHT NOW</h1>
           </div>
           <div style={flexProducts}>
-            {randomCollections.map((collection, index) => (
-              <ItemCard key={index} collectionCard={collection} />
+            {products.map((collection, index) => (
+              <CategoryCard key={index} collectionCard={collection} />
             ))}
           </div>
-        </div>
+        </div> */}
         <div style={hottestStyle}>
           <div style={hottestTitle}>
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
           </div>
-          <div style={flexItems}>
-            {randomCollections.map((collection, index) => (
-              <ItemCard
+          {/* <div style={flexItems}>
+            {products.map((collection, index) => (
+              <CategoryCard
                 key={index}
                 nftCard={collection.NFTS[0]}
                 nftHeader={collection?.header}
                 collectionName={collection?.name}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { useProducts } from "../components/context/ProductContext";
+import ProductCard from "../components/ProductCard";
 
 function StartPage() {
   const { products, fetchProductsFromDb } = useProducts();
@@ -18,12 +19,17 @@ function StartPage() {
       </div>
       <div>
         <h1>Här ska det komma produkter</h1>
-        {products.map((product, index) => (
+        <div>
+          {products.map((product, index) => (
+            <ProductCard product={product} key={index} />
+          ))}
+        </div>
+        {/* {products.map((product, index) => (
           <div key={index}>
             <h1>{product.name}</h1>
             <img src={product.imageURL} alt="" />
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
