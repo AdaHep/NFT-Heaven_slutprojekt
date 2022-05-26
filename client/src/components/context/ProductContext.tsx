@@ -1,11 +1,9 @@
-import { count } from "console";
 import { createContext, FC, useContext, useEffect, useState } from "react";
 import {
   NftItem,
   collectionDataItem,
   collectionData,
 } from "../../data/collections/collection";
-import editCollection from "../admin/editCollection";
 
 interface Product {
   categories: String[];

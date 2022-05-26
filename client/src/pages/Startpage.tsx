@@ -3,7 +3,7 @@ import { useProducts } from "../components/context/ProductContext";
 // import CategoryCard from "../components/CategoryCard";
 
 function StartPage(startPageProps: any) {
-  const { randomCollections: products } = useProducts();
+  const { products } = useProducts();
 
   // let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
 

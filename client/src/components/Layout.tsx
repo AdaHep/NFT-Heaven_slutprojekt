@@ -16,9 +16,9 @@ import Footer from "./Footer";
 import ProductPage from "../pages/ProductPage";
 import { UserProvider } from "./context/LoginContext";
 import CategoryPages from "../pages/CategoryPages";
-import AdminProductPage from "../pages/AdminProductPage";
-import AdminPage from "../pages/AdminPage";
-import AdminOrderPage from "../pages/AdminOrderPage";
+import AdminOrderPage from "../pages/Admin/AdminOrderPage";
+import AdminPage from "../pages/Admin/AdminPage";
+import AdminProductPage from "../pages/Admin/AdminProductPage";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);

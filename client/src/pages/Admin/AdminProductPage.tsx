@@ -1,32 +1,17 @@
-import { useProducts } from "../components/context/ProductContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRemove, faCoins } from "@fortawesome/free-solid-svg-icons";
-
-import AddNewNFT from "../components/admin/addNewNFT";
-import EditNFT from "../components/admin/editNFT";
-import { CSSProperties } from "react";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
-import EditCollection from "../components/admin/editCollection";
-import AddNewCollection from "../components/admin/addNewCollection";
+import { CSSProperties } from "react";
+import EditNFT from "../../components/admin/editNFT";
+import { useProducts } from "../../components/context/ProductContext";
 
 function AdminProductPage() {
-  const {
-    collections,
-    removeCollection,
-    removeNft,
-    openAddCollectionModal,
-    openAddNftModal,
-    openEditNftModal,
-    openEditCollectionModal,
-  } = useProducts();
+  const { collections, openEditNftModal } = useProducts();
 
   return (
     <div style={adminPageLayout}>
       <div>
-        <AddNewCollection />
-        <AddNewNFT />
         <EditNFT />
-        <EditCollection />
       </div>
       {collections.map((collection, index) => (
         <div style={adminCollections} key={index}>
@@ -36,32 +21,6 @@ function AdminProductPage() {
             <div style={headerLeft}>
               <h1>{collection.name}</h1>
               <p>Innehåller {collection.NFTS.length} NFTS</p>
-            </div>
-            <div style={headerRight}>
-              {/* <Button
-                onClick={() => removeCollection(collection.id)}
-                style={buttonStyle}
-                variant="contained"
-                href=""
-              >
-                Remove
-              </Button> */}
-              {/* <Button
-                style={buttonStyle}
-                variant="contained"
-                href=""
-                onClick={() => openEditCollectionModal(collection)  }
-              >
-                Edit
-              </Button> */}
-              {/* <Button
-                onClick={() => openAddNftModal(collection.id)}
-                style={buttonStyle}
-                variant="contained"
-                href=""
-              >
-                Add NFT
-              </Button> */}
             </div>
           </div>
           <div style={adminCollectionMain}>
@@ -75,14 +34,7 @@ function AdminProductPage() {
                   <div>ID #{nft.NFTid}</div>
                 </div>
                 <img style={adminImageStyle} alt="" srcSet={nft.image} />
-                <div style={descStyle}>
-                {nft.description}
-                </div>
-                <FontAwesomeIcon
-                  icon={faRemove}
-                  onClick={() => removeNft(collection.id, nft.NFTid)}
-                  style={removeButton}
-                />
+                <div style={descStyle}>{nft.description}</div>
                 <Button
                   onClick={() =>
                     openEditNftModal(nft, collection.id, collection)
@@ -109,8 +61,8 @@ const adminPageLayout: CSSProperties = {
   flexDirection: "column",
   alignItems: "center",
   gap: "2rem",
-  overflowX: 'hidden',
-  paddingBottom: '2rem'
+  overflowX: "hidden",
+  paddingBottom: "2rem",
 };
 
 const adminCollections: CSSProperties = {
@@ -174,7 +126,7 @@ const headerLeft: CSSProperties = {
 const descStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
-  height: '100%',
+  height: "100%",
   fontSize: "clamp(1.5vmin, 2vmin, 1rem)",
 };
 

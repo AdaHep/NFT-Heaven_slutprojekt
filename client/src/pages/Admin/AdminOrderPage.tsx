@@ -1,6 +1,5 @@
 import React from "react";
-import AdminOrderList from "../components/admin/AdminOrderList";
-import OrderPage from "./OrderPage";
+import AdminOrderList from "../../components/admin/AdminOrderList";
 
 function AdminOrderPage() {
   return (
