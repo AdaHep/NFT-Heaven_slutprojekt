@@ -9,13 +9,12 @@ import {
   Typography,
 } from "@mui/material";
 import { CSSProperties } from "react";
-import OrderPage from "./OrderPage";
+import OrderPage from "../../pages/OrderPage";
 
 // import product context
 //import AdminProductList from "./AdminProductList";
 
-function AdminOrderList
-() {
+function AdminOrderList() {
   //const { products } = useAdmin();
 
   return (
@@ -24,8 +23,7 @@ function AdminOrderList
         <TableHead>
           <TableRow style={{ backgroundColor: "rgb(32, 129, 226)" }}>
             <TableCell />
-            <TableCell align="left">
-            </TableCell>
+            <TableCell align="left"></TableCell>
             <TableCell align="left">
               <Typography variant="subtitle1" fontWeight="bold" color="white">
                 ORDER NUMBER
@@ -45,6 +43,5 @@ function AdminOrderList
     </TableContainer>
   );
 }
-
 
 export default AdminOrderList;

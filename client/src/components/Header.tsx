@@ -1,13 +1,10 @@
 import { faShoppingCart, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, IconButton } from "@mui/material";
-import { width, color, textAlign } from "@mui/system";
 import { CSSProperties, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
-import { useProducts } from "./context/ProductContext";
-import { UserContext } from "./context/LoginContext";
-import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import { UserContext } from "./context/LoginContext";
 
@@ -39,25 +36,28 @@ const Header = (headerProps: any) => {
           </Link>
         </div>
         <div style={headerDiv3}>
-          { currentUser?.isAdmin ? (
-          <Link to="admin">
-            <IconButton><SettingsIcon style={{ color: "rgb(32, 129, 226)", fontSize: "3rem"}}/></IconButton>
-          </Link>
-        ) : (
-          <>
-           <Button style={headerCartLink} onClick={openModal}>
-            {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
-              <div style={itemCountBadge}>
-                <p style={countStyle}>
-                  {cart.reduce((sum, nft) => sum + nft.count, 0)}
-                </p>
-              </div>
-            )}
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </Button>
-          </>
-        )}
-         
+          {currentUser?.isAdmin ? (
+            <Link to="admin">
+              <IconButton>
+                <SettingsIcon
+                  style={{ color: "rgb(32, 129, 226)", fontSize: "3rem" }}
+                />
+              </IconButton>
+            </Link>
+          ) : (
+            <>
+              <Button style={headerCartLink} onClick={openModal}>
+                {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
+                  <div style={itemCountBadge}>
+                    <p style={countStyle}>
+                      {cart.reduce((sum, nft) => sum + nft.count, 0)}
+                    </p>
+                  </div>
+                )}
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </Button>
+            </>
+          )}
         </div>
         {!currentUser ? (
           <>
