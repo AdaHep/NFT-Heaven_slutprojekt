@@ -5,7 +5,7 @@ import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
 function ProductPage() {
-  const { fetchProductsFromDb, setTheSelectedCategory } = useProducts();
+  const { fetchProductsFromDb } = useProducts();
 
   useEffect(() => {
     fetchProductsFromDb();
@@ -14,26 +14,38 @@ function ProductPage() {
   const { products } = useProducts();
   return (
     <div style={rootStyle}>
-      <Link style={linkStyle} to="/products/category/MeinerNFT">
-        <Button
-          style={StyledButton}
-          variant="contained"
-          href=""
-          onClick={() => setTheSelectedCategory("628c92cd1c4eb76ecbc12f55")}
-        >
-          Meiner NFT
-        </Button>
-      </Link>
-      <Link style={linkStyle} to="/products/category/NoccoNFT">
-        <Button
-          style={StyledButton}
-          variant="contained"
-          href=""
-          onClick={() => setTheSelectedCategory("628c92cd1c4eb76ecbc12f55")}
-        >
-          NoccoNFT
-        </Button>
-      </Link>
+      <div style={categoryLinks}>
+        <Link style={linkStyle} to="/products/category/MeinerNFT">
+          <Button style={StyledButton} variant="contained" href="">
+            Meiner
+          </Button>
+        </Link>
+        <Link style={linkStyle} to="/products/category/NoccoNFT">
+          <Button style={StyledButton} variant="contained" href="">
+            Nocco
+          </Button>
+        </Link>
+        <Link style={linkStyle} to="/products/category/BakkumNFT">
+          <Button style={StyledButton} variant="contained" href="">
+            Bakkum
+          </Button>
+        </Link>
+        <Link style={linkStyle} to="/products/category/PappaNFT">
+          <Button style={StyledButton} variant="contained" href="">
+            Pappa
+          </Button>
+        </Link>
+        <Link style={linkStyle} to="/products/category/DCNFT">
+          <Button style={StyledButton} variant="contained" href="">
+            DC
+          </Button>
+        </Link>
+        <Link style={linkStyle} to="/products/category/Formula1NFT">
+          <Button style={StyledButton} variant="contained" href="">
+            Formula1
+          </Button>
+        </Link>
+      </div>
       <div style={itemContainer}>
         {products.map((product, index) => (
           <ProductCard product={product} key={index} />
@@ -70,4 +82,8 @@ const StyledButton: CSSProperties = {
   margin: "1rem",
   fontSize: "3vmin",
   fontWeight: "bold",
+};
+
+const categoryLinks: CSSProperties = {
+  display: "flex",
 };

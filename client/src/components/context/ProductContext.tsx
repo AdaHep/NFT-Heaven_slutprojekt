@@ -25,11 +25,6 @@ interface Category {
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
-  fetchCategoriesFromDb: () => void;
-  categories: Category[];
-
-  selectedCategory: String;
-  setTheSelectedCategory: (category: string) => void;
 
   randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
@@ -64,12 +59,6 @@ interface ProductContext {
 const ProductsContext = createContext<ProductContext>({
   fetchProductsFromDb: () => [],
   products: [],
-  categories: [],
-
-  setTheSelectedCategory: (category: string) => {},
-  selectedCategory: "",
-
-  fetchCategoriesFromDb: () => [],
 
   randomCollections: [],
   collections: [],
@@ -119,8 +108,6 @@ const ProductsContext = createContext<ProductContext>({
 
 export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   let localData = localStorage.getItem("collections");
   const [addCollectionModal, setAddCollectionModal] = useState(false);
@@ -172,21 +159,6 @@ export const ProductProvider: FC = (props) => {
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  const fetchCategoriesFromDb = async () => {
-    let data = fetch("http://localhost:5500/api/category")
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const setTheSelectedCategory = (category: string) => {
-    setSelectedCategory(category);
   };
 
   const openAddCollectionModal = () => {
@@ -312,10 +284,6 @@ export const ProductProvider: FC = (props) => {
       value={{
         products,
         fetchProductsFromDb,
-        fetchCategoriesFromDb,
-        categories,
-        selectedCategory,
-        setTheSelectedCategory,
         closeEditCollectionModal,
         randomCollections,
         openEditCollectionModal,
