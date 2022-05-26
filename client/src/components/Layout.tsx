@@ -11,7 +11,6 @@ import Header from "./Header";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import { CartProvider } from "./context/CartContext";
 import { ProductProvider } from "./context/ProductContext";
-import AdminPage from "../pages/AdminPage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import PaymentPage from "../pages/PaymentPage";
 import { ToastContainer } from "react-toastify";
@@ -20,6 +19,10 @@ import TestPage from "../pages/TestPage";
 import ProductPage from "../pages/ProductPage";
 import { UserProvider } from "./context/LoginContext";
 import CategoryPages from "../pages/CategoryPages";
+import AdminProductPage from "../pages/AdminProductPage";
+import AdminPage from "../pages/AdminPage";
+import AdminOrderPage from "../pages/AdminOrderPage";
+
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -51,10 +54,19 @@ function Layout() {
                     element={<CategoryPages />}
                   />
 
-                  <Route path="/admin" element={<AdminPage />} />
+
+                  
                   <Route path="/LogInPage" element={<LogInPage />} />
                   <Route path="/collectionpage" element={<CollectionPage />} />
                   <Route path="/products" element={<ProductPage />} />
+
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/adminOrderPage" element={<AdminOrderPage />} />
+                <Route path="/adminProductPage" element={<AdminProductPage />} />
+                
+                <Route path="/LogInPage" element={<LogInPage />} />
+                <Route path="/CollectionPage" element={<CollectionPage />} />
+                <Route path="/ProductPage" element={<ProductPage />} />
 
                   {/* <Route path="/Collections/:id" element={<Collections />} /> */}
                   <Route

@@ -39,7 +39,7 @@ function EditNFT() {
     selectedCollection,
   } = useProducts();
 
-    const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
+  const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
 
 
   const handleChange = (event: SelectChangeEvent<typeof chosenCategory>) => {
@@ -105,6 +105,9 @@ function EditNFT() {
                     formik.touched.nftImage && Boolean(formik.errors.nftImage)
                   }
                   helperText={formik.touched.nftImage && formik.errors.nftImage}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
                 <TextField
                   style={textFieldStyle}
@@ -122,15 +125,9 @@ function EditNFT() {
                   helperText={
                     formik.touched.description && formik.errors.description
                   }
-                />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="category"
-                  name="category"
-                  label="NFT category"
-                
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
                 <TextField
                   style={textFieldStyle}
@@ -143,8 +140,11 @@ function EditNFT() {
                   onChange={formik.handleChange}
                   error={formik.touched.price && Boolean(formik.errors.price)}
                   helperText={formik.touched.price && formik.errors.price}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                 />
-                <FormControl sx={{ m: 1, width: 300, zIndex: 1000}}>
+                <FormControl sx={{ m: 1, width: 300, zIndex: 1000 }}>
                   <InputLabel id="multiple-category">Category</InputLabel>
                   <Select
                     id="multiple-category"
@@ -153,14 +153,14 @@ function EditNFT() {
                     onChange={handleChange}
                     input={<OutlinedInput label="Category" />}
                     MenuProps={MenuProps}
-                    style={{color: "white"}}
+                    style={{ color: "white" }}
                   >
                     {categories.map((category) => (
                       <MenuItem
                         sx={{ zIndex: 10000 }}
                         key={category}
                         value={category}
-                        style={{backgroundColor: '#333', color: "white"}}
+                        style={{ backgroundColor: '#333', color: "white" }}
                       >
                         {category}
                       </MenuItem>
@@ -185,7 +185,7 @@ function EditNFT() {
                 onClick={closeEditNftModal}
               >
                 Close window
-              </Button>            
+              </Button>
             </form>
           </div>
         </div>
