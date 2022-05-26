@@ -1,13 +1,13 @@
-import React from 'react'
-import AdminOrderList from './AdminOrderList'
-import OrderPage from './OrderPage'
+import React from "react";
+import AdminOrderList from "../components/admin/AdminOrderList";
+import OrderPage from "./OrderPage";
 
 function AdminOrderPage() {
   return (
     <div>
-        <AdminOrderList/>
+      <AdminOrderList />
     </div>
-  )
+  );
 }
 
-export default AdminOrderPage
+export default AdminOrderPage;
