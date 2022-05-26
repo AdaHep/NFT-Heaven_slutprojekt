@@ -1,11 +1,10 @@
 import { faShoppingCart, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { width, color, textAlign } from "@mui/system";
 import { CSSProperties, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartContext";
-import { useProducts } from "./context/ProductContext";
+
 import { UserContext } from "./context/LoginContext";
 
 const Header = (headerProps: any) => {
@@ -14,7 +13,6 @@ const Header = (headerProps: any) => {
   const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
-  const { fetchProductsFromDb } = useProducts();
 
   const handleSignOut = () => {
     signOut();
@@ -30,13 +28,8 @@ const Header = (headerProps: any) => {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/ProductPage">
-            <Button
-              style={StyledButton}
-              variant="contained"
-              href=""
-              onClick={fetchProductsFromDb}
-            >
+          <Link style={linkStyle} to="/products">
+            <Button style={StyledButton} variant="contained" href="">
               EXPLORE
             </Button>
           </Link>

@@ -1,8 +1,14 @@
 import { CSSProperties, useEffect, useState } from "react";
-import { useProducts } from "../../components/context/ProductContext";
-import ProductCard from "../../components/ProductCard";
+import { useProducts } from "../components/context/ProductContext";
+import ProductCard from "../components/ProductCard";
+import { useParams } from "react-router-dom";
+import { Product } from "../ProductInterface";
 
-function StartPage(startPageProps: any) {
+function CategoryPages() {
+  const params = useParams<{ category: string }>();
+
+  const [productList, setProductList] = useState<Product[]>([]);
+
   const {
     products,
     categories,
@@ -12,10 +18,25 @@ function StartPage(startPageProps: any) {
     selectedCategory,
   } = useProducts();
 
+  useEffect(() => {
+    // setProductList([]);
+    const fetchData = async () => {
+      let response = await fetch(`/api/product/category/${params.category}`);
+      setProductList(await response.json());
+    };
+    fetchData();
+  }, [params]);
+
+  // useEffect(() => {
+  //   fetchProductsFromDb();
+  // }, []);
+
   // let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
 
-  console.log(categories);
-  console.log(products);
+  // console.log(categories);
+  // console.log(products);
+  // console.log("selected category " + selectedCategory);
+  console.log(productList);
 
   return (
     <div style={rootStyle}>
@@ -32,7 +53,7 @@ function StartPage(startPageProps: any) {
         <button onClick={() => console.log(selectedCategory)}>Kuk</button>
       </div>
       <div style={itemContainer}>
-        {products.map((product, index) => (
+        {productList.map((product, index) => (
           <ProductCard product={product} key={index} />
         ))}
       </div>
@@ -40,7 +61,7 @@ function StartPage(startPageProps: any) {
   );
 }
 
-export default StartPage;
+export default CategoryPages;
 
 const rootStyle: CSSProperties = {
   display: "flex",

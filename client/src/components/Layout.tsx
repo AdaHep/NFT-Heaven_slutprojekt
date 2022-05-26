@@ -19,7 +19,7 @@ import Footer from "./Footer";
 import TestPage from "../pages/TestPage";
 import ProductPage from "../pages/ProductPage";
 import { UserProvider } from "./context/LoginContext";
-import MeinerPage from "../pages/category-pages/MeinerPage";
+import CategoryPages from "../pages/CategoryPages";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -46,12 +46,15 @@ function Layout() {
                 <Routes>
                   <Route path="/" element={<StartPage />} />
                   <Route path="/test" element={<TestPage />} />
-                  <Route path="/MeinerNFT" element={<MeinerPage />} />
+                  <Route
+                    path="/products/category/:category"
+                    element={<CategoryPages />}
+                  />
 
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/LogInPage" element={<LogInPage />} />
-                  <Route path="/CollectionPage" element={<CollectionPage />} />
-                  <Route path="/ProductPage" element={<ProductPage />} />
+                  <Route path="/collectionpage" element={<CollectionPage />} />
+                  <Route path="/products" element={<ProductPage />} />
 
                   {/* <Route path="/Collections/:id" element={<Collections />} /> */}
                   <Route

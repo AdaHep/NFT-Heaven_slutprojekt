@@ -1,21 +1,37 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
 function ProductPage() {
-  const { products, fetchCategoriesFromDb } = useProducts();
+  const { fetchProductsFromDb, setTheSelectedCategory } = useProducts();
+
+  useEffect(() => {
+    fetchProductsFromDb();
+  }, []);
+
+  const { products } = useProducts();
   return (
     <div style={rootStyle}>
-      <Link style={linkStyle} to="/MeinerNFT">
+      <Link style={linkStyle} to="/products/category/MeinerNFT">
         <Button
           style={StyledButton}
           variant="contained"
           href=""
-          onClick={fetchCategoriesFromDb}
+          onClick={() => setTheSelectedCategory("628c92cd1c4eb76ecbc12f55")}
         >
           Meiner NFT
+        </Button>
+      </Link>
+      <Link style={linkStyle} to="/products/category/NoccoNFT">
+        <Button
+          style={StyledButton}
+          variant="contained"
+          href=""
+          onClick={() => setTheSelectedCategory("628c92cd1c4eb76ecbc12f55")}
+        >
+          NoccoNFT
         </Button>
       </Link>
       <div style={itemContainer}>

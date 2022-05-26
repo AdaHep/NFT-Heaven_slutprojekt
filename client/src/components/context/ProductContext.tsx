@@ -1,3 +1,4 @@
+import { count } from "console";
 import { createContext, FC, useContext, useEffect, useState } from "react";
 import {
   NftItem,
