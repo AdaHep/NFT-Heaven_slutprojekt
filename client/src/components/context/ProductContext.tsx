@@ -1,11 +1,11 @@
-import { createContext, FC, useContext, useState } from "react";
+import { count } from "console";
+import { createContext, FC, useContext, useEffect, useState } from "react";
 import {
   NftItem,
   collectionDataItem,
   collectionData,
 } from "../../data/collections/collection";
-
-///http://localhost:5500/api/product
+import editCollection from "../admin/editCollection";
 
 interface Product {
   categories: String[];
@@ -18,11 +18,13 @@ interface Product {
   /** Virtual */ imageURL: string;
 }
 
+interface Category {
+  name: String;
+}
+
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
-
-  // Sätta en array med products kanske?
 
   randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
@@ -106,16 +108,6 @@ const ProductsContext = createContext<ProductContext>({
 
 export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState([]);
-  const fetchProductsFromDb = async () => {
-    let data = fetch("http://localhost:5500/api/product")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
 
   let localData = localStorage.getItem("collections");
   const [addCollectionModal, setAddCollectionModal] = useState(false);
@@ -157,6 +149,17 @@ export const ProductProvider: FC = (props) => {
   const [randomCollections, setRandomCollections] = useState(
     collections.sort(() => Math.random() - Math.random()).slice(0, 3)
   );
+
+  const fetchProductsFromDb = async () => {
+    let data = fetch("http://localhost:5500/api/product")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const openAddCollectionModal = () => {
     setAddCollectionModal(true);
@@ -268,6 +271,13 @@ export const ProductProvider: FC = (props) => {
     });
     setCollections(updatedList);
   };
+
+  //// ANVÄND USEEFFECT FÖR ATTT HÄMTA KATEGORIER PÅ NYTT
+
+  // useEffect(() => {
+  //   let response = fetch(/getproductscategory, )
+  //   setProducts(response.json())
+  // }, [selectedCategory]);
 
   return (
     <ProductsContext.Provider

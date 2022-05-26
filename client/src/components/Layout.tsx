@@ -18,9 +18,11 @@ import Footer from "./Footer";
 import TestPage from "../pages/TestPage";
 import ProductPage from "../pages/ProductPage";
 import { UserProvider } from "./context/LoginContext";
+import CategoryPages from "../pages/CategoryPages";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminPage from "../pages/AdminPage";
 import AdminOrderPage from "../pages/AdminOrderPage";
+
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -30,20 +32,33 @@ function Layout() {
   return (
     <div>
       <UserProvider>
-      <CartProvider>
-        <ProductProvider>
+        <CartProvider>
+          <ProductProvider>
             <BrowserRouter>
-            <Header
-              modalState={modalState}
-              setModalState={setModalState}
-              searchBarFocused={searchFocused}
-              searchBarFocusOut={() => setSearchFocused(false)}
-            />
-            <CartModal modalState={modalState} setModalState={setModalState} />
-            <div style={rootStyle}>
-              <Routes>
-                <Route path="/" element={<StartPage />} />
-                <Route path="/test" element={<TestPage />} />
+              <Header
+                modalState={modalState}
+                setModalState={setModalState}
+                searchBarFocused={searchFocused}
+                searchBarFocusOut={() => setSearchFocused(false)}
+              />
+              <CartModal
+                modalState={modalState}
+                setModalState={setModalState}
+              />
+              <div style={rootStyle}>
+                <Routes>
+                  <Route path="/" element={<StartPage />} />
+                  <Route path="/test" element={<TestPage />} />
+                  <Route
+                    path="/products/category/:category"
+                    element={<CategoryPages />}
+                  />
+
+
+                  
+                  <Route path="/LogInPage" element={<LogInPage />} />
+                  <Route path="/collectionpage" element={<CollectionPage />} />
+                  <Route path="/products" element={<ProductPage />} />
 
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/adminOrderPage" element={<AdminOrderPage />} />
@@ -53,51 +68,51 @@ function Layout() {
                 <Route path="/CollectionPage" element={<CollectionPage />} />
                 <Route path="/ProductPage" element={<ProductPage />} />
 
-                {/* <Route path="/Collections/:id" element={<Collections />} /> */}
-                <Route
-                  path="/"
-                  element={
-                    <StartPage focusHeader={() => setSearchFocused(true)} />
-                  }
-                />
-                <Route path="/Checkout" element={<CheckoutPage />} />
-                <Route
-                  path="/CheckoutDetails"
-                  element={
-                    <CheckoutPageDetails
-                      deliveryInfo={deliveryInfo}
-                      setDeliveryInfo={setDeliveryInfo}
-                    />
-                  }
-                />
-                <Route
-                  path="/PaymentPage"
-                  element={
-                    <PaymentPage
-                      deliveryInfo={deliveryInfo}
-                      setDeliveryInfo={setDeliveryInfo}
-                      finalTotalSum={finalTotalSum}
-                      setFinalTotalSum={setFinalTotalSum}
-                    />
-                  }
-                />
+                  {/* <Route path="/Collections/:id" element={<Collections />} /> */}
+                  <Route
+                    path="/"
+                    element={
+                      <StartPage focusHeader={() => setSearchFocused(true)} />
+                    }
+                  />
+                  <Route path="/Checkout" element={<CheckoutPage />} />
+                  <Route
+                    path="/CheckoutDetails"
+                    element={
+                      <CheckoutPageDetails
+                        deliveryInfo={deliveryInfo}
+                        setDeliveryInfo={setDeliveryInfo}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/PaymentPage"
+                    element={
+                      <PaymentPage
+                        deliveryInfo={deliveryInfo}
+                        setDeliveryInfo={setDeliveryInfo}
+                        finalTotalSum={finalTotalSum}
+                        setFinalTotalSum={setFinalTotalSum}
+                      />
+                    }
+                  />
 
-                <Route
-                  path="/PurchaseComplete"
-                  element={
-                    <PurchaseComplete
-                      deliveryInfo={deliveryInfo}
-                      finalTotalSum={finalTotalSum}
-                    />
-                  }
-                />
-              </Routes>
-              <Footer />
-            </div>
-            <ToastContainer />
-          </BrowserRouter>
-        </ProductProvider>
-      </CartProvider>
+                  <Route
+                    path="/PurchaseComplete"
+                    element={
+                      <PurchaseComplete
+                        deliveryInfo={deliveryInfo}
+                        finalTotalSum={finalTotalSum}
+                      />
+                    }
+                  />
+                </Routes>
+                <Footer />
+              </div>
+              <ToastContainer />
+            </BrowserRouter>
+          </ProductProvider>
+        </CartProvider>
       </UserProvider>
     </div>
   );

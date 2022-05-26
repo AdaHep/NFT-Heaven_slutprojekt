@@ -9,19 +9,19 @@ import { useProducts } from "./context/ProductContext";
 import { UserContext } from "./context/LoginContext";
 import SettingsIcon from '@mui/icons-material/Settings';
 
+import { UserContext } from "./context/LoginContext";
 
 const Header = (headerProps: any) => {
   const { cart } = useCart();
- const { currentUser, signOut } = useContext(UserContext);
- const navigate = useNavigate();
+  const { currentUser, signOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
-  const { fetchProductsFromDb } = useProducts();
 
   const handleSignOut = () => {
     signOut();
-    navigate("/");  
-  }
+    navigate("/");
+  };
 
   return (
     <div style={rootStyle}>
@@ -32,13 +32,8 @@ const Header = (headerProps: any) => {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/ProductPage">
-            <Button
-              style={StyledButton}
-              variant="contained"
-              href=""
-              onClick={fetchProductsFromDb}
-            >
+          <Link style={linkStyle} to="/products">
+            <Button style={StyledButton} variant="contained" href="">
               EXPLORE
             </Button>
           </Link>
@@ -66,25 +61,25 @@ const Header = (headerProps: any) => {
         </div>
         {!currentUser ? (
           <>
-           <div style={{ display: "flex", flexDirection: "row" }}>
-            <Link to="/LogInPage">
-              <Button>
-                <p style={{ display: "flex", flexDirection: "row" }}>Sign in</p>
-              </Button>
-            </Link>
-          </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <Link to="/LogInPage">
+                <Button>
+                  <p style={{ display: "flex", flexDirection: "row" }}>
+                    Sign in
+                  </p>
+                </Button>
+              </Link>
+            </div>
           </>
         ) : (
           <>
-            <Button onClick={handleSignOut}>
-              Sign Out
-            </Button>
+            <Button onClick={handleSignOut}>Sign Out</Button>
           </>
         )}
-    </div>
+      </div>
     </div>
   );
-}
+};
 
 const rootStyle: CSSProperties = {
   background: "#04111d",
@@ -132,7 +127,7 @@ const headerDiv3: CSSProperties = {
 };
 
 const linkStyle: CSSProperties = {
-  textDecoration: "none" 
+  textDecoration: "none",
 };
 
 const StyledButton: CSSProperties = {
@@ -140,6 +135,7 @@ const StyledButton: CSSProperties = {
   margin: "1rem",
   fontSize: "3vmin",
   fontWeight: "bold",
+  textTransform: "revert",
 };
 
 const itemCountBadge: CSSProperties = {
