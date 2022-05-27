@@ -14,9 +14,11 @@ POST http://localhost:5500/api/deliveryOptions
 Content-Type: application/json
 
 {
-    "title": "Postnord",
-    "price": "50",
-    "info": "Postnord postombud",
-    "expectedArrival": "2 dagar",
-    "image": ""
+    "title": "Postnord home delivery",
+    "price": 4,
+    "description": "Home delivery next day. Delivered between 10AM-9PM",
+    "expectedDeliveryTime": 2,
+    "imageId": "629094de2bfc3f38eacd67c7",
 }
+
+
