@@ -19,6 +19,7 @@ import CategoryPages from "../pages/CategoryPages";
 import AdminOrderPage from "../pages/Admin/AdminOrderPage";
 import AdminPage from "../pages/Admin/AdminPage";
 import AdminProductPage from "../pages/Admin/AdminProductPage";
+import AdminOrderProvider from "./context/AdminOrderContext";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -30,6 +31,7 @@ function Layout() {
       <UserProvider>
         <CartProvider>
           <ProductProvider>
+            <AdminOrderProvider>
             <BrowserRouter>
               <Header
                 modalState={modalState}
@@ -101,6 +103,7 @@ function Layout() {
               </div>
               <ToastContainer />
             </BrowserRouter>
+            </AdminOrderProvider>
           </ProductProvider>
         </CartProvider>
       </UserProvider>
