@@ -1,7 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 export interface Order {
-  customer: Types.ObjectId;
+  customer?: Types.ObjectId;
   products: string[];
   createdAt: Date;
   updatedAt: Date;

@@ -8,14 +8,21 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import OrderPage from "../../pages/OrderPage";
+import { useAdminOrder } from "../context/AdminOrderContext";
 
 // import product context
 //import AdminProductList from "./AdminProductList";
 
 function AdminOrderList() {
-  //const { products } = useAdmin();
+
+  const { getOrders, orders } = useAdminOrder();
+  console.log(orders);
+
+  useEffect(() => {
+    getOrders();
+  }, [getOrders])
 
   return (
     <TableContainer component={Paper} sx={{ my: "1.5rem" }}>
@@ -37,7 +44,22 @@ function AdminOrderList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          <OrderPage />
+          {orders.map((order) => {
+            <TableRow key={order.customer}>
+              <TableCell>
+                {order.createdAt}
+              </TableCell>
+              <TableCell>
+                {order.products}
+              </TableCell>
+              <TableCell>
+                {order.deliveryOption}
+              </TableCell>
+            <TableCell>
+
+            </TableCell>
+
+          })}
         </TableBody>
       </Table>
     </TableContainer>

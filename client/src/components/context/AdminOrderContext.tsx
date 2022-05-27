@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState, FC, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, FC, useCallback, Dispatch, SetStateAction } from "react";
 import { makeReq } from "../../helper";
 import UserProvider, { UserContext } from "./LoginContext";
-import { ObjectId } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 
 export interface Order {
   customer: ObjectId;
@@ -23,12 +23,33 @@ export interface User {
 interface AdminOrderContext {
     orders: Order[];
     getOrders: () => void;
+    setOrder: Dispatch<SetStateAction<Order | undefined>>;
+    order: Order | undefined;
+    
 }
 
 
 export const AdminOrderContext = createContext<AdminOrderContext>({
     orders: [],
     getOrders: () => {},
+    setOrder: () => {},
+    order: {
+        customer: Types.ObjectId,
+        products: [],
+        createdAt: new Date(),
+        email: "",
+
+    },
+    deliveryAddress: {
+        street: "",
+        city: "",
+        zip: "",
+    }, deliveryOption: {
+        title: "",
+        price: 0,
+        description: "",
+        expectedDeliveryTime: 0,
+    },
 });
 
 const AdminOrderProvider: FC = (props: any) => {
