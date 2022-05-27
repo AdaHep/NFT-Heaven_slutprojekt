@@ -2,10 +2,10 @@ POST http://localhost:5500/api/media
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="media"; filename="RamonadeNoccoNFT.png"
+Content-Disposition: form-data; name="media"; filename="DHL.png"
 Content-Type: image/png
 
-< ./RamonadeNoccoNFT.png
+< ./DHL.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###

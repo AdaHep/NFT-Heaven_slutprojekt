@@ -1,6 +1,6 @@
 import { createContext, FC, useContext, useEffect, useState } from "react";
 import {
-  NftItem,
+  NftItem as Product,
   collectionDataItem,
   collectionData,
 } from "../../data/collections/collection";
@@ -16,46 +16,43 @@ interface Product {
   /** Virtual */ imageURL: string;
 }
 
-interface Category {
-  name: String;
-}
-
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
   collections: collectionDataItem[];
-  editNft: (nft: NftItem, collectionID?: number) => void;
+  editNft: (nft: Product, collectionID?: number) => void;
   selectedNftID: number;
   editNftModal: boolean;
   openEditNftModal: (
-    nft: NftItem,
+    nft: Product,
     collectionID: number,
     collection: collectionDataItem
   ) => void;
   closeEditNftModal: () => void;
-  selectedNFT: NftItem;
+  selectedNFT: Product;
 }
 
 const ProductsContext = createContext<ProductContext>({
   fetchProductsFromDb: () => [],
   products: [],
   collections: [],
-  editNft: (nft: NftItem, collectionID?: number) => {},
+  editNft: (nft: Product, collectionID?: number) => {},
   selectedNftID: 0,
   editNftModal: false,
   openEditNftModal: (
-    nft: NftItem,
+    nft: Product,
     collectionID: number,
     collection: collectionDataItem
   ) => {},
   closeEditNftModal: () => {},
   selectedNFT: {
-    NFTid: 12,
-    image: "test",
-    price: 12,
-    description: "bollar",
-    count: 12,
-    collectionID: 1,
+    categories: ["test"],
+    name: "test",
+    description: "test",
+    price: 420,
+    quantity: 0,
+    imageId: "test",
+    imageURL: "test",
   },
 });
 
@@ -88,7 +85,7 @@ export const ProductProvider: FC = (props) => {
   };
 
   const openEditNftModal = (
-    nft: NftItem,
+    nft: Product,
     collectionID: number,
     collection: collectionDataItem
   ) => {
@@ -99,10 +96,10 @@ export const ProductProvider: FC = (props) => {
     setEditNftModal(false);
   };
 
-  const editNft = (nft: NftItem, collectionID?: number) => {
+  const editNft = (nft: Product, collectionID?: number) => {
     let updatedList = collections.map((collection: collectionDataItem) => {
       if (collection.id === collectionID) {
-        collection.NFTS = collection.NFTS.map((nftItem: NftItem) => {
+        collection.NFTS = collection.NFTS.map((nftItem: Product) => {
           if (nftItem.NFTid === nft.NFTid) {
             nftItem = nft;
             // console.log(nftItem)

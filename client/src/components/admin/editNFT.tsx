@@ -11,7 +11,7 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CSSProperties, useState } from "react";
-import { NftItem } from "../../data/collections/collection";
+import { Product } from "../../ProductInterface";
 import { useProducts } from "../context/ProductContext";
 import React from "react";
 

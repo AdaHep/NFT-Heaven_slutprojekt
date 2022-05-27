@@ -2,9 +2,9 @@ export interface Product {
   categories: String[];
   name: String;
   description: String;
-  price: Number;
+  price: number;
   stock?: Number;
-  quantity?: Number;
+  quantity: number;
   imageId: String;
   /** Virtual */ imageURL: string;
 }
