@@ -9,11 +9,11 @@ import {
 
 export const categoryRouter = express
   .Router()
-  .get("/category", /* adminSecure, */ getAllCategories)
+  .get("/deliveryOption", /* adminSecure, */ getAllCategories)
   .get("/category/:id", getOneCategory)
 
   // For dev
-  .post("/category", addCategory)
+  .post("/deliveryOption", addCategory)
   .delete("/category/:id", deleteCategory);
 
 // .put("/category/:id", updateCategory)

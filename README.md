@@ -8,12 +8,12 @@ First of all you need to install all the dependencies. You do this by typing `np
 cd server
 npm i
 npm start
-Run the client on http://localhost:3001
+Run the server on http://localhost:5500
 
 cd client
 npm i
 npm start
-Run the server on http://localhost:3000
+Run the client on http://localhost:3000
 ```
 
 Welcome to our webshop! Here you can find the latest and greatest NFTs for sale in cyberspace.
