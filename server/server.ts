@@ -9,7 +9,7 @@ import {
   categoryRouter,
   mediaRouter,
   productRouter,
-  deliveryOptionsRouter,
+  deliveryOptionRouter,
 } from "./resources";
 
 const app = express();
@@ -40,7 +40,7 @@ app.use("/api", orderRouter);
 app.use("/api", categoryRouter);
 app.use("/api", productRouter);
 app.use("/api", mediaRouter);
-app.use("/api", deliveryOptionsRouter);
+app.use("/api", deliveryOptionRouter);
 
 // Add more routers here....
 
