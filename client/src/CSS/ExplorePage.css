@@ -1,0 +1,18 @@
+@media (max-width: 1460px) {
+    #categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 500px;
+    }
+
+}
+
+@media (max-width: 430px) {
+    #categories {
+        display: flex;
+        flex-wrap: wrap;
+        width: 300px;
+    }
+
+}
