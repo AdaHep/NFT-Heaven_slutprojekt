@@ -35,8 +35,8 @@ const MenuProps = {
 const categories = ["Selfies", "Logos", "Things"];
 
 function EditNFT() {
-  const { editNft, closeEditNftModal, editNftModal, selectedNFT } =
-    useProducts();
+  // const { editNft, closeEditNftModal, editNftModal, selectedNFT } =
+  const { closeEditNftModal, editNftModal, selectedNFT } = useProducts();
 
   const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
 
@@ -55,23 +55,25 @@ function EditNFT() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      nftImage: selectedNFT.image,
+      nftImage: selectedNFT.imageURL,
       description: selectedNFT.description,
       price: selectedNFT.price,
       //category: selectedNFT.category,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newNft: NftItem = {
-        NFTid: selectedNFT.NFTid,
-        image: values.nftImage,
+      let newNft: Product = {
+        categories: [],
+        name: selectedNFT.name,
+        imageId: values.nftImage,
+        imageURL: "",
         description: values.description,
         price: values.price,
         //category: values.category,
-        count: 1,
-        collectionID: selectedNFT.collectionID,
+        quantity: 0,
       };
-      editNft(newNft);
+      // editNft(newNft);
+      console.log(newNft);
       formik.resetForm();
       closeEditNftModal();
     },
@@ -83,7 +85,7 @@ function EditNFT() {
           <div>
             <form style={formStyle} onSubmit={formik.handleSubmit}>
               <h3>Edit NFT</h3>
-              <h3>Editing: # {selectedNFT?.NFTid}</h3>
+              <h3>Editing: # {selectedNFT?.name}</h3>
               <p style={editNftDescription}>
                 Description: {selectedNFT?.description}
               </p>

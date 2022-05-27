@@ -1,11 +1,11 @@
-// export interface NftItem {
-//   NFTid: number;
-//   image: string;
-//   price: number;
-//   description: string;
-//   count: number;
-//   collectionID: number;
-// }
+export interface NftItem {
+  //   NFTid: number;
+  //   image: string;
+  //   price: number;
+  //   description: string;
+  //   count: number;
+  //   collectionID: number;
+}
 
 // export interface collectionDataItem {
 //   id: number;
