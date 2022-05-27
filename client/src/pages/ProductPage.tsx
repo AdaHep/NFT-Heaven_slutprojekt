@@ -5,13 +5,11 @@ import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
 
 function ProductPage() {
-  const { fetchProductsFromDb } = useProducts();
+  const { fetchProductsFromDb, products } = useProducts();
 
   useEffect(() => {
     fetchProductsFromDb();
   }, []);
-
-  const { products } = useProducts();
   return (
     <div style={rootStyle}>
       <div style={categoryLinks}>

@@ -5,8 +5,8 @@ interface Product {
   name: string;
   description: string;
   price: number;
-  stock?: number;
-  quantity?: number;
+  stock: number;
+  quantity: number;
   imageId: string;
   /** Virtual */ imageURL: string;
 }
@@ -37,6 +37,8 @@ const ProductsContext = createContext<ProductContext>({
     price: 420,
     imageId: "test",
     imageURL: "test",
+    stock: 100,
+    quantity: 0,
   },
 });
 
@@ -55,6 +57,8 @@ export const ProductProvider: FC = (props) => {
     price: 420,
     imageId: "test",
     imageURL: "test",
+    stock: 100,
+    quantity: 0,
   });
 
   const fetchProductsFromDb = async () => {
