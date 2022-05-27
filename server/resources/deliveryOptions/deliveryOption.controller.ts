@@ -11,12 +11,13 @@ export const getAllDeliveryOptions = async (req: Request, res: Response) => {
 
 // Get ONE Category
 export const getOneDeliveryOption = async (
-  req: Request<{}, {}, DeliveryOption>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const oneDeliveryOption = await deliveryModel.findOne(req.body);
+    const { id } = req.params;
+    const oneDeliveryOption = await deliveryModel.findById(id);
     console.log(oneDeliveryOption);
     res.status(200).json(oneDeliveryOption);
   } catch (err) {

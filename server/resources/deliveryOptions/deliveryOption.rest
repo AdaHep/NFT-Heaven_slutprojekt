@@ -6,7 +6,7 @@ GET http://localhost:5500/api/delivery
 
 // Get one category
 
-GET http://localhost:5500/api/category/62874914ddb8b68f5b05baf2
+GET http://localhost:5500/api/delivery/6290bcaaa4916532e802bf23
 
 ###
 
