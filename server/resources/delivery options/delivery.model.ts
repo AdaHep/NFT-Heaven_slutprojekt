@@ -1,19 +1,23 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose, { ObjectId, Schema, Types } from "mongoose";
 
-export interface DeliveryOptions {
+export interface DeliveryOption {
   title: String;
   price: Number;
-  info: String;
-  expectedArrival: Date;
-  image: ObjectId;
+  description: String;
+  expectedDeliveryTime: Number;
+  imageId: Types.ObjectId;
+  /** Virtual */ imageURL: string;
 }
 
-export const deliverySchema = new mongoose.Schema <DeliveryOptions>({
-  title:{type: String, required: true},
-  price:{type: Number, required: true},
-  info:{type: String, required: true},
-  expectedArrival:{type: Date, required: true},
-  image:{type: mongoose.Schema.Types.ObjectId, required: false}
+const deliveryOptionSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  description: { type: String, required: true },
+  expectedDeliveryTime: { type: Number, required: true },
+  imageId: { type: Schema.Types.ObjectId, required: true },
 });
 
-export const deliveryModel = mongoose.model('DeliveryOptions', deliverySchema);
+export const deliveryModel = mongoose.model<DeliveryOption>(
+  "DeliveryOption",
+  deliveryOptionSchema
+);
