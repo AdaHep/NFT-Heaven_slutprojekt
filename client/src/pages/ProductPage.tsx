@@ -3,6 +3,7 @@ import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProducts } from "../components/context/ProductContext";
 import ProductCard from "../components/ProductCard";
+import "../CSS/ExplorePage.css";
 
 function ProductPage() {
   const { fetchProductsFromDb } = useProducts();
@@ -14,7 +15,7 @@ function ProductPage() {
   const { products } = useProducts();
   return (
     <div style={rootStyle}>
-      <div style={categoryLinks}>
+      <div id="categories">
         <Link style={linkStyle} to="/products/category/MeinerNFT">
           <Button style={StyledButton} variant="contained" href="">
             Meiner
@@ -62,7 +63,6 @@ const rootStyle: CSSProperties = {
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
-  // backgroundColor: "#88D9E6",
 };
 
 const itemContainer: CSSProperties = {
@@ -79,11 +79,7 @@ const linkStyle: CSSProperties = {
 
 const StyledButton: CSSProperties = {
   background: "#2081e2",
-  margin: "1rem",
+  margin: ".7rem",
   fontSize: "3vmin",
   fontWeight: "bold",
-};
-
-const categoryLinks: CSSProperties = {
-  display: "flex",
 };
