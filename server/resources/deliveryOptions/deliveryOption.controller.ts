@@ -2,14 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import { User, UserModel } from "../user";
 import { deliveryModel, DeliveryOption } from "./deliveryOption.model";
 
-// Get ALL Categories
+// Get ALL Delivery options
 export const getAllDeliveryOptions = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   const categories = await deliveryModel.find({});
   res.status(200).json(categories);
 };
 
-// Get ONE Category
+// Get ONE delivery
 export const getOneDeliveryOption = async (
   req: Request,
   res: Response,
@@ -25,7 +25,7 @@ export const getOneDeliveryOption = async (
   }
 };
 
-// Add a new Category
+// Add a new delivery option
 export const addDeliveryOption = async (
   req: Request<{}, {}, DeliveryOption>,
   res: Response,
@@ -42,16 +42,16 @@ export const addDeliveryOption = async (
   }
 };
 
-// Delete a category
+// Delete a delivery option
 export const deleteDeliveryOption = async (
   req: Request<{}, {}, DeliveryOption>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const foundCategory = await deliveryModel.findOne(req.params);
-    console.log(foundCategory);
-    foundCategory?.delete();
+    const foundDeliveryOption = await deliveryModel.findOne(req.params);
+    console.log(foundDeliveryOption);
+    foundDeliveryOption?.delete();
     res.status(200).json("DELETED CATEGORY");
   } catch (err) {
     next(err);

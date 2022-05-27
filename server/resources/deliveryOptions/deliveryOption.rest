@@ -1,16 +1,14 @@
-
 // Get all deliveryOptions
 GET http://localhost:5500/api/delivery
 
 ###
 
-// Get one category
-
-GET http://localhost:5500/api/delivery/6290bcaaa4916532e802bf23
+// Get one deliveryOptions
+GET http://localhost:5500/api/delivery/6290bd80a4916532e802bf27
 
 ###
 
-// Create new category
+// Create new delivery option
 POST http://localhost:5500/api/delivery
 Content-Type: application/json
 
@@ -23,5 +21,5 @@ Content-Type: application/json
 }
 
 ###
-// Delete category
+// Delete delivery option
 DELETE http://localhost:5500/api/category/62875639b98b2d20ac23d54b
