@@ -1,4 +1,13 @@
-import { Button, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CSSProperties, useState } from "react";
@@ -23,24 +32,13 @@ const MenuProps = {
   },
 };
 
-const categories = [
-  'Selfies',
-  'Logos',
-  'Things',
-];
-
+const categories = ["Selfies", "Logos", "Things"];
 
 function EditNFT() {
-  const {
-    editNft,
-    closeEditNftModal,
-    editNftModal,
-    selectedNFT,
-    selectedCollection,
-  } = useProducts();
+  const { editNft, closeEditNftModal, editNftModal, selectedNFT } =
+    useProducts();
 
   const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
-
 
   const handleChange = (event: SelectChangeEvent<typeof chosenCategory>) => {
     const {
@@ -48,10 +46,9 @@ function EditNFT() {
     } = event;
     setChosenCategory(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
-
 
   // if(!editNftModal) return
   // openEditNftModal(selectedNFT, selectedCollection.id, selectedCollection)
@@ -74,7 +71,7 @@ function EditNFT() {
         count: 1,
         collectionID: selectedNFT.collectionID,
       };
-      editNft(newNft, selectedCollection?.id);
+      editNft(newNft);
       formik.resetForm();
       closeEditNftModal();
     },
@@ -160,7 +157,7 @@ function EditNFT() {
                         sx={{ zIndex: 10000 }}
                         key={category}
                         value={category}
-                        style={{ backgroundColor: '#333', color: "white" }}
+                        style={{ backgroundColor: "#333", color: "white" }}
                       >
                         {category}
                       </MenuItem>

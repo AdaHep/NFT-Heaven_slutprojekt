@@ -3,9 +3,9 @@ import { adminSecure } from "../middlewares";
 import {
   getOneProduct,
   getAllProducts,
-  getProductsFromCategory,
   updateProductStock,
   addNewProduct,
+  getProductsInCategory,
 } from "./product.controller";
 
 export const productRouter = express
@@ -14,5 +14,5 @@ export const productRouter = express
   .get("/product/:id", getOneProduct)
   .get("/product", /* adminSecure, */ getAllProducts)
   // not sure how to do this one
-  .get("/product", /* adminSecure, */ getProductsFromCategory) //
+  .get("/product/category/:id", /* adminSecure, */ getProductsInCategory) //
   .put("/product/:id", updateProductStock);
