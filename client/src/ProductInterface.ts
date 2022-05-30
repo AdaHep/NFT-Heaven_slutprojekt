@@ -12,3 +12,5 @@ export interface Product {
 export interface Category {
   name: string;
 }
+
+// hej
