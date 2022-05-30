@@ -32,7 +32,14 @@ const MenuProps = {
   },
 };
 
-const categories = ["Selfies", "Logos", "Things"];
+const categories = [
+  "Formula1NFT",
+  "PappaNFT",
+  "DCNFT",
+  "NoccoNFT",
+  "BakkumNFT",
+  "MeinerNFT",
+];
 
 function EditNFT() {
   // const { editNft, closeEditNftModal, editNftModal, selectedNFT } =
@@ -58,22 +65,22 @@ function EditNFT() {
       nftImage: selectedNFT.imageURL,
       description: selectedNFT.description,
       price: selectedNFT.price,
-      //category: selectedNFT.category,
+      categories: selectedNFT.categories,
+      stock: selectedNFT.stock,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       let newNft: Product = {
-        categories: [],
         name: selectedNFT.name,
         imageId: values.nftImage,
         imageURL: "",
         description: values.description,
         price: values.price,
-        //category: values.category,
+        categories: values.categories,
         quantity: 0,
-        stock: 0,
+        stock: values.stock,
       };
-      // editNft(newNft);
+      // EditNft(newNft);
       console.log(newNft);
       formik.resetForm();
       closeEditNftModal();
@@ -135,11 +142,23 @@ function EditNFT() {
                   autoComplete="off"
                   id="price"
                   name="price"
-                  label="Set NFT price"
+                  label="NFT price"
                   value={formik.values.price}
                   onChange={formik.handleChange}
                   error={formik.touched.price && Boolean(formik.errors.price)}
                   helperText={formik.touched.price && formik.errors.price}
+                />
+                <TextField
+                  style={textFieldStyle}
+                  fullWidth
+                  autoComplete="off"
+                  id="stock"
+                  name="stock"
+                  label="Stock left"
+                  value={formik.values.stock}
+                  onChange={formik.handleChange}
+                  error={formik.touched.stock && Boolean(formik.errors.stock)}
+                  helperText={formik.touched.stock && formik.errors.stock}
                   InputProps={{
                     readOnly: true,
                   }}

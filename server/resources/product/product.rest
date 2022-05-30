@@ -24,11 +24,11 @@ Content-Type: application/json
 
 {
   "categories": ["628c92bc1c4eb76ecbc12f50"],
-  "name": "NoccoNFT #36",
-  "description": "Sylvester Stalone, please don't sue us! This is Ramonade NFT, not Rambonade NFT.",
-  "price": 21,
+  "name": "TEST",
+  "description": "TEST-TEST-TEST-TEST-TEST-TEST",
+  "price": 420,
   "stock": 100,
-  "imageId": "628cc7581c4eb76ecbc1301a"
+  "imageId": "629521d79eefa46f12c96b49"
 }
 
 ###
