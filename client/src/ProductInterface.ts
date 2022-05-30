@@ -1,10 +1,14 @@
 export interface Product {
-  categories: String[];
-  name: String;
-  description: String;
+  categories: string[];
+  name: string;
+  description: string;
   price: number;
-  stock?: Number;
+  stock: number;
   quantity: number;
-  imageId: String;
+  imageId: string;
   /** Virtual */ imageURL: string;
+}
+
+export interface Category {
+  name: string;
 }

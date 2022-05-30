@@ -11,9 +11,15 @@ interface Product {
   /** Virtual */ imageURL: string;
 }
 
+interface Category {
+  name: string;
+}
+
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
+  fetchCategoriesFromDb: () => void;
+  categories: string[];
   // editNft: (nft: Product) => void;
   selectedNftID: number;
   editNftModal: boolean;
@@ -25,6 +31,8 @@ interface ProductContext {
 const ProductsContext = createContext<ProductContext>({
   fetchProductsFromDb: () => [],
   products: [],
+  fetchCategoriesFromDb: () => [],
+  categories: [],
   // editNft: (nft: Product) => {},
   selectedNftID: 0,
   editNftModal: false,
@@ -44,6 +52,7 @@ const ProductsContext = createContext<ProductContext>({
 
 export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   // let localData = localStorage.getItem("collections");
   const [editNftModal, setEditNftModal] = useState(false);
   // const [collections, setCollections] = useState(
@@ -72,9 +81,22 @@ export const ProductProvider: FC = (props) => {
       });
   };
 
+  const fetchCategoriesFromDb = async () => {
+    let data = fetch("http://localhost:5500/api/category")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const openEditNftModal = (nft: Product) => {
     setSelectedNFT(nft);
     setEditNftModal(true);
+    console.log(editNftModal);
+    // console.log("prutt");
   };
   const closeEditNftModal = () => {
     setEditNftModal(false);
@@ -95,7 +117,7 @@ export const ProductProvider: FC = (props) => {
   //     return collection;
   //   });
   //   console.log(updatedList);
-  //   setCollections(updatedList);
+
   //   localStorage.setItem("collections", JSON.stringify(updatedList));
   // };
 
@@ -104,12 +126,15 @@ export const ProductProvider: FC = (props) => {
       value={{
         products,
         fetchProductsFromDb,
+        categories,
+        fetchCategoriesFromDb,
         selectedNFT,
         // collections,
         // editNft,
         editNftModal,
         openEditNftModal,
         closeEditNftModal,
+
         selectedNftID,
       }}
     >

@@ -71,6 +71,7 @@ function EditNFT() {
         price: values.price,
         //category: values.category,
         quantity: 0,
+        stock: 0,
       };
       // editNft(newNft);
       console.log(newNft);

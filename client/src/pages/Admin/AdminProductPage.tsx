@@ -1,11 +1,5 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCoins } from "@fortawesome/free-solid-svg-icons";
-// import { Button } from "@mui/material";
-// // import { CSSProperties } from "react";
-// import EditNFT from "../../components/admin/editNFT";
-// import { useProducts } from "../../components/context/ProductContext";
-
 import { CSSProperties, useEffect } from "react";
+import EditNFT from "../../components/admin/editNFT";
 import { useProducts } from "../../components/context/ProductContext";
 import AdminProductCard from "./AdminProductCard";
 
@@ -18,6 +12,7 @@ function AdminProductPage() {
   return (
     <div style={rootStyle}>
       <div style={itemContainer}>
+        <EditNFT />
         {products.map((product, index) => (
           <AdminProductCard product={product} key={index} />
         ))}

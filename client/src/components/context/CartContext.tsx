@@ -82,6 +82,7 @@ export const CartProvider: FC = (props) => {
           quantity: 1,
           imageId: "test",
           imageURL: "test",
+          stock: 420,
         }
       );
     }
