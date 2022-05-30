@@ -172,7 +172,7 @@ function CheckoutForm(props: Props) {
                   id="deliveryOption"
                   value={deliveryOption}
                   label="Delivery Option"
-                  onChange={handleChange} 
+                  onChange={handleChange}
                   required
                 >
                   <MenuItem value={"Postnord agent"}>

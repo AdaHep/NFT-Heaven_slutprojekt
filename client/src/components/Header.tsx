@@ -47,10 +47,10 @@ const Header = (headerProps: any) => {
           ) : (
             <>
               <Button style={headerCartLink} onClick={openModal}>
-                {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
+                {cart.reduce((sum, item) => sum + item.quantity, 0) !== 0 && (
                   <div style={itemCountBadge}>
                     <p style={countStyle}>
-                      {cart.reduce((sum, nft) => sum + nft.count, 0)}
+                      {cart.reduce((sum, item) => sum + item.quantity, 0)}
                     </p>
                   </div>
                 )}

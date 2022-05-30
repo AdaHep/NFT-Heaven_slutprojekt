@@ -1,11 +1,11 @@
 import { CSSProperties, useState } from "react";
-import { collectionDataItem, NftItem } from "../data/collections/collection";
+// import { collectionDataItem } from "../data/collections/collection";
 import "../CSS/FlipCard.css";
 import { Product } from "../ProductInterface";
 
 interface cardInfo {
   nftCard?: Product;
-  collectionCard?: collectionDataItem;
+  // collectionCard?: collectionDataItem;
   nftHeader?: string;
   collectionName?: string;
 }

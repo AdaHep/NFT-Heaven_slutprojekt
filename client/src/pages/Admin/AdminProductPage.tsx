@@ -1,60 +1,43 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import EditNFT from "../../components/admin/editNFT";
 import { useProducts } from "../../components/context/ProductContext";
+import AdminProductCard from "./AdminProductCard";
 
 function AdminProductPage() {
-  const { collections, openEditNftModal } = useProducts();
+  const { fetchProductsFromDb, products } = useProducts();
+  useEffect(() => {
+    fetchProductsFromDb();
+  }, []);
 
   return (
-    <div style={adminPageLayout}>
-      <div>
+    <div style={rootStyle}>
+      <div style={itemContainer}>
         <EditNFT />
+        {products.map((product, index) => (
+          <AdminProductCard product={product} key={index} />
+        ))}
       </div>
-      {collections.map((collection, index) => (
-        <div style={adminCollections} key={index}>
-          {" "}
-          {/* DETTA ÄR COLLECTION DIVEN */}
-          <div style={adminCollectionsHeader}>
-            <div style={headerLeft}>
-              <h1>{collection.name}</h1>
-              <p>Innehåller {collection.NFTS.length} NFTS</p>
-            </div>
-          </div>
-          <div style={adminCollectionMain}>
-            {collection.NFTS.map((nft, index /* DETTA ÄR NFTERNA */) => (
-              <div style={adminAddStyle} key={index}>
-                <div style={adminCardHeader}>
-                  <div>
-                    <FontAwesomeIcon icon={faCoins} />
-                    {nft.price}
-                  </div>
-                  <div>ID #{nft.NFTid}</div>
-                </div>
-                <img style={adminImageStyle} alt="" srcSet={nft.image} />
-                <div style={descStyle}>{nft.description}</div>
-                <Button
-                  onClick={() =>
-                    openEditNftModal(nft, collection.id, collection)
-                  }
-                  style={editButtonStyle}
-                  variant="contained"
-                  href=""
-                >
-                  Edit NFT
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
 
 export default AdminProductPage;
+
+const rootStyle: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
+  // backgroundColor: "#88D9E6",
+};
+
+const itemContainer: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  width: "100%",
+  height: "100%",
+};
 
 const adminPageLayout: CSSProperties = {
   display: "flex",

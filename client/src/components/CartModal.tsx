@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { CSSProperties, useState } from "react";
-import { collectionData } from "../data/collections/collection";
+// import { collectionData } from "../data/collections/collection";
 import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
 
@@ -14,7 +14,7 @@ interface CartProps {
 function CartModal(props: CartProps) {
   const { cart, decQty, incQty, clearCart, totalPrice } = useCart();
   const handleClose = () => props.setModalState(false);
-  const [collectionList, setCollectionList] = useState(collectionData);
+  // const [collectionList, setCollectionList] = useState(collectionData);
 
   return (
     <div>
@@ -47,14 +47,14 @@ function CartModal(props: CartProps) {
                       <img style={iconStyle} srcSet={item.image} alt="test" />
                     </div>
                     <div style={prodColMid}>
-                      <div style={nameColMid}>
+                      {/* <div style={nameColMid}>
                         {
                           collectionList.find(
                             (col) => col.id === item.collectionID
                           )?.name
                         }
                         &nbsp;#{item.NFTid}
-                      </div>
+                      </div> */}
                       <div style={itemDescStyle}>{item.description}</div>
                     </div>
                     <div style={qtyCol}>
@@ -117,8 +117,8 @@ const boxStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   width: "40%",
   minWidth: "20rem",
-  maxHeight: '90vh',
-  overflowY: 'scroll',
+  maxHeight: "90vh",
+  overflowY: "scroll",
   background: "#202225",
   border: "1px solid #303339",
   borderRadius: "1rem",
@@ -138,13 +138,13 @@ const cartHeader: CSSProperties = {
   fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
 };
 
-const itemDescStyle: CSSProperties = { 
-  fontSize: "clamp(1vmin, 2.5vmin, .9rem)", 
+const itemDescStyle: CSSProperties = {
+  fontSize: "clamp(1vmin, 2.5vmin, .9rem)",
 };
 
-const nameColMid: CSSProperties = { 
+const nameColMid: CSSProperties = {
   fontWeight: "bold",
-  fontSize: 'clamp(1vmin, 3vmin, 1.5rem)'
+  fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
 };
 
 const cartFooter: CSSProperties = {

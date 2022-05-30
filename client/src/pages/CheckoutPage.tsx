@@ -4,12 +4,14 @@ import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../components/context/CartContext";
-import { useProducts } from "../components/context/ProductContext";
-import { NftItem } from "../data/collections/collection";
+// import { NftItem } from "../data/collections/collection";
+// import { useProducts } from "../components/context/ProductContext";
+
+import { Product } from "../ProductInterface";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
-  const { collections } = useProducts();
+  // const { collections, product } = useProducts();
 
   return (
     <div>
@@ -19,12 +21,12 @@ function CheckoutPage() {
           <h2>Your purchase:</h2>
           <div style={cardContainer}>
             <div style={purchasedItems}>
-              {cart.map((item: NftItem, index: number) => (
+              {cart.map((item: Product, index: number) => (
                 <div style={purchasedItemTestCard} key={index}>
                   <div style={itemCountBadge}>
-                    <p style={itemCountStyle}>{item.count}</p>
+                    <p style={itemCountStyle}>{item.quantity}</p>
                   </div>
-                  <div style={cardHeader}>
+                  {/* <div style={cardHeader}>
                     <h3 style={nftIDStyle}>
                       {
                         collections.find((col) => col.id === item.collectionID)
@@ -32,11 +34,11 @@ function CheckoutPage() {
                       }
                       &nbsp;#{item.NFTid}
                     </h3>
-                  </div>
+                  </div> */}
                   <div style={cardBody}>
                     <div style={itemImageContainer}>
                       <img
-                        srcSet={item.image}
+                        srcSet={item.imageURL}
                         style={itemImageStyle}
                         alt="Item"
                       />

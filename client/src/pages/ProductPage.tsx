@@ -6,13 +6,11 @@ import ProductCard from "../components/ProductCard";
 import "../CSS/ExplorePage.css";
 
 function ProductPage() {
-  const { fetchProductsFromDb } = useProducts();
+  const { fetchProductsFromDb, products } = useProducts();
 
   useEffect(() => {
     fetchProductsFromDb();
   }, []);
-
-  const { products } = useProducts();
   return (
     <div style={rootStyle}>
       <div id="categories">
