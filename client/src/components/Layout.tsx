@@ -19,12 +19,12 @@ import CategoryPages from "../pages/CategoryPages";
 import AdminOrderPage from "../pages/Admin/AdminOrderPage";
 import AdminPage from "../pages/Admin/AdminPage";
 import AdminProductPage from "../pages/Admin/AdminProductPage";
-import AdminOrderProvider from "./context/AdminOrderContext";
+import OrderProvider from "./context/OrderContext";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
+  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject); // TODO: move to order context or remove
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
 
   return (
@@ -32,7 +32,7 @@ function Layout() {
       <UserProvider>
         <CartProvider>
           <ProductProvider>
-            <AdminOrderProvider>
+            <OrderProvider>
             <BrowserRouter>
               <Header
                 modalState={modalState}
@@ -104,7 +104,7 @@ function Layout() {
               </div>
               <ToastContainer />
             </BrowserRouter>
-            </AdminOrderProvider>
+            </OrderProvider>
           </ProductProvider>
         </CartProvider>
       </UserProvider>

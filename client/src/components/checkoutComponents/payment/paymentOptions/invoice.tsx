@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import { useCart } from "../../../context/CartContext";
 
+export interface FormValues {
+  invoice: number | '';
+}
 interface Props {
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: any;

@@ -16,7 +16,6 @@ interface Props {
 
 function PurchaseComplete(props: Props) {
   const { purchaseList, purchaseTotal } = useCart();
-  // const { collections } = useProducts();
 
   let totalSumWithShipping = 0;
 

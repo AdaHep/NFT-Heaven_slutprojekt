@@ -9,7 +9,7 @@ export interface DeliveryOption {
   /** Virtual */ imageURL: string;
 }
 
-const deliveryOptionSchema = new mongoose.Schema(
+export const deliveryOptionSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     price: { type: Number, required: true },

@@ -16,12 +16,19 @@ import {
 } from "@mui/material";
 // import { title } from "process";
 import { Fragment, useState } from "react";
+import { Order, UserOrder} from "../../components/context/OrderContext";
 
-function OrderPage() {
-//   const { isEdit, setEdit, saveProduct } = useAdmin();
+interface Props {
+  order: Order;
+}
 
+interface userOrder {
+  userOrder: UserOrder;
+}
+
+
+function OrderPage(props: Props, userOrder: userOrder) {
   const [open, setOpen] = useState(false);
-  const [openRemove, setOpenRemove] = useState(false);
 
   return (
     <Fragment>
@@ -38,8 +45,8 @@ function OrderPage() {
         <TableCell component="th" scope="row">
           
         </TableCell>
-        <TableCell>add order number here</TableCell>
-        <TableCell> add order date here</TableCell>
+        <TableCell>{props.order.orderId}</TableCell>
+        <TableCell>{props.order.createdAt}</TableCell>
       </TableRow>
       {/* All info om produkten som är klickad*/}
       <TableRow>
@@ -56,13 +63,13 @@ function OrderPage() {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" style={{ color: "white" }}>
-                      Order Number
+                      {props.order.orderId} 
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      NFT Name
+                      {props.order.products}
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      Quantity
+                      {props.order.quantity}
                     </TableCell>
                     <TableCell
                       align="right"
@@ -70,14 +77,14 @@ function OrderPage() {
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >Order date</TableCell>
+                    >{props.order.deliveryOption}</TableCell>
                     <TableCell
                       align="right"
                       sx={{
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >Price per NFT</TableCell>
+                    >{props.order.createdAt}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -92,7 +99,7 @@ function OrderPage() {
       
                     </TableCell>
 
-                    <TableCell align="center"  style={{ color: "white" }}> THE NAME here</TableCell>
+                    <TableCell align="center"  style={{ color: "white" }}> {userOrder.userOrder.customer}</TableCell>
                     <TableCell align="center">
 
                         <TextField
@@ -118,21 +125,16 @@ function OrderPage() {
                     <TableCell
                      style={{ color: "white" }}
                     >
-                      Delivery Address
+                      {userOrder.userOrder.deliveryAddress}
                     </TableCell>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                      Delivery Option
-                    </TableCell>
-                    <TableCell
-                     style={{ color: "white" }}
-                    >
-                      Total Price
+                      {userOrder.userOrder.isSent}
                     </TableCell>
                   </TableRow>
 
-                  <TableCell
+                  {/* <TableCell
                     colSpan={5}
                     align="left"
                     sx={{
@@ -140,7 +142,7 @@ function OrderPage() {
                     }}
                   >
 
-                  </TableCell>
+                  </TableCell> */}
                 </TableBody>
               </Table>
             </Box>

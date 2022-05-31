@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { Address, addressSchema } from "./address.schema";
+import { Address, AddressSchema } from "./address.schema";
 
 export interface User {
   email: string;

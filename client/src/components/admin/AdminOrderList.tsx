@@ -9,15 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
-import OrderPage from "../../pages/OrderPage";
-import { useAdminOrder } from "../context/AdminOrderContext";
+import OrderPage from "../../pages/Admin/OrderPage";
+import { useOrder } from "../context/OrderContext";
 
 // import product context
 //import AdminProductList from "./AdminProductList";
 
 function AdminOrderList() {
 
-  const { getOrders, orders } = useAdminOrder();
+  const { getOrders, orders } = useOrder();
   console.log(orders);
 
   useEffect(() => {
@@ -45,18 +45,8 @@ function AdminOrderList() {
         </TableHead>
         <TableBody>
           {orders.map((order) => {
-            <TableRow>
-              <TableCell>
-                {order.customer}
-              </TableCell>
-              <TableCell>
-                {order.createdAt}
-              </TableCell>
-              <TableCell>
-                {order.products}
-              </TableCell>
-              </TableRow>
-          })}
+            return <OrderPage key={order._id} order={order} />;
+          })} 
             </TableBody>
       </Table>
     </TableContainer>

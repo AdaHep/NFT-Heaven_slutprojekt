@@ -14,6 +14,21 @@ import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "./shipping/deliveryBox";
 
+export interface FormValues {
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    number: string;
+  },
+  deliveryAddress: {
+    street: string;
+    city: string;
+    zipCode: number;
+  },
+  deliveryMethod: string;
+  paymentMethod: string;
+}
 interface Props {
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: any;

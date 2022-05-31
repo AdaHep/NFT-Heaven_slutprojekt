@@ -11,7 +11,7 @@ export interface Product {
   /** Virtual */ imageURL: string;
 }
 
-const ProductSchema = new mongoose.Schema<Product>(
+export const ProductSchema = new mongoose.Schema<Product>(
   {
     categories: { type: [Schema.Types.ObjectId], required: true },
     name: { type: String, required: true },

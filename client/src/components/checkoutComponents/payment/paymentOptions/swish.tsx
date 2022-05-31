@@ -5,7 +5,13 @@ import { Button, TextField } from "@mui/material";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
+import { useOrder } from "../../../context/OrderContext";
 
+export interface FormValues {
+  swish: {
+    number: number |'';
+  };
+}
 interface Props {
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: any;
@@ -25,6 +31,7 @@ const validationSchema = yup.object({
 
 function Swish(props: Props) {
   const navigate = useNavigate();
+  const { createOrder } = useOrder();
   const { addPurchaseList, cart, clearCart, newPurchaseTotal, totalPrice } =
     useCart();
   const closeModal = () =>
