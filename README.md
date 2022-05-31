@@ -38,7 +38,7 @@ Developers 👩‍💻👨‍💻👩‍💻
 - [X] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.
 - [X] Inga Lösenord får sparas i klartext i databasen.
 - [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.
-- [ ] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.
+- [X] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.
 - [ ] Administratörer ska kunna se en lista på alla gjorda beställningar.
 - [x] Tillgängliga fraktalternativ ska vara hämtade från databasen.
 - [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera.
