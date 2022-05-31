@@ -14,7 +14,7 @@ export interface Order {
   deliveryAddress: Address;
   deliveryMethod: DeliveryOption;
   paymentMethod: String;
-  isSent?: Boolean;
+  isSent: Boolean;
   createdAt: Date;
   updatedAt: Date;
 }
