@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState, FC, useCallback, Dispatch, SetStateAction } from "react";
 import { makeReq } from "../../helper";
-import { ObjectId, Types } from 'mongoose';
+import { ObjectId, PromiseProvider, Types } from 'mongoose';
 import { Product } from "../../ProductInterface";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
+import { useCart } from "./CartContext";
+import { useUser } from "./LoginContext";
 
 
 
@@ -20,7 +22,7 @@ export interface Order {
 export interface UserOrder {
   customer?: Types.ObjectId;
   products: string[];
-  deliveryAddress: Address; //funkar det??
+  deliveryAddress: Address; 
   isSent?: boolean;
 }
 
@@ -53,27 +55,30 @@ interface OrderContext {
 export const OrderContext = createContext<OrderContext>({
     orders: [],
     getOrders: () => {},
-    createOrder: () => {}
+    createOrder: () => {},
 });
 
 const OrderProvider: FC = (props: any) => {
+    const { purchaseList, purchaseTotal } = useCart();
+    const  [deliveryAddress] = useState<UserOrder>() 
     const [orders, setOrders] = useState<Order[]>([]);
-    /* add state for quantity */
+   
     const [quantity, setQuantity] = useState<Product>() 
   
     const getOrders = async () => {
       let order = await makeReq("/api/orders", "GET");
         setOrders(order); 
-  //Ja här antar jag att vi hämtar ordern med allt vi har stoppat in i 
-  // men kan vi göra det med setorders? xD
-  //JAg tror det eh.. med setOrder så skapar vi en ny <Order> antar jag. Eller jag vet inte haha
-  //Ska vi kalla på the big brain? Aka Adam
+
+// då ska post anroppet kopplas till servern på nåt vänster eller hur? Jepp han snackade nåt om det heh
       };
 
-  // setOrder ska vi kalla på den i getorders? eller bara i create?
-
     const createOrder = async () => {
-      let newOrder = await makeReq("/api/orders", "POST");
+      const order = {
+        purchaseList,
+        purchaseTotal,
+        deliveryAddress 
+      }
+      let newOrder = await makeReq("/api/orders", "POST", order);
       setOrders(newOrder);
     }
 
@@ -82,7 +87,7 @@ const OrderProvider: FC = (props: any) => {
           value={{
             orders,
             getOrders,
-            createOrder,
+            createOrder, 
           }}
       >
           {props.children}
