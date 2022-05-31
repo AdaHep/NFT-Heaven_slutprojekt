@@ -45,22 +45,19 @@ function AdminOrderList() {
         </TableHead>
         <TableBody>
           {orders.map((order) => {
-            <TableRow key={order.customer}>
+            <TableRow>
+              <TableCell>
+                {order.customer}
+              </TableCell>
               <TableCell>
                 {order.createdAt}
               </TableCell>
               <TableCell>
                 {order.products}
               </TableCell>
-              <TableCell>
-                {order.deliveryOption}
-              </TableCell>
-            <TableCell>
-
-            </TableCell>
-
+              </TableRow>
           })}
-        </TableBody>
+            </TableBody>
       </Table>
     </TableContainer>
   );

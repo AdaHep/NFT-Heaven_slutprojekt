@@ -11,7 +11,7 @@ export interface Order {
 }
 
 export type ClientOrder = Omit<Order, "customer"> & {
-  _id: string;
+  _id?: string;
   customer?: User;
 };
 
@@ -23,33 +23,12 @@ export interface User {
 interface AdminOrderContext {
     orders: Order[];
     getOrders: () => void;
-    setOrder: Dispatch<SetStateAction<Order | undefined>>;
-    order: Order | undefined;
-    
 }
 
 
 export const AdminOrderContext = createContext<AdminOrderContext>({
     orders: [],
     getOrders: () => {},
-    setOrder: () => {},
-    order: {
-        customer: Types.ObjectId,
-        products: [],
-        createdAt: new Date(),
-        email: "",
-
-    },
-    deliveryAddress: {
-        street: "",
-        city: "",
-        zip: "",
-    }, deliveryOption: {
-        title: "",
-        price: 0,
-        description: "",
-        expectedDeliveryTime: 0,
-    },
 });
 
 const AdminOrderProvider: FC = (props: any) => {
