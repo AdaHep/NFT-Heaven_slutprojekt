@@ -22,29 +22,29 @@ function EditNFT(props: Props) {
     fetchProductsFromDb,
   } = useProducts();
 
-  // let categoryName = [""];
+  let categoryName = [""];
 
-  // const convertCategoryIdToName = () => {
-  //   if (selectedNFT.categories[0] === "628c92cd1c4eb76ecbc12f55") {
-  //     categoryName = ["MeinerNFT"];
-  //   }
-  //   if (selectedNFT.categories[0] === "628c92c41c4eb76ecbc12f53") {
-  //     categoryName = ["BakkumNFT"];
-  //   }
-  //   if (selectedNFT.categories[0] === "628c92bc1c4eb76ecbc12f50") {
-  //     categoryName = ["NoccoNFT"];
-  //   }
-  //   if (selectedNFT.categories[0] === "628c92b71c4eb76ecbc12f4e") {
-  //     categoryName = ["DCNFT"];
-  //   }
-  //   if (selectedNFT.categories[0] === "628c92af1c4eb76ecbc12f4c") {
-  //     categoryName = ["PappaNFT"];
-  //   }
-  //   if (selectedNFT.categories[0] === "628c92aa1c4eb76ecbc12f4a") {
-  //     categoryName = ["Formula1NFT"];
-  //   }
-  // };
-  // convertCategoryIdToName();
+  const convertCategoryIdToName = () => {
+    if (selectedNFT.categories[0] === "628c92cd1c4eb76ecbc12f55") {
+      categoryName = ["MeinerNFT"];
+    }
+    if (selectedNFT.categories[0] === "628c92c41c4eb76ecbc12f53") {
+      categoryName = ["BakkumNFT"];
+    }
+    if (selectedNFT.categories[0] === "628c92bc1c4eb76ecbc12f50") {
+      categoryName = ["NoccoNFT"];
+    }
+    if (selectedNFT.categories[0] === "628c92b71c4eb76ecbc12f4e") {
+      categoryName = ["DCNFT"];
+    }
+    if (selectedNFT.categories[0] === "628c92af1c4eb76ecbc12f4c") {
+      categoryName = ["PappaNFT"];
+    }
+    if (selectedNFT.categories[0] === "628c92aa1c4eb76ecbc12f4a") {
+      categoryName = ["Formula1NFT"];
+    }
+  };
+  convertCategoryIdToName();
 
   const formik = useFormik({
     enableReinitialize: true,
