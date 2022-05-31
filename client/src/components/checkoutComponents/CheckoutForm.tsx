@@ -13,6 +13,8 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "./shipping/deliveryBox";
+import { useOrder } from "../context/OrderContext";
+import { useUser } from "../context/LoginContext";
 
 export interface FormValues {
   user: {
@@ -49,6 +51,8 @@ const validationSchema = yup.object({
 });
 
 function CheckoutForm(props: Props) {
+  const { createOrder } = useOrder();
+  const { currentUser } = useUser();
   const [deliveryOption, setDeliveryOption] = useState("");
   const handleChange = (event: any) => {
     setDeliveryOption(event.target.value);
@@ -72,9 +76,16 @@ function CheckoutForm(props: Props) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       values.deliveryMethod = deliveryOption;
-      props.setDeliveryInfo(values);
+      createOrder();
+      // props.setDeliveryInfo(values);
       console.log(values);
-      navigate("/PaymentPage");
+      // kolla om användaren är inloggad annars navigera till sign in
+      if (!currentUser) {
+        navigate("/login");
+      } else {
+        navigate("/PaymentPage");
+      }
+       // TODO: vänta med att navigera tills det att order är lagd.
     },
   });
   return (
