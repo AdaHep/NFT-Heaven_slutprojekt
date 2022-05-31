@@ -45,7 +45,7 @@ function OrderPage(props: Props, userOrder: userOrder) {
         <TableCell component="th" scope="row">
           
         </TableCell>
-        <TableCell>{props.order.orderId}</TableCell>
+        <TableCell>{props.order._id}</TableCell>
         <TableCell>{props.order.createdAt}</TableCell>
       </TableRow>
       {/* All info om produkten som är klickad*/}
@@ -127,11 +127,10 @@ function OrderPage(props: Props, userOrder: userOrder) {
                     >
                       {userOrder.userOrder.deliveryAddress}
                     </TableCell>
-                    <TableCell
+                    {/* <TableCell
                      style={{ color: "white" }}
                     >
-                      {userOrder.userOrder.isSent}
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
 
                   {/* <TableCell
