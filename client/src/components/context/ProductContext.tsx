@@ -1,6 +1,9 @@
+import { METHODS } from "http";
 import { createContext, FC, useContext, useState } from "react";
+import { json } from "stream/consumers";
 
 interface Product {
+  id: string;
   categories: string[];
   name: string;
   description: string;
@@ -26,6 +29,7 @@ interface ProductContext {
   openEditNftModal: (nft: Product) => void;
   closeEditNftModal: () => void;
   selectedNFT: Product;
+  editProduct: (product: Product) => void;
 }
 
 const ProductsContext = createContext<ProductContext>({
@@ -39,6 +43,7 @@ const ProductsContext = createContext<ProductContext>({
   openEditNftModal: (nft: Product) => {},
   closeEditNftModal: () => {},
   selectedNFT: {
+    id: "",
     categories: ["test"],
     name: "test",
     description: "test",
@@ -48,6 +53,7 @@ const ProductsContext = createContext<ProductContext>({
     stock: 100,
     quantity: 0,
   },
+  editProduct: () => {},
 });
 
 export const ProductProvider: FC = (props) => {
@@ -60,6 +66,7 @@ export const ProductProvider: FC = (props) => {
   // );
   const [selectedNftID, setSelectedNftID] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState({
+    id: "",
     categories: ["test"],
     name: "test",
     description: "test",
@@ -92,11 +99,21 @@ export const ProductProvider: FC = (props) => {
       });
   };
 
+  const editProduct = async (editedProduct: Product) => {
+    let res = await fetch(
+      `http://localhost:5500/api/product/${editedProduct.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(editedProduct),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    return res;
+  };
+
   const openEditNftModal = (nft: Product) => {
     setSelectedNFT(nft);
     setEditNftModal(true);
-    console.log(editNftModal);
-    // console.log("prutt");
   };
   const closeEditNftModal = () => {
     setEditNftModal(false);
@@ -130,7 +147,7 @@ export const ProductProvider: FC = (props) => {
         fetchCategoriesFromDb,
         selectedNFT,
         // collections,
-        // editNft,
+        editProduct,
         editNftModal,
         openEditNftModal,
         closeEditNftModal,

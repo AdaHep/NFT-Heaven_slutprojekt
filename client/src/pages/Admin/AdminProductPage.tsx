@@ -2,9 +2,10 @@ import { CSSProperties, useEffect } from "react";
 import EditNFT from "../../components/admin/editNFT";
 import { useProducts } from "../../components/context/ProductContext";
 import AdminProductCard from "./AdminProductCard";
+import { Product, Category } from "../../ProductInterface";
 
 function AdminProductPage() {
-  const { fetchProductsFromDb, products } = useProducts();
+  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
   useEffect(() => {
     fetchProductsFromDb();
   }, []);
@@ -12,7 +13,7 @@ function AdminProductPage() {
   return (
     <div style={rootStyle}>
       <div style={itemContainer}>
-        <EditNFT />
+        <EditNFT product={selectedNFT} />
         {products.map((product, index) => (
           <AdminProductCard product={product} key={index} />
         ))}

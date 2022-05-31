@@ -1,130 +1,82 @@
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect } from "react";
 import { Product } from "../../ProductInterface";
 import { useProducts } from "../context/ProductContext";
 import React from "react";
 
-const validationSchema = yup.object({
-  nftImage: yup.string().required("Please enter new image URL").min(10),
-  description: yup.string().required("Please enter new description").min(2),
-  price: yup.number().required("Please enter new price").min(1),
-});
+interface Props {
+  product: Product;
+}
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+function EditNFT(props: Props) {
+  useEffect(() => {
+    fetchProductsFromDb();
+  }, []);
+  const {
+    closeEditNftModal,
+    editNftModal,
+    selectedNFT,
+    editProduct,
+    fetchProductsFromDb,
+  } = useProducts();
 
-const categories = ["Selfies", "Logos", "Things"];
-
-function EditNFT() {
-  // const { editNft, closeEditNftModal, editNftModal, selectedNFT } =
-  const { closeEditNftModal, editNftModal, selectedNFT } = useProducts();
-
-  const [chosenCategory, setChosenCategory] = React.useState<String[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof chosenCategory>) => {
-    const {
-      target: { value },
-    } = event;
-    setChosenCategory(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
-  // if(!editNftModal) return
-  // openEditNftModal(selectedNFT, selectedCollection.id, selectedCollection)
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      nftImage: selectedNFT.imageURL,
-      description: selectedNFT.description,
+      name: selectedNFT.name,
+      categories: selectedNFT.categories,
       price: selectedNFT.price,
-      //category: selectedNFT.category,
+      stock: selectedNFT.stock,
+      imageURL: selectedNFT.imageURL,
     },
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newNft: Product = {
-        categories: [],
+      let updatedProduct = {
+        id: selectedNFT.id,
         name: selectedNFT.name,
-        imageId: values.nftImage,
-        imageURL: "",
-        description: values.description,
-        price: values.price,
-        //category: values.category,
-        quantity: 0,
-        stock: 0,
+        categories: values.categories,
+        description: selectedNFT.description,
+        quantity: selectedNFT.quantity,
+        price: selectedNFT.price,
+        stock: values.stock,
+        imageURL: selectedNFT.imageURL,
+        imageId: selectedNFT.imageId,
       };
-      // editNft(newNft);
-      console.log(newNft);
+      fetchProductsFromDb();
+      console.log("hej");
+      console.log(updatedProduct);
       formik.resetForm();
+      editProduct(updatedProduct);
       closeEditNftModal();
     },
   });
+
   return (
     <div>
       {editNftModal && (
         <div style={newCollectionContainer}>
           <div>
             <form style={formStyle} onSubmit={formik.handleSubmit}>
-              <h3>Edit NFT</h3>
               <h3>Editing: # {selectedNFT?.name}</h3>
               <p style={editNftDescription}>
                 Description: {selectedNFT?.description}
               </p>
-
               <div style={textFieldsContainer}>
                 <TextField
                   style={textFieldStyle}
                   fullWidth
                   autoComplete="off"
-                  id="nftImage"
-                  name="nftImage"
+                  id="imageURL"
+                  name="imageURL"
                   label="NFT image URL"
-                  value={formik.values.nftImage}
+                  value={formik.values.imageURL}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.nftImage && Boolean(formik.errors.nftImage)
+                    formik.touched.imageURL && Boolean(formik.errors.imageURL)
                   }
-                  helperText={formik.touched.nftImage && formik.errors.nftImage}
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="description"
-                  name="description"
-                  label="NFT description"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.description &&
-                    Boolean(formik.errors.description)
-                  }
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
+                  helperText={formik.touched.imageURL && formik.errors.imageURL}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -135,7 +87,7 @@ function EditNFT() {
                   autoComplete="off"
                   id="price"
                   name="price"
-                  label="Set NFT price"
+                  label="NFT price"
                   value={formik.values.price}
                   onChange={formik.handleChange}
                   error={formik.touched.price && Boolean(formik.errors.price)}
@@ -144,29 +96,18 @@ function EditNFT() {
                     readOnly: true,
                   }}
                 />
-                <FormControl sx={{ m: 1, width: 300, zIndex: 1000 }}>
-                  <InputLabel id="multiple-category">Category</InputLabel>
-                  <Select
-                    id="multiple-category"
-                    multiple
-                    value={chosenCategory}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Category" />}
-                    MenuProps={MenuProps}
-                    style={{ color: "white" }}
-                  >
-                    {categories.map((category) => (
-                      <MenuItem
-                        sx={{ zIndex: 10000 }}
-                        key={category}
-                        value={category}
-                        style={{ backgroundColor: "#333", color: "white" }}
-                      >
-                        {category}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <TextField
+                  style={textFieldStyle}
+                  fullWidth
+                  autoComplete="off"
+                  id="stock"
+                  name="stock"
+                  label="NFT stock"
+                  value={formik.values.stock}
+                  onChange={formik.handleChange}
+                  error={formik.touched.stock && Boolean(formik.errors.stock)}
+                  helperText={formik.touched.stock && formik.errors.stock}
+                />
               </div>
               <Button
                 style={saveCloseEditButton}
