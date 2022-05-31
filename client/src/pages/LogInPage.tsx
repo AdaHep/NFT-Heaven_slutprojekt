@@ -39,28 +39,15 @@ import { makeReq } from "../helper";
   }
 
   const handleLogin = async () => {
-    // const existingUser = await logIn(email, password);
-    // // jag får fel medelanden wrong password o email när jag logga in med rätt email och fel lösenord
-    // if (!currentUser) {
-    //   setFailedLogin(true)
-    //   console.log(failedLogin)
-    // } else 
     if (!await logIn(logInEmail, logInPassword)) {
       setFailedLogin(true);
     }
-      // if(isAdmin) { 
-      //   console.log(isAdmin + "user");
-      //   navigate('/admin');
-      // } else {
-        //  navigate('/');
-      // }
-   
   }
 
 
   const handleSignUp = () => {
     signUp(signUpEmail, signUpPassword);
-    navigate('/');
+    navigate(-1);
   }
 
   useEffect(() => {
@@ -68,7 +55,7 @@ import { makeReq } from "../helper";
       if (currentUser.isAdmin) {
         navigate('/admin');
       } else {
-        navigate('/');
+        navigate(-1);
       }
     }
   }, [currentUser])
