@@ -7,6 +7,7 @@ import { useCart } from "../components/context/CartContext";
 import { useProducts } from "../components/context/ProductContext";
 import { NftItem } from "../data/collections/collection";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
+import { Product } from "../ProductInterface";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
@@ -15,7 +16,7 @@ interface Props {
 
 function PurchaseComplete(props: Props) {
   const { purchaseList, purchaseTotal } = useCart();
-  const { collections } = useProducts();
+  // const { collections } = useProducts();
 
   let totalSumWithShipping = 0;
 
@@ -46,12 +47,12 @@ function PurchaseComplete(props: Props) {
           <h2>Your purchase:</h2>
           <div style={cardContainer}>
             <div style={purchasedItems}>
-              {purchaseList.map((item: NftItem, index: number) => (
+              {purchaseList.map((item: Product, index: number) => (
                 <div style={purchasedItemTestCard} key={index}>
                   <div style={itemCountBadge}>
-                    <p style={itemCountTextStyle}>{item.count}</p>
+                    <p style={itemCountTextStyle}>{item.quantity}</p>
                   </div>
-                  <div style={cardHeader}>
+                  {/* <div style={cardHeader}>
                     <h3 style={cardHeaderTextStyle}>
                       {
                         collections.find((col) => col.id === item.collectionID)
@@ -59,11 +60,11 @@ function PurchaseComplete(props: Props) {
                       }
                       &nbsp;#{item.NFTid}
                     </h3>
-                  </div>
+                  </div> */}
                   <div style={cardBody}>
                     <div style={cardImageContainer}>
                       <img
-                        srcSet={item.image}
+                        srcSet={item.imageURL}
                         style={cardImageStyle}
                         alt="item"
                       />
@@ -104,7 +105,10 @@ const purchaseCompleteContainer: CSSProperties = {
   marginBottom: "2rem",
 };
 
-const purchaseCompleteTextStyle: CSSProperties = { fontSize: "2rem", textAlign: 'center' };
+const purchaseCompleteTextStyle: CSSProperties = {
+  fontSize: "2rem",
+  textAlign: "center",
+};
 
 const deliveryDetailsTextStyle: CSSProperties = {
   textAlign: "center",

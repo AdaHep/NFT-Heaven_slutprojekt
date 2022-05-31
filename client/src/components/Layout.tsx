@@ -26,6 +26,7 @@ function Layout() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
+
   return (
     <div>
       <UserProvider>

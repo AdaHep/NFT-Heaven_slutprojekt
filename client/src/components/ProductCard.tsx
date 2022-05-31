@@ -1,16 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { CSSProperties } from "react";
-// import { collectionDataItem, NftItem } from "../data/collections/collection";
-// import { Button } from "@mui/material";
 // import { Link } from "react-router-dom";
 // import { useCart } from "./context/CartContext";
-// import FlipCard from "./FlipCard";
 import "react-toastify/dist/ReactToastify.css";
 import { useProducts } from "./context/ProductContext";
 import { Product } from "../ProductInterface";
 import { Button } from "@mui/material";
 import FlipCard from "./FlipCard";
+import { useCart } from "./context/CartContext";
 
 //function ItemCard(props: cardInfo) {
 
@@ -19,7 +17,7 @@ interface Props {
 }
 
 function ProductCard(props: Props) {
-  // const { addProduct } = useCart();
+  const { addProduct } = useCart();
 
   return (
     <div>
@@ -48,7 +46,7 @@ function ProductCard(props: Props) {
           <Button
             style={buttonStyle}
             variant="contained"
-            // onClick={() => addProduct(props.nftCard)}
+            onClick={() => addProduct(props.product)}
           >
             BUY NOW
           </Button>

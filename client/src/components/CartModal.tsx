@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { CSSProperties, useState } from "react";
-import { collectionData } from "../data/collections/collection";
+import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
+import { Product } from "../ProductInterface";
 
 interface CartProps {
   modalState: boolean;
@@ -14,7 +14,6 @@ interface CartProps {
 function CartModal(props: CartProps) {
   const { cart, decQty, incQty, clearCart, totalPrice } = useCart();
   const handleClose = () => props.setModalState(false);
-  const [collectionList, setCollectionList] = useState(collectionData);
 
   return (
     <div>
@@ -41,33 +40,29 @@ function CartModal(props: CartProps) {
                 sx={{ mt: 2 }}
                 component="div"
               >
-                {cart.map((item: any, index: number) => (
+                {cart.map((item: Product, index: number) => (
                   <div style={nftContainer} key={index}>
                     <div style={iconCol}>
-                      <img style={iconStyle} srcSet={item.image} alt="test" />
+                      <img
+                        style={iconStyle}
+                        srcSet={item.imageURL}
+                        alt="test"
+                      />
                     </div>
                     <div style={prodColMid}>
-                      <div style={nameColMid}>
-                        {
-                          collectionList.find(
-                            (col) => col.id === item.collectionID
-                          )?.name
-                        }
-                        &nbsp;#{item.NFTid}
-                      </div>
                       <div style={itemDescStyle}>{item.description}</div>
                     </div>
                     <div style={qtyCol}>
                       <FontAwesomeIcon
                         icon={faMinus}
                         style={iconStyle}
-                        onClick={() => decQty(item.NFTid)}
+                        onClick={() => decQty(item)}
                       />
-                      {item.count}
+                      {item.quantity}
                       <FontAwesomeIcon
                         icon={faPlus}
                         style={iconStyle}
-                        onClick={() => incQty(item.NFTid)}
+                        onClick={() => incQty(item)}
                       />
                     </div>
                     <div style={priceCol}>
@@ -117,8 +112,8 @@ const boxStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   width: "40%",
   minWidth: "20rem",
-  maxHeight: '90vh',
-  overflowY: 'scroll',
+  maxHeight: "90vh",
+  overflowY: "scroll",
   background: "#202225",
   border: "1px solid #303339",
   borderRadius: "1rem",
@@ -138,13 +133,8 @@ const cartHeader: CSSProperties = {
   fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
 };
 
-const itemDescStyle: CSSProperties = { 
-  fontSize: "clamp(1vmin, 2.5vmin, .9rem)", 
-};
-
-const nameColMid: CSSProperties = { 
-  fontWeight: "bold",
-  fontSize: 'clamp(1vmin, 3vmin, 1.5rem)'
+const itemDescStyle: CSSProperties = {
+  fontSize: "clamp(1vmin, 2.5vmin, .9rem)",
 };
 
 const cartFooter: CSSProperties = {

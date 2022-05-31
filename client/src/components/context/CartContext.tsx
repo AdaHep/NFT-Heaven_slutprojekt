@@ -1,59 +1,59 @@
-// @ts-ignore
-
 import { createContext, FC, useContext, useState } from "react";
-import { NftItem } from "../../data/collections/collection";
 import { toast } from "react-toastify";
+import { Product } from "../../ProductInterface";
 
-interface CartContext {
-  purchaseList: NftItem[];
-  cart: NftItem[];
-  addProduct: (item?: NftItem) => void;
-  incQty: (itemID: number) => void;
-  decQty: (itemID: number) => void;
+interface Cart {
+  purchaseList: Product[];
+  cart: Product[];
+  addProduct: (item?: Product) => void;
+  incQty: (product: Product) => void;
+  decQty: (product: Product) => void;
   clearCart: () => void;
-  addPurchaseList: (list: NftItem[]) => void;
+  addPurchaseList: (list: Product[]) => void;
   totalPrice: number;
   purchaseTotal: number;
-  newPurchaseTotal: (total : number) => void
+  newPurchaseTotal: (total: number) => void;
   // purchaseTotal : number;
   // addPurchaseTotal: (plus: number) => void;
 }
 
-export const CartContext = createContext<CartContext>({
+export const CartContext = createContext<Cart>({
   purchaseList: [],
-  addPurchaseList: (list: NftItem[]) => {},
+  addPurchaseList: (list: Product[]) => {},
   cart: [],
-  addProduct: (item?: NftItem) => {},
-  incQty: (itemID: number) => {},
-  decQty: (itemID: number) => {},
+  addProduct: (item?: Product) => {},
+  incQty: (product: Product) => {},
+  decQty: (product: Product) => {},
   clearCart: () => {},
   totalPrice: 1,
   purchaseTotal: 1,
-  newPurchaseTotal: (total : number) => {}
+  newPurchaseTotal: (total: number) => {},
   // purchaseTotal: 1,
   // addPurchaseTotal: (plus : number) => {},
 });
 
 export const CartProvider: FC = (props) => {
   let localData = localStorage.getItem("cart");
-  const [cart, setCart] = useState<NftItem[]>(
+  const [cart, setCart] = useState<Product[]>(
     localData ? JSON.parse(localData) : []
   );
-  const [purchaseList, setPurchaseList] = useState<NftItem[]>([]);
+  const [purchaseList, setPurchaseList] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(
-    cart.reduce((sum, nft) => sum + nft.price * nft.count, 0)
+    cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
   );
-  const [purchaseTotal, setPurchaseTotal] = useState(1)
+  const [purchaseTotal, setPurchaseTotal] = useState(1);
   // const [purchaseTotal, setPurchaseTotal] = useState(purchaseList.reduce((sum, nft) => sum + nft.price * nft.count, 0))
 
-  const addPurchaseList = (list: NftItem[]) => {
+  const addPurchaseList = (list: Product[]) => {
     setPurchaseList(list);
     // setPurchaseTotal(totalPrice);
   };
 
-  const newPurchaseTotal = (total : number) => {setPurchaseTotal(total)}
+  const newPurchaseTotal = (total: number) => {
+    setPurchaseTotal(total);
+  };
 
-  const addProduct = (item?: NftItem) => {
+  const addProduct = (item?: Product) => {
     toast.success("Item added to cart", {
       position: "bottom-left",
       autoClose: 1500,
@@ -65,57 +65,65 @@ export const CartProvider: FC = (props) => {
     });
     let NewProductList = cart;
     let foundItem = NewProductList.find(
-      (listedItem: any) => listedItem.NFTid === item?.NFTid
+      (listedItem: any) => listedItem.name === item?.name
     );
     if (foundItem) {
-      foundItem.count += 1;
+      foundItem.quantity += 1;
     } else {
       if (item) {
-        item.count = 1;
+        item.quantity = 1;
       }
       NewProductList.push(
         item || {
-          NFTid: 12,
-          image: "blabla",
-          price: 12,
-          description: "bla",
-          count: 1,
-          collectionID: 1,
+          categories: [],
+          name: "test",
+          description: "test",
+          price: 420,
+          quantity: 1,
+          imageId: "test",
+          imageURL: "test",
+          stock: 420,
         }
       );
     }
     setCart(NewProductList);
-    setTotalPrice(cart.reduce((sum, nft) => sum + nft.price * nft.count, 0));
+    setTotalPrice(
+      cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    );
     localStorage.setItem("cart", JSON.stringify(NewProductList));
   };
 
-  const incQty = (itemID: number) => {
-    let updatedList = cart.map((item: any) => {
-      if (item.NFTid === itemID) {
-        item.count += 1;
+  const incQty = (product: Product) => {
+    let updatedList = cart.map((item: Product) => {
+      if (product.name === item.name) {
+        item.quantity += 1;
       }
       return item;
     });
     setCart(updatedList);
-    setTotalPrice(cart.reduce((sum, nft) => sum + nft.price * nft.count, 0));
+    setTotalPrice(
+      cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    );
     localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
-  const decQty = (itemID: number) => {
-    let updatedList = cart.filter((item: NftItem) => {
-      if (item.NFTid === itemID) {
-        if (item.count > 1) {
-          item.count -= 1;
+  const decQty = (product: Product) => {
+    let updatedList = cart.filter((item: Product) => {
+      if (product.name === item.name) {
+        if (item.quantity > 1) {
+          item.quantity -= 1;
           return item;
         } else {
-          item.count = 0;
+          item.quantity = 0;
         }
       } else {
         return item;
       }
     })!;
     setCart(updatedList);
-    setTotalPrice(cart.reduce((sum, nft) => sum + nft.price * nft.count, 0));
+    setTotalPrice(
+      cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    );
     localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 

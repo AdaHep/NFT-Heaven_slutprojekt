@@ -160,7 +160,7 @@ const numberAndCvcContainer: CSSProperties = {
   display: "flex",
   justifyContent: "center",
   marginBottom: "1rem",
-  width: '80%'
+  width: "80%",
 };
 
 const CardHolderStyle: CSSProperties = {
@@ -171,7 +171,7 @@ const CardHolderStyle: CSSProperties = {
 const expDateContainer: CSSProperties = {
   display: "flex",
   justifyContent: "center",
-  width: '100%'
+  width: "100%",
 };
 
 const ExpStyle: CSSProperties = {

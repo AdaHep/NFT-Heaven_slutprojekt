@@ -1,79 +1,73 @@
-import { createContext, FC, useContext, useEffect, useState } from "react";
-import {
-  NftItem,
-  collectionDataItem,
-  collectionData,
-} from "../../data/collections/collection";
+import { createContext, FC, useContext, useState } from "react";
 
 interface Product {
-  categories: String[];
-  name: String;
-  description: String;
-  price: Number;
-  stock?: Number;
-  quantity?: Number;
-  imageId: String;
+  categories: string[];
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  quantity: number;
+  imageId: string;
   /** Virtual */ imageURL: string;
 }
 
 interface Category {
-  name: String;
+  name: string;
 }
 
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
-  collections: collectionDataItem[];
-  editNft: (nft: NftItem, collectionID?: number) => void;
+  fetchCategoriesFromDb: () => void;
+  categories: string[];
+  // editNft: (nft: Product) => void;
   selectedNftID: number;
   editNftModal: boolean;
-  openEditNftModal: (
-    nft: NftItem,
-    collectionID: number,
-    collection: collectionDataItem
-  ) => void;
+  openEditNftModal: (nft: Product) => void;
   closeEditNftModal: () => void;
-  selectedNFT: NftItem;
+  selectedNFT: Product;
 }
 
 const ProductsContext = createContext<ProductContext>({
   fetchProductsFromDb: () => [],
   products: [],
-  collections: [],
-  editNft: (nft: NftItem, collectionID?: number) => {},
+  fetchCategoriesFromDb: () => [],
+  categories: [],
+  // editNft: (nft: Product) => {},
   selectedNftID: 0,
   editNftModal: false,
-  openEditNftModal: (
-    nft: NftItem,
-    collectionID: number,
-    collection: collectionDataItem
-  ) => {},
+  openEditNftModal: (nft: Product) => {},
   closeEditNftModal: () => {},
   selectedNFT: {
-    NFTid: 12,
-    image: "test",
-    price: 12,
-    description: "bollar",
-    count: 12,
-    collectionID: 1,
+    categories: ["test"],
+    name: "test",
+    description: "test",
+    price: 420,
+    imageId: "test",
+    imageURL: "test",
+    stock: 100,
+    quantity: 0,
   },
 });
 
 export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState([]);
-  let localData = localStorage.getItem("collections");
+  const [categories, setCategories] = useState([]);
+  // let localData = localStorage.getItem("collections");
   const [editNftModal, setEditNftModal] = useState(false);
-  const [collections, setCollections] = useState(
-    localData ? JSON.parse(localData) : collectionData
-  );
+  // const [collections, setCollections] = useState(
+  //   localData ? JSON.parse(localData) : collectionData
+  // );
   const [selectedNftID, setSelectedNftID] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState({
-    NFTid: 12,
-    image: "test",
-    price: 12,
-    description: "bollar",
-    count: 12,
-    collectionID: 1,
+    categories: ["test"],
+    name: "test",
+    description: "test",
+    price: 420,
+    imageId: "test",
+    imageURL: "test",
+    stock: 100,
+    quantity: 0,
   });
 
   const fetchProductsFromDb = async () => {
@@ -87,48 +81,60 @@ export const ProductProvider: FC = (props) => {
       });
   };
 
-  const openEditNftModal = (
-    nft: NftItem,
-    collectionID: number,
-    collection: collectionDataItem
-  ) => {
+  const fetchCategoriesFromDb = async () => {
+    let data = fetch("http://localhost:5500/api/category")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const openEditNftModal = (nft: Product) => {
     setSelectedNFT(nft);
     setEditNftModal(true);
+    console.log(editNftModal);
+    // console.log("prutt");
   };
   const closeEditNftModal = () => {
     setEditNftModal(false);
   };
 
-  const editNft = (nft: NftItem, collectionID?: number) => {
-    let updatedList = collections.map((collection: collectionDataItem) => {
-      if (collection.id === collectionID) {
-        collection.NFTS = collection.NFTS.map((nftItem: NftItem) => {
-          if (nftItem.NFTid === nft.NFTid) {
-            nftItem = nft;
-            // console.log(nftItem)
-            return nftItem;
-          }
-          return nftItem;
-        });
-      }
-      return collection;
-    });
-    console.log(updatedList);
-    setCollections(updatedList);
-    localStorage.setItem("collections", JSON.stringify(updatedList));
-  };
+  // const editNft = (nft: Product, collectionID?: number) => {
+  //   let updatedList = collections.map((collection: collectionDataItem) => {
+  //     if (collection.id === collectionID) {
+  //       collection.NFTS = collection.NFTS.map((nftItem: Product) => {
+  //         if (nftItem.NFTid === nft.NFTid) {
+  //           nftItem = nft;
+  //           // console.log(nftItem)
+  //           return nftItem;
+  //         }
+  //         return nftItem;
+  //       });
+  //     }
+  //     return collection;
+  //   });
+  //   console.log(updatedList);
+
+  //   localStorage.setItem("collections", JSON.stringify(updatedList));
+  // };
 
   return (
     <ProductsContext.Provider
       value={{
         products,
         fetchProductsFromDb,
+        categories,
+        fetchCategoriesFromDb,
         selectedNFT,
-        collections,
-        editNft,
+        // collections,
+        // editNft,
         editNftModal,
         openEditNftModal,
         closeEditNftModal,
+
         selectedNftID,
       }}
     >
