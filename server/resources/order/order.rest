@@ -1,4 +1,4 @@
-GET http://localhost:5500/api/order
+GET http://localhost:5500/api/order/
 
 ###
 
@@ -9,13 +9,13 @@ Content-Type: application/json
   "products": [
    {
      "_id": "629616a5d6abaed376628e6b",
-     "name": "Meiner NFT #1",
-     "description": "Meiner in the gym. Some say it was leg-day but who knows?",
-     "price": "19",
-     "categories": ["628c92cd1c4eb76ecbc12f55"],
-     "quantity": 1,
-     "stock": 2,
-     "imageId": "628c9d6d1c4eb76ecbc12f89"
+     "name": "PappaNFT #17",
+     "description": "Pappa staring into your soul. He's very disappointed.",
+     "price": "12",
+     "categories": ["628c92af1c4eb76ecbc12f4c"],
+     "quantity": 2,
+     "stock": 100,
+     "imageId": "628ca38e1c4eb76ecbc12fca"
    }
   ],
   "deliveryAddress": {
