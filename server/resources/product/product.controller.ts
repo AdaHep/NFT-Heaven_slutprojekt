@@ -5,7 +5,7 @@ import { Product, ProductModel } from "./product.model";
 export const getOneProduct = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
-    const product = await ProductModel.findById({ _id: req.params });
+    const product = await ProductModel.findById(req.params.id);
     res.status(200).json(product);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -48,7 +48,22 @@ export const getProductsInCategory = async (req: Request, res: Response) => {
   });
   return res.status(200).json(productsInCategory);
 };
-// };
+
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    let updatedProduct = await ProductModel.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+    res.status(200).json(updatedProduct);
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const updateProductStock = async (
   req: Request<{ id: string }>,

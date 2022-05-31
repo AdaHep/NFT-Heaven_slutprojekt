@@ -75,6 +75,7 @@ export const CartProvider: FC = (props) => {
       }
       NewProductList.push(
         item || {
+          id: "test",
           categories: [],
           name: "test",
           description: "test",

@@ -23,12 +23,6 @@ function ProductCard(props: Props) {
     <div>
       <div style={cardContainer}>
         <div style={cardHeader}>
-          {/* Detta behöver fixas när kategorier är på plats */}
-          {/* <img
-              style={collectionImage}
-              srcSet={nftInfo.headerImage}
-              alt="headerImg"
-            /> */}
           <div style={headerText}>
             <div>{props.product.name}</div>
             <div style={priceStyle}>
