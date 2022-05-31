@@ -6,8 +6,18 @@ POST http://localhost:5500/api/order
 Content-Type: application/json
 
 {
-  "customer":"628cebb2f92894356baa4597",
-  "products": "628c9d841c4eb76ecbc12f8b",
+  "products": [
+   {
+     "_id": "629616a5d6abaed376628e6b",
+     "name": "Meiner NFT #1",
+     "description": "Meiner in the gym. Some say it was leg-day but who knows?",
+     "price": "19",
+     "categories": ["628c92cd1c4eb76ecbc12f55"],
+     "quantity": 1,
+     "stock": 2,
+     "imageId": "628c9d6d1c4eb76ecbc12f89"
+   }
+  ],
   "deliveryAddress": {
     "firstName": "John",
     "lastName": "Doe",
@@ -17,10 +27,14 @@ Content-Type: application/json
     "city": "Teststadt"
   },
   "paymentMethod": "Swish",
-  "deliveryMethod": "Postnord",
-  "isSent": "true",
-  "createdAt": "2018-01-01T00:00:00.000Z",
-  "updatedAt": "2018-01-02T00:00:00.000Z"
+  "deliveryMethod":  {
+    "_id": "6290a0ec5cd89c155e260fea",
+    "title": "DHL agent",
+    "price": "2",
+    "description": "Your order will be delivered to the nearest postal agent based on your…",
+    "expectedDeliveryTime": "3",
+    "imageId": "628c9d6d1c4eb76ecbc12f89"
+  }
 }
 
 ###
