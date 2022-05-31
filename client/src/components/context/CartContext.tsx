@@ -6,8 +6,8 @@ interface Cart {
   purchaseList: Product[];
   cart: Product[];
   addProduct: (item?: Product) => void;
-  incQty: (name: string) => void;
-  decQty: (name: string) => void;
+  incQty: (product: Product) => void;
+  decQty: (product: Product) => void;
   clearCart: () => void;
   addPurchaseList: (list: Product[]) => void;
   totalPrice: number;
@@ -22,8 +22,8 @@ export const CartContext = createContext<Cart>({
   addPurchaseList: (list: Product[]) => {},
   cart: [],
   addProduct: (item?: Product) => {},
-  incQty: (name: string) => {},
-  decQty: (name: string) => {},
+  incQty: (product: Product) => {},
+  decQty: (product: Product) => {},
   clearCart: () => {},
   totalPrice: 1,
   purchaseTotal: 1,
@@ -93,9 +93,9 @@ export const CartProvider: FC = (props) => {
     localStorage.setItem("cart", JSON.stringify(NewProductList));
   };
 
-  const incQty = (name: string) => {
+  const incQty = (product: Product) => {
     let updatedList = cart.map((item: Product) => {
-      if (item.name === name) {
+      if (product.name === item.name) {
         item.quantity += 1;
       }
       return item;
@@ -107,9 +107,9 @@ export const CartProvider: FC = (props) => {
     localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
-  const decQty = (name: string) => {
+  const decQty = (product: Product) => {
     let updatedList = cart.filter((item: Product) => {
-      if (item.name === name) {
+      if (product.name === item.name) {
         if (item.quantity > 1) {
           item.quantity -= 1;
           return item;
