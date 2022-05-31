@@ -2,9 +2,15 @@ import { Button } from "@mui/material";
 import React, { CSSProperties, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../components/context/LoginContext";
+import { useOrder } from "../../components/context/OrderContext";
 
 const AdminPage = () => {
   const { currentUser } = useContext(UserContext);
+  const { getOrders } = useOrder();
+
+  const handleGetOrders = () => {
+    getOrders();
+  }
   return (
     <div>
       <div style={adminStyle}>
@@ -17,7 +23,7 @@ const AdminPage = () => {
             Edit products
           </Link>
         </Button>
-        <Button style={buttonStyle} variant="contained">
+        <Button onClick={handleGetOrders} style={buttonStyle} variant="contained">
           <Link style={linkStyle} to="/adminOrderPage">
             See orders
           </Link>

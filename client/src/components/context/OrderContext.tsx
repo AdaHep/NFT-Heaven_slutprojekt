@@ -54,7 +54,7 @@ interface OrderContext {
 
 export const OrderContext = createContext<OrderContext>({
     orders: [],
-    getOrders: () => {},
+    getOrders: () => [],
     createOrder: () => {},
 });
 
@@ -66,10 +66,19 @@ const OrderProvider: FC = (props: any) => {
     const [quantity, setQuantity] = useState<Product>() 
   
     const getOrders = async () => {
-      let order = await makeReq("/api/orders", "GET");
-        setOrders(order); 
+      let order = fetch('http://localhost:5500/api/order')
+      .then((res) => res.json())
+      .then((order) => {
+        setOrders(order);
+        console.log(orders)
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('test')
+      });
+      // let order = await makeReq("/api/orders", "GET");
+      //   setOrders(order); 
 
-// då ska post anroppet kopplas till servern på nåt vänster eller hur? Jepp han snackade nåt om det heh
       };
 
     const createOrder = async () => {

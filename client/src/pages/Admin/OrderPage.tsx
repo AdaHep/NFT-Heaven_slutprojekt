@@ -22,12 +22,12 @@ interface Props {
   order: Order;
 }
 
-interface userOrder {
+interface UserProps {
   userOrder: UserOrder;
 }
 
 
-function OrderPage(props: Props, userOrder: userOrder) {
+function OrderPage(props: Props, userProps: UserProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -77,71 +77,27 @@ function OrderPage(props: Props, userOrder: userOrder) {
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >{props.order.deliveryOption}</TableCell>
+                    >{userProps.userOrder.customer}</TableCell>
                     <TableCell
                       align="right"
                       sx={{
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >{props.order.createdAt}</TableCell>
+                    >{userProps.userOrder.deliveryAddress}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow >
-                    <TableCell
-                      align="left"
-                      sx={{
-                        paddingX: { md: "5rem" },
-                      }}
-                    >
-                    
-      
-                    </TableCell>
-
-                    <TableCell align="center"  style={{ color: "white" }}> {userOrder.userOrder.customer}</TableCell>
-                    <TableCell align="center">
-
-                        <TextField
-                          variant="standard"
-                       
-                          inputProps={{ style: { fontSize: ".9rem" } }}
-                          InputLabelProps={{ style: { fontSize: ".9rem" } }}
-                        />
-
-                    </TableCell>
-                    <TableCell align="center">
-        
-                        <TextField
-                          variant="standard"
-
-                          inputProps={{ style: { fontSize: ".9rem" } }}
-                          InputLabelProps={{ style: { fontSize: ".9rem" } }}
-                        />
-       
-                    </TableCell>
+                    <TableCell align="center"  style={{ color: "white" }}> {userProps.userOrder.isSent}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                      {userOrder.userOrder.deliveryAddress}
+                      {/* something here? */}
                     </TableCell>
-                    {/* <TableCell
-                     style={{ color: "white" }}
-                    >
-                    </TableCell> */}
                   </TableRow>
-
-                  {/* <TableCell
-                    colSpan={5}
-                    align="left"
-                    sx={{
-                      paddingX: { md: "5rem" },
-                    }}
-                  >
-
-                  </TableCell> */}
                 </TableBody>
               </Table>
             </Box>
