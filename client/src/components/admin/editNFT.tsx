@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { useFormik } from "formik";
+import { Field, useFormik } from "formik";
 import * as yup from "yup";
 import { CSSProperties, useEffect } from "react";
 import { Product } from "../../ProductInterface";
@@ -22,6 +22,30 @@ function EditNFT(props: Props) {
     fetchProductsFromDb,
   } = useProducts();
 
+  // let categoryName = [""];
+
+  // const convertCategoryIdToName = () => {
+  //   if (selectedNFT.categories[0] === "628c92cd1c4eb76ecbc12f55") {
+  //     categoryName = ["MeinerNFT"];
+  //   }
+  //   if (selectedNFT.categories[0] === "628c92c41c4eb76ecbc12f53") {
+  //     categoryName = ["BakkumNFT"];
+  //   }
+  //   if (selectedNFT.categories[0] === "628c92bc1c4eb76ecbc12f50") {
+  //     categoryName = ["NoccoNFT"];
+  //   }
+  //   if (selectedNFT.categories[0] === "628c92b71c4eb76ecbc12f4e") {
+  //     categoryName = ["DCNFT"];
+  //   }
+  //   if (selectedNFT.categories[0] === "628c92af1c4eb76ecbc12f4c") {
+  //     categoryName = ["PappaNFT"];
+  //   }
+  //   if (selectedNFT.categories[0] === "628c92aa1c4eb76ecbc12f4a") {
+  //     categoryName = ["Formula1NFT"];
+  //   }
+  // };
+  // convertCategoryIdToName();
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -31,6 +55,7 @@ function EditNFT(props: Props) {
       stock: selectedNFT.stock,
       imageURL: selectedNFT.imageURL,
     },
+
     // validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
@@ -44,11 +69,9 @@ function EditNFT(props: Props) {
         imageURL: selectedNFT.imageURL,
         imageId: selectedNFT.imageId,
       };
-      fetchProductsFromDb();
-      console.log("hej");
-      console.log(updatedProduct);
-      formik.resetForm();
       editProduct(updatedProduct);
+      formik.resetForm();
+      fetchProductsFromDb();
       closeEditNftModal();
     },
   });
@@ -108,6 +131,31 @@ function EditNFT(props: Props) {
                   error={formik.touched.stock && Boolean(formik.errors.stock)}
                   helperText={formik.touched.stock && formik.errors.stock}
                 />
+                <TextField
+                  style={textFieldStyle}
+                  fullWidth
+                  autoComplete="off"
+                  id="categories"
+                  name="categories"
+                  label="Categories"
+                  value={formik.values.categories}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.categories &&
+                    Boolean(formik.errors.categories)
+                  }
+                  helperText={
+                    formik.touched.categories && formik.errors.categories
+                  }
+                />
+                {/* <Field as="select" id="categories" name="categories" multiple>
+                  <option value="628c92cd1c4eb76ecbc12f55">MeinerNFT</option>
+                  <option value="628c92c41c4eb76ecbc12f53">BakkumNFT</option>
+                  <option value="628c92bc1c4eb76ecbc12f50">NoccoNFT</option>
+                  <option value="628c92b71c4eb76ecbc12f4e">DCNFT</option>
+                  <option value="628c92af1c4eb76ecbc12f4c">PappaNFT</option>
+                  <option value="628c92aa1c4eb76ecbc12f4a">Formula1NFT</option>
+                </Field> */}
               </div>
               <Button
                 style={saveCloseEditButton}

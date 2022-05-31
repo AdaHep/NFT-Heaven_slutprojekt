@@ -1,8 +1,7 @@
 import { CSSProperties, useEffect } from "react";
 import EditNFT from "../../components/admin/editNFT";
 import { useProducts } from "../../components/context/ProductContext";
-import AdminProductCard from "./AdminProductCard";
-import { Product, Category } from "../../ProductInterface";
+import AdminProductCard from "../../components/AdminProductCard";
 
 function AdminProductPage() {
   const { fetchProductsFromDb, products, selectedNFT } = useProducts();
