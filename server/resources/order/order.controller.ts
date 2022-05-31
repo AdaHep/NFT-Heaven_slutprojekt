@@ -14,16 +14,16 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  req.body.products.map(async (product: Product) => {
-    let orderedProduct = await ProductModel.find(product.name);
-    if (!orderedProduct) res.status(404).json({ message: "Product not found" });
-    // if (orderedProduct.stock < product.quantity!) {
-    //   res.status(400).json({ message: "Not enough stock" });
-    // }
-    await ProductModel.findOneAndUpdate(product.name, {
-      $inc: { stock: -product.quantity! },
-    });
-  });
+  // req.body.products.map(async (product: Product) => {
+  //   let orderedProduct = await ProductModel.find(product.name);
+  //   if (!orderedProduct) res.status(404).json({ message: "Product not found" });
+  //   // if (orderedProduct.stock < product.quantity!) {
+  //   //   res.status(400).json({ message: "Not enough stock" });
+  //   // }
+  //   await ProductModel.findOneAndUpdate(product.name, {
+  //     $inc: { stock: -product.quantity! },
+  //   });
+  // });
 
   try {
     const order = new OrderModel({
