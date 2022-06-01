@@ -9,13 +9,11 @@ import AdminProductCard from "../../components/AdminProductCard";
 function AdminProductPage() {
    const { currentUser } = useContext(UserContext);
    const navigate = useNavigate();
-  const { fetchProductsFromDb, products } = useProducts();
+  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
 
   const redirect = () => {
     navigate('/')
   }
-
-  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
 
   useEffect(() => {
     fetchProductsFromDb();
