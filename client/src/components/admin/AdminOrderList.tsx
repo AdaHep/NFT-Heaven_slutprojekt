@@ -1,4 +1,5 @@
 import {
+  Divider,
   Paper,
   Table,
   TableBody,
@@ -8,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { CSSProperties, useEffect } from "react";
+import { useEffect } from "react";
 import OrderPage from "../../pages/Admin/OrderPage";
 import { useOrder } from "../context/OrderContext";
 
@@ -42,11 +43,11 @@ function AdminOrderList() {
         
         <TableBody>
           {orders.map((order) => {
-            <OrderPage key={order._id} order={order} />
+            return <OrderPage key={order._id} order={order}/>
           })} 
             </TableBody>
       </Table>
-      <button onClick={getOrders}>HÄMTA ORDERS</button>
+      
     </TableContainer>
   );
 }

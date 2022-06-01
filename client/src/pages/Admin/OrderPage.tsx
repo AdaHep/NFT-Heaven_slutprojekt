@@ -3,7 +3,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import {
   Box,
-  Button,
   Collapse,
   IconButton,
   Table,
@@ -13,25 +12,27 @@ import {
   TableRow,
 } from "@mui/material";
 import { Fragment, useState } from "react";
-import { Order, UserOrder} from "../../components/context/OrderContext";
+import { Order, UserOrder, Address} from "../../components/context/OrderContext";
 
 interface Props {
   order: Order;
 }
-
-interface UserProps {
-  userOrder: UserOrder;
+interface AddressProps {
+  address: Address
 }
+// interface UserProps {
+//   userOrder: UserOrder;
+// }
 
 
-function OrderPage(props: Props, userProps: UserProps) {
+function OrderPage(props: Props, addressProps: AddressProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset", backgroundColor: "rgb(48, 51, 57)", color: "white" } }}>
         <TableCell>
-          <IconButton
+          <IconButton style={{ color: "white" }}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
@@ -42,8 +43,8 @@ function OrderPage(props: Props, userProps: UserProps) {
         <TableCell component="th" scope="row">
           
         </TableCell>
-        <TableCell>{props.order._id}</TableCell>
-        <TableCell>{props.order.createdAt}</TableCell>
+        <TableCell style={{color: "#fff"}}>{props.order._id}</TableCell>
+        <TableCell style={{color: "#fff"}}>{props.order.createdAt}</TableCell>
       </TableRow>
       {/* All info om produkten som är klickad*/}
       <TableRow>
@@ -60,13 +61,13 @@ function OrderPage(props: Props, userProps: UserProps) {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" style={{ color: "white" }}>
-                      {props.order.orderId} 
+                     orderID
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      {props.order.products}
+                      {/* {props.order.products} */}
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      {props.order.quantity}
+                      {/* {props.order.quantity} */}
                     </TableCell>
                     <TableCell
                       align="right"
@@ -74,26 +75,36 @@ function OrderPage(props: Props, userProps: UserProps) {
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >{userProps.userOrder.customer}</TableCell>
+                    >{/* {addressProps.address.firstName} */}</TableCell>
                     <TableCell
                       align="right"
                       sx={{
                         paddingX: { md: "5rem" },
                       }}
                        style={{ color: "white" }}
-                    >{userProps.userOrder.deliveryAddress}</TableCell>
+                    >{/* {addressProps.address.lastName} */}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow >
                     <TableCell align="center"  style={{ color: "white" }}>
-                      {userProps.userOrder.isSent}</TableCell>
+                      {/* {addressProps.address.street} */}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                      {/* something here? */}
+                    {/*   {addressProps.address.zipcode} */}
+                    </TableCell>
+                    <TableCell
+                     style={{ color: "white" }}
+                    >
+                     {/*  {addressProps.address.city} */}
+                    </TableCell>
+                    <TableCell
+                     style={{ color: "white" }}
+                    >
+                    {/*   {addressProps.address.number} */}
                     </TableCell>
                   </TableRow>
                 </TableBody>

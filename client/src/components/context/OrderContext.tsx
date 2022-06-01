@@ -9,8 +9,8 @@ import { useUser } from "./LoginContext";
 
 
 export interface Order {
-  _id?: string; // är detta orderId??? Ska det inte vara samma sak som customer? Med ObjectId. Typ order: ObjectId
-  orderId: ObjectId; // Typ så? Funkade inte i order page la in ID istället för orderId
+  _id?: string; 
+  orderId: ObjectId; 
   customer: ObjectId;
   products: Product[];
   createdAt: Date;
@@ -74,7 +74,7 @@ const OrderProvider: FC = (props: any) => {
       })
       .catch((err) => {
         console.log(err);
-        console.log('test')
+        console.log('failed to fetch orders')
       });
       };
 
