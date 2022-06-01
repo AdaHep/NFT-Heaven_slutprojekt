@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import EditNFT from "../../components/admin/editNFT";
 import { UserContext } from "../../components/context/LoginContext";
 import { useProducts } from "../../components/context/ProductContext";
-import AdminProductCard from "./AdminProductCard";
+import AdminProductCard from "../../components/AdminProductCard";
 
 function AdminProductPage() {
    const { currentUser } = useContext(UserContext);
@@ -14,6 +14,9 @@ function AdminProductPage() {
   const redirect = () => {
     navigate('/')
   }
+
+  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
+
   useEffect(() => {
     fetchProductsFromDb();
   }, []);
@@ -22,7 +25,7 @@ function AdminProductPage() {
     <div style={rootStyle}>
       {currentUser?.isAdmin ? (
       <div style={itemContainer}>
-        <EditNFT />
+        <EditNFT product={selectedNFT} />
         {products.map((product, index) => (
           <AdminProductCard product={product} key={index} />
         ))}

@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { CSSProperties, useEffect } from "react";
-import { Product, Category } from "../../ProductInterface";
+import { Product, Category } from "../ProductInterface";
 import { Button } from "@mui/material";
 import { style } from "@mui/system";
-import { useProducts } from "../../components/context/ProductContext";
+import { useProducts } from "./context/ProductContext";
 
 interface Props {
   product: Product;

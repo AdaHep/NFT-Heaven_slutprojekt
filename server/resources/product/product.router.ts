@@ -6,13 +6,17 @@ import {
   updateProductStock,
   addNewProduct,
   getProductsInCategory,
+  updateProduct,
 } from "./product.controller";
 
 export const productRouter = express
   .Router()
   .post("/product", addNewProduct)
-  .get("/product/:id", getOneProduct)
+  // Getting products
   .get("/product", /* adminSecure, */ getAllProducts)
-  // not sure how to do this one
+  .get("/product/:id", getOneProduct)
   .get("/product/category/:id", /* adminSecure, */ getProductsInCategory) //
-  .put("/product/:id", updateProductStock);
+
+  //Updating products
+  .put("/product/:id", updateProductStock)
+  .put("/product/:id", updateProduct);
