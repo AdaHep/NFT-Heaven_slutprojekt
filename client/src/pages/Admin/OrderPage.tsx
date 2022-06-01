@@ -64,9 +64,9 @@ function OrderPage(props: Props, addressProps: AddressProps) {
                     
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      {props.order.products.map((product) => (e
+                      {props.order.products.map((product) => (
                         <TableRow key={product.name}>
-                          <TableCell style={{ position: "absolut" color: "white" }}>
+                          <TableCell style={{ color: "white", position: "absolute"}}>
                            PRODUCT: {product.name}
                             </TableCell>
                         </TableRow>    
