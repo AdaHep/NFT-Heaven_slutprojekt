@@ -78,6 +78,8 @@ const OrderProvider: FC = (props: any) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
 
+  const { cart, totalPrice } = useCart();
+
   const [quantity, setQuantity] = useState<Product>();
 
   const getOrders = async () => {
@@ -93,14 +95,25 @@ const OrderProvider: FC = (props: any) => {
       });
   };
 
+  // const createOrder = async () => {
+  //   const order = {
+  //     purchaseList,
+  //     purchaseTotal,
+  //     deliveryAddress,
+  //   };
+  //   let newOrder = await makeReq("/api/orders", "POST", order);
+  //   setOrders(newOrder);
+  // };
+
   const createOrder = async () => {
     const order = {
-      purchaseList,
-      purchaseTotal,
-      deliveryAddress,
+      products: cart,
     };
-    let newOrder = await makeReq("/api/orders", "POST", order);
-    setOrders(newOrder);
+
+
+    try {
+      const sendTo
+    }
   };
   return (
     <OrderContext.Provider
