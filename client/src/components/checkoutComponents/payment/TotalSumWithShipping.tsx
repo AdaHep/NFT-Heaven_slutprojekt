@@ -15,13 +15,13 @@ function TotalSumWithShipping(props: deliveryItem) {
   const { totalPrice } = useCart();
   let totalSumWithShipping = 0;
 
-  if (deliveryInfo.deliveryMethod === "DHL agent") {
+  if (deliveryInfo.deliveryMethod.title === "DHL agent") {
     totalSumWithShipping = totalPrice + 2;
-  } else if (deliveryInfo.deliveryMethod === "DHL express") {
+  } else if (deliveryInfo.deliveryMethod.title === "DHL express") {
     totalSumWithShipping = totalPrice + 6;
-  } else if (deliveryInfo.deliveryMethod === "Postnord home delivery") {
+  } else if (deliveryInfo.deliveryMethod.title === "Postnord home delivery") {
     totalSumWithShipping = totalPrice + 4;
-  } else if (deliveryInfo.deliveryMethod === "Postnord agent") {
+  } else if (deliveryInfo.deliveryMethod.title === "Postnord agent") {
     totalSumWithShipping = totalPrice + 0;
   }
   props.setFinalTotalSum(totalSumWithShipping);

@@ -9,17 +9,16 @@ export const getAllDeliveryOptions = async (req: Request, res: Response) => {
   res.status(200).json(categories);
 };
 
-// Get ONE delivery
+// Get ONE delivery ---- WORKS!
 export const getOneDeliveryOption = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
-    const oneDeliveryOption = await deliveryModel.findById(id);
-    console.log(oneDeliveryOption);
-    res.status(200).json(oneDeliveryOption);
+    const DeliveryOption = await deliveryModel.findById(req.params.id);
+    console.log(DeliveryOption);
+    res.status(200).json(DeliveryOption);
   } catch (err) {
     next(err);
   }
@@ -35,7 +34,6 @@ export const addDeliveryOption = async (
   try {
     const deliveryOption = new deliveryModel(req.body);
     await deliveryOption.save();
-    console.log(deliveryOption);
     res.status(200).json(deliveryOption);
   } catch (err) {
     next(err);

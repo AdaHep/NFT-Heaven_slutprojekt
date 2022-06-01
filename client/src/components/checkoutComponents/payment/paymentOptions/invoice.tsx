@@ -9,7 +9,7 @@ export interface FormValues {
 }
 
 function Invoice() {
-  const { deliveryInfo, setDeliveryInfo } = useOrder();
+  const { deliveryInfo, setDeliveryInfo, createOrder } = useOrder();
   const navigate = useNavigate();
   const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
     useCart();
@@ -19,6 +19,7 @@ function Invoice() {
     setDeliveryInfo(newObject);
     addPurchaseList(cart);
     newPurchaseTotal(totalPrice);
+    createOrder();
     clearCart();
     navigate("/PurchaseComplete");
   };

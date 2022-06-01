@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { useOrder } from "../components/context/OrderContext";
 import { useProducts } from "../components/context/ProductContext";
 // import CategoryCard from "../components/CategoryCard";
 

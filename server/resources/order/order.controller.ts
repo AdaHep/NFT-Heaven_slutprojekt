@@ -18,27 +18,16 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  // req.body.products.map(async (product: Product) => {
-  //   let orderedProduct = await ProductModel.find(product.name);
-  //   if (!orderedProduct) res.status(404).json({ message: "Product not found" });
-  //   // if (orderedProduct.stock < product.quantity!) {
-  //   //   res.status(400).json({ message: "Not enough stock" });
-  //   // }
-  //   await ProductModel.findOneAndUpdate(product.name, {
-  //     $inc: { stock: -product.quantity! },
-  //   });
-  // });
+  const order = new OrderModel({
+    customer: req.session?.user.id,
+    products: req.body.products,
+    deliveryAddress: req.body.deliveryAddress,
+    deliveryMethod: req.body.deliveryMethod,
+    paymentMethod: req.body.paymentMethod,
+  });
 
-  try {
-    const order = new OrderModel({
-      ...req.body,
-      customer: req.session?.user,
-    });
-    await order.save();
-    return res.status(201).json(order);
-  } catch (err) {
-    next(err);
-  }
+  await order.save();
+  res.status(200).json(order);
 };
 export const updateOrder = async (
   req: Request<{ id: string }>,

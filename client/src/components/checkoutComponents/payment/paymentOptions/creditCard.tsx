@@ -71,7 +71,7 @@ function CreditCard(props: Props) {
       props.setPaymentModal(true);
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
-      //createOrder(values);
+      createOrder();
       clearCart();
       closeModal();
     },

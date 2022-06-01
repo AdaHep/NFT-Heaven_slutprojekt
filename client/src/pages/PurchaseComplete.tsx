@@ -5,9 +5,9 @@ import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryI
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
 import { useCart } from "../components/context/CartContext";
 import { useOrder } from "../components/context/OrderContext";
-import { useProducts } from "../components/context/ProductContext";
-import { NftItem } from "../data/collections/collection";
-import { DeliveryDataInfo } from "../data/collections/deliveryData";
+// import { useProducts } from "../components/context/ProductContext";
+// import { NftItem } from "../data/collections/collection";
+// import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import { Product } from "../ProductInterface";
 
 interface Props {
@@ -20,11 +20,11 @@ function PurchaseComplete(props: Props) {
 
   let totalSumWithShipping = 0;
 
-  if (deliveryInfo.deliveryMethod === "DHL agent") {
+  if (deliveryInfo.deliveryMethod.title === "DHL agent") {
     totalSumWithShipping = purchaseTotal + 2;
-  } else if (deliveryInfo.deliveryMethod === "DHL express") {
+  } else if (deliveryInfo.deliveryMethod.title === "DHL express") {
     totalSumWithShipping = purchaseTotal + 6;
-  } else if (deliveryInfo.deliveryMethod === "Postnord home delivery") {
+  } else if (deliveryInfo.deliveryMethod.title === "Postnord home delivery") {
     totalSumWithShipping = purchaseTotal + 4;
   }
 

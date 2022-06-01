@@ -28,7 +28,7 @@ const validationSchema = yup.object({
 });
 
 function Swish(props: Props) {
-  const { deliveryInfo, setDeliveryInfo } = useOrder();
+  const { deliveryInfo, setDeliveryInfo, createOrder } = useOrder();
   const navigate = useNavigate();
   const { addPurchaseList, cart, clearCart, newPurchaseTotal, totalPrice } =
     useCart();
@@ -51,6 +51,8 @@ function Swish(props: Props) {
       closeModal();
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
+      createOrder();
+
       clearCart();
     },
   });

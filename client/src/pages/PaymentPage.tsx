@@ -16,7 +16,6 @@ interface Props {
 
 function PaymentPage(props: Props) {
   const { deliveryInfo, setDeliveryInfo } = useOrder();
-  const { createOrder } = useOrder();
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
   };
@@ -26,13 +25,10 @@ function PaymentPage(props: Props) {
     },
     onSubmit: (values) => {
       // navigate("/PaymentPage");
-      createOrder();
     },
   });
   const [paymentOption, setPaymentOption] = useState("");
   const [finalTotalSum, setFinalTotalSum] = useState(1);
-
-  console.log(deliveryInfo);
 
   return (
     <div style={rootStyle}>

@@ -106,15 +106,43 @@ const OrderProvider: FC = (props: any) => {
   // };
 
   const createOrder = async () => {
-    const order = {
-      products: cart,
+    const address = {
+      firstName: deliveryInfo.firstName,
+      lastName: deliveryInfo.lastName,
+      number: deliveryInfo.number,
+      street: deliveryInfo.address,
+      zipcode: deliveryInfo.zipCode,
+      city: deliveryInfo.city,
     };
 
+    const deliveryMethod = {
+      title: deliveryInfo.deliveryMethod.title,
+      price: deliveryInfo.deliveryMethod.price,
+      description: deliveryInfo.deliveryMethod.description,
+      expectedDeliveryTime: deliveryInfo.deliveryMethod.expectedDeliveryTime,
+      imageId: deliveryInfo.deliveryMethod.imageId,
+    };
+    const paymentMethod = deliveryInfo.paymentMethod;
+
+    const order = {
+      products: cart,
+      deliveryAddress: address,
+      deliveryMethod: deliveryMethod,
+      paymentMethod: paymentMethod,
+    };
+
+    console.log(order);
 
     try {
-      const sendTo
+      let sendToDB = await makeReq<Order>(`/api/order`, "POST", order);
+      console.log(sendToDB);
+    } catch (err) {
+      return console.log(err);
     }
+
+    createOrder();
   };
+
   return (
     <OrderContext.Provider
       value={{

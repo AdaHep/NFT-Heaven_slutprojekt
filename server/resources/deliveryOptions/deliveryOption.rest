@@ -4,8 +4,7 @@ GET http://localhost:5500/api/delivery
 ###
 
 // Get one deliveryOptions
-GET http://localhost:5500/api/delivery/6290bd80a4916532e802bf27
-
+GET http://localhost:5500/api/delivery/6290a0ec5cd89c155e260fea
 ###
 
 // Create new delivery option
