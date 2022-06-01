@@ -7,15 +7,13 @@ import { useProducts } from "../../components/context/ProductContext";
 import AdminProductCard from "../../components/AdminProductCard";
 
 function AdminProductPage() {
-   const { currentUser } = useContext(UserContext);
-   const navigate = useNavigate();
-  const { fetchProductsFromDb, products } = useProducts();
+  const { currentUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
 
   const redirect = () => {
-    navigate('/')
-  }
-
-  const { fetchProductsFromDb, products, selectedNFT } = useProducts();
+    navigate("/");
+  };
 
   useEffect(() => {
     fetchProductsFromDb();
@@ -24,17 +22,17 @@ function AdminProductPage() {
   return (
     <div style={rootStyle}>
       {currentUser?.isAdmin ? (
-      <div style={itemContainer}>
-        <EditNFT product={selectedNFT} />
-        {products.map((product, index) => (
-          <AdminProductCard product={product} key={index} />
-        ))}
-      </div>
+        <div style={itemContainer}>
+          <EditNFT product={selectedNFT} />
+          {products.map((product, index) => (
+            <AdminProductCard product={product} key={index} />
+          ))}
+        </div>
       ) : (
         <>
           <h2>You do not have access to this page</h2>
           <Button onClick={redirect}>Take me back</Button>
-          </>
+        </>
       )}
     </div>
   );

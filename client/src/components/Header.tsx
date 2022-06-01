@@ -36,6 +36,16 @@ const Header = (headerProps: any) => {
           </Link>
         </div>
         <div style={headerDiv3}>
+          <Button style={headerCartLink} onClick={openModal}>
+            {cart.reduce((sum, item) => sum + item.quantity, 0) !== 0 && (
+              <div style={itemCountBadge}>
+                <p style={countStyle}>
+                  {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                </p>
+              </div>
+            )}
+            <FontAwesomeIcon icon={faShoppingCart} />
+          </Button>
           {currentUser?.isAdmin ? (
             <Link to="admin">
               <IconButton>
@@ -45,18 +55,7 @@ const Header = (headerProps: any) => {
               </IconButton>
             </Link>
           ) : (
-            <>
-              <Button style={headerCartLink} onClick={openModal}>
-                {cart.reduce((sum, item) => sum + item.quantity, 0) !== 0 && (
-                  <div style={itemCountBadge}>
-                    <p style={countStyle}>
-                      {cart.reduce((sum, item) => sum + item.quantity, 0)}
-                    </p>
-                  </div>
-                )}
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </Button>
-            </>
+            <></>
           )}
         </div>
         {!currentUser ? (
@@ -140,7 +139,7 @@ const StyledButton: CSSProperties = {
 
 const itemCountBadge: CSSProperties = {
   position: "absolute",
-  top: "-.5rem",
+  top: ".5rem",
   right: "-.5rem",
   width: "1.5rem",
   height: "1.5rem",

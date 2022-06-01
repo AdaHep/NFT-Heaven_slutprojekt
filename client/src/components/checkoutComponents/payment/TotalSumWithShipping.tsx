@@ -3,24 +3,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties } from "react";
 import { DeliveryDataInfo } from "../../../data/collections/deliveryData";
 import { useCart } from "../../context/CartContext";
+import { useOrder } from "../../context/OrderContext";
 
 interface deliveryItem {
-  deliveryInfo: DeliveryDataInfo;
   finalTotalSum: number;
   setFinalTotalSum: any;
 }
 
 function TotalSumWithShipping(props: deliveryItem) {
+  const { deliveryInfo } = useOrder();
   const { totalPrice } = useCart();
   let totalSumWithShipping = 0;
 
-  if (props.deliveryInfo.deliveryMethod === "DHL agent") {
+  if (deliveryInfo.deliveryMethod === "DHL agent") {
     totalSumWithShipping = totalPrice + 2;
-  } else if (props.deliveryInfo.deliveryMethod === "DHL express") {
+  } else if (deliveryInfo.deliveryMethod === "DHL express") {
     totalSumWithShipping = totalPrice + 6;
-  } else if (props.deliveryInfo.deliveryMethod === "Postnord home delivery") {
+  } else if (deliveryInfo.deliveryMethod === "Postnord home delivery") {
     totalSumWithShipping = totalPrice + 4;
-  } else if (props.deliveryInfo.deliveryMethod === "Postnord agent") {
+  } else if (deliveryInfo.deliveryMethod === "Postnord agent") {
     totalSumWithShipping = totalPrice + 0;
   }
   props.setFinalTotalSum(totalSumWithShipping);
@@ -29,12 +30,10 @@ function TotalSumWithShipping(props: deliveryItem) {
     <div>
       <div style={totalPriceContainer}>
         <p style={totalPriceText}>
+          <div>Total price with shipping:</div>
           <div>
-          Total price with shipping:  
-          </div>
-          <div>
-          <FontAwesomeIcon icon={faCoins} />
-          &nbsp;{totalSumWithShipping}
+            <FontAwesomeIcon icon={faCoins} />
+            &nbsp;{totalSumWithShipping}
           </div>
         </p>
       </div>
@@ -53,9 +52,9 @@ const totalPriceContainer: CSSProperties = {
 const totalPriceText: CSSProperties = {
   marginRight: ".1rem",
   fontSize: "1.2rem",
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  gap: '1rem'
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexWrap: "wrap",
+  gap: "1rem",
 };

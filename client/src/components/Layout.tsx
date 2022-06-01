@@ -24,7 +24,7 @@ import OrderProvider from "./context/OrderContext";
 function Layout() {
   const [modalState, setModalState] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject); // TODO: move to order context or remove
+  // const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject); // TODO: move to order context or remove
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
 
   return (
@@ -33,77 +33,70 @@ function Layout() {
         <CartProvider>
           <ProductProvider>
             <OrderProvider>
-            <BrowserRouter>
-              <Header
-                modalState={modalState}
-                setModalState={setModalState}
-                searchBarFocused={searchFocused}
-                searchBarFocusOut={() => setSearchFocused(false)}
-              />
-              <CartModal
-                modalState={modalState}
-                setModalState={setModalState}
-              />
-              <div style={rootStyle}>
-                <Routes>
-                  <Route path="/" element={<StartPage />} />
-                  <Route
-                    path="/products/category/:category"
-                    element={<CategoryPages />}
-                  />
-                  <Route path="/LogInPage" element={<LogInPage />} />
-                  <Route path="/products" element={<ProductPage />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/adminOrderPage" element={<AdminOrderPage />} />
-                  <Route
-                    path="/adminProductPage"
-                    element={<AdminProductPage />}
-                  />
+              <BrowserRouter>
+                <Header
+                  modalState={modalState}
+                  setModalState={setModalState}
+                  searchBarFocused={searchFocused}
+                  searchBarFocusOut={() => setSearchFocused(false)}
+                />
+                <CartModal
+                  modalState={modalState}
+                  setModalState={setModalState}
+                />
+                <div style={rootStyle}>
+                  <Routes>
+                    <Route path="/" element={<StartPage />} />
+                    <Route
+                      path="/products/category/:category"
+                      element={<CategoryPages />}
+                    />
+                    <Route path="/LogInPage" element={<LogInPage />} />
+                    <Route path="/products" element={<ProductPage />} />
+                    <Route path="/admin" element={<AdminPage />} />
+                    <Route
+                      path="/adminOrderPage"
+                      element={<AdminOrderPage />}
+                    />
+                    <Route
+                      path="/adminProductPage"
+                      element={<AdminProductPage />}
+                    />
 
-                  <Route path="/LogInPage" element={<LogInPage />} />
+                    <Route path="/LogInPage" element={<LogInPage />} />
 
-                  <Route
-                    path="/"
-                    element={
-                      <StartPage focusHeader={() => setSearchFocused(true)} />
-                    }
-                  />
-                  <Route path="/Checkout" element={<CheckoutPage />} />
-                  <Route
-                    path="/CheckoutDetails"
-                    element={
-                      <CheckoutPageDetails
-                        deliveryInfo={deliveryInfo}
-                        setDeliveryInfo={setDeliveryInfo}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/PaymentPage"
-                    element={
-                      <PaymentPage
-                        deliveryInfo={deliveryInfo}
-                        setDeliveryInfo={setDeliveryInfo}
-                        finalTotalSum={finalTotalSum}
-                        setFinalTotalSum={setFinalTotalSum}
-                      />
-                    }
-                  />
+                    <Route
+                      path="/"
+                      element={
+                        <StartPage focusHeader={() => setSearchFocused(true)} />
+                      }
+                    />
+                    <Route path="/Checkout" element={<CheckoutPage />} />
+                    <Route
+                      path="/CheckoutDetails"
+                      element={<CheckoutPageDetails />}
+                    />
+                    <Route
+                      path="/PaymentPage"
+                      element={
+                        <PaymentPage
+                          finalTotalSum={finalTotalSum}
+                          setFinalTotalSum={setFinalTotalSum}
+                        />
+                      }
+                    />
 
-                  <Route
-                    path="/PurchaseComplete"
-                    element={
-                      <PurchaseComplete
-                        deliveryInfo={deliveryInfo}
-                        finalTotalSum={finalTotalSum}
-                      />
-                    }
-                  />
-                </Routes>
-                <Footer />
-              </div>
-              <ToastContainer />
-            </BrowserRouter>
+                    <Route
+                      path="/PurchaseComplete"
+                      element={
+                        <PurchaseComplete finalTotalSum={finalTotalSum} />
+                      }
+                    />
+                  </Routes>
+                  <Footer />
+                </div>
+                <ToastContainer />
+              </BrowserRouter>
             </OrderProvider>
           </ProductProvider>
         </CartProvider>

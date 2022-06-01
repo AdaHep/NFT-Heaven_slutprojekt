@@ -8,8 +8,6 @@ import TotalSumWithShipping from "../components/checkoutComponents/payment/Total
 import { useOrder } from "../components/context/OrderContext";
 
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   finalTotalSum: number;
   setFinalTotalSum: any;
 }
@@ -17,6 +15,7 @@ interface Props {
 // const navigate = useNavigate();
 
 function PaymentPage(props: Props) {
+  const { deliveryInfo, setDeliveryInfo } = useOrder();
   const { createOrder } = useOrder();
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
@@ -27,22 +26,23 @@ function PaymentPage(props: Props) {
     },
     onSubmit: (values) => {
       // navigate("/PaymentPage");
-      createOrder()
+      createOrder();
     },
   });
   const [paymentOption, setPaymentOption] = useState("");
   const [finalTotalSum, setFinalTotalSum] = useState(1);
+
+  console.log(deliveryInfo);
 
   return (
     <div style={rootStyle}>
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <div>
-          <DeliveryInfoTable deliveryInfo={props.deliveryInfo} />
+          <DeliveryInfoTable />
         </div>
         <div>
           <TotalSumWithShipping
-            deliveryInfo={props.deliveryInfo}
             finalTotalSum={finalTotalSum}
             setFinalTotalSum={setFinalTotalSum}
           />
@@ -66,11 +66,7 @@ function PaymentPage(props: Props) {
             </FormControl>
           </Box>
         </form>
-        <PaymentBox
-          paymentOption={paymentOption}
-          deliveryInfo={props.deliveryInfo}
-          setDeliveryInfo={props.setDeliveryInfo}
-        />
+        <PaymentBox paymentOption={paymentOption} />
       </div>
     </div>
   );
@@ -104,4 +100,3 @@ const headlineStyle: CSSProperties = {
 const paymentDetailsTextStyle: CSSProperties = { textAlign: "center" };
 
 const boxStyle: CSSProperties = { minWidth: 250 };
-

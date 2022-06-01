@@ -22,18 +22,14 @@ export interface FormValues {
     lastName: string;
     email: string;
     number: string;
-  },
+  };
   deliveryAddress: {
     street: string;
     city: string;
     zipCode: number;
-  },
+  };
   deliveryMethod: string;
   paymentMethod: string;
-}
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
 }
 
 const validationSchema = yup.object({
@@ -47,13 +43,13 @@ const validationSchema = yup.object({
   zipCode: yup.number().required("Please enter zipcode").min(4),
   city: yup.string().required("Please enter your city").min(2),
   address: yup.string().required("Please enter your adress").min(8),
-  country: yup.string().required("Please enter your country").min(2),
 });
 
-function CheckoutForm(props: Props) {
-  const { createOrder } = useOrder();
+function CheckoutForm() {
   const { currentUser } = useUser();
   const [deliveryOption, setDeliveryOption] = useState("");
+  const { deliveryInfo, setDeliveryInfo } = useOrder();
+
   const handleChange = (event: any) => {
     setDeliveryOption(event.target.value);
   };
@@ -70,22 +66,19 @@ function CheckoutForm(props: Props) {
       address: "",
       zipCode: "",
       city: "",
-      country: "",
       paymentMethod: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       values.deliveryMethod = deliveryOption;
-      createOrder();
-      // props.setDeliveryInfo(values);
-      console.log(values);
+      setDeliveryInfo(values);
+
       // kolla om användaren är inloggad annars navigera till sign in
       if (!currentUser) {
         navigate("/login");
       } else {
         navigate("/PaymentPage");
       }
-       // TODO: vänta med att navigera tills det att order är lagd.
     },
   });
   return (
@@ -175,17 +168,6 @@ function CheckoutForm(props: Props) {
                 onChange={formik.handleChange}
                 error={formik.touched.city && Boolean(formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city}
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                id="country"
-                name="country"
-                label="Country"
-                value={formik.values.country}
-                onChange={formik.handleChange}
-                error={formik.touched.country && Boolean(formik.errors.country)}
-                helperText={formik.touched.country && formik.errors.country}
               />
             </div>
 

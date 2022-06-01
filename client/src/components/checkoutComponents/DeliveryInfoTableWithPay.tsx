@@ -1,11 +1,8 @@
-import { CSSProperties } from "react";
-import { DeliveryDataInfo } from "../../data/collections/deliveryData";
+import { CSSProperties, Props } from "react";
+import { useOrder } from "../context/OrderContext";
 
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-}
-
-function DeliveryInfoTable(props: Props) {
+function DeliveryInfoTable() {
+  const { deliveryInfo, setDeliveryInfo } = useOrder();
   return (
     <div>
       <table style={tableStyle}>
@@ -13,40 +10,36 @@ function DeliveryInfoTable(props: Props) {
           <tr>
             <td>Name</td>
             <td style={tableDataStyle}>
-              {props.deliveryInfo.firstName + " " + props.deliveryInfo.lastName}
+              {deliveryInfo.firstName + " " + deliveryInfo.lastName}
             </td>
           </tr>
           <tr>
             <td>Email</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.email}</td>
+            <td style={tableDataStyle}>{deliveryInfo.email}</td>
           </tr>
           <tr>
             <td>Phone#</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.number}</td>
+            <td style={tableDataStyle}>{deliveryInfo.number}</td>
           </tr>
           <tr>
             <td>Address</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.address}</td>
+            <td style={tableDataStyle}>{deliveryInfo.address}</td>
           </tr>
           <tr>
             <td>Zipcode</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.zipCode}</td>
+            <td style={tableDataStyle}>{deliveryInfo.zipCode}</td>
           </tr>
           <tr>
             <td>City</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.city}</td>
-          </tr>
-          <tr>
-            <td>Country</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.country}</td>
+            <td style={tableDataStyle}>{deliveryInfo.city}</td>
           </tr>
           <tr>
             <td>Delivery</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.deliveryMethod}</td>
+            <td style={tableDataStyle}>{deliveryInfo.deliveryMethod}</td>
           </tr>
           <tr>
             <td>Payment method</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.paymentMethod}</td>
+            <td style={tableDataStyle}>{deliveryInfo.paymentMethod}</td>
           </tr>
         </tbody>
       </table>
