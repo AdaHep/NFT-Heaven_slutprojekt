@@ -16,7 +16,8 @@ export interface Order {
   createdAt: Date;
   updatedAt: Date;
   quantity?: number;
-  deliveryOption?: DeliveryDataInfo;
+  deliveryOption?: string;
+  deliveryAddress?: Address;
 }
 
 export interface UserOrder {

@@ -61,50 +61,40 @@ function OrderPage(props: Props, addressProps: AddressProps) {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" style={{ color: "white" }}>
-                     orderID
+                    
                     </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
-                      {/* {props.order.products} */}
+                      {props.order.products.map((product) => (e
+                        <TableRow key={product.name}>
+                          <TableCell style={{ position: "absolut" color: "white" }}>
+                           PRODUCT: {product.name}
+                            </TableCell>
+                        </TableRow>    
+                      ))}
                     </TableCell>
-                    <TableCell align="center" style={{ color: "white" }}>
-                      {/* {props.order.quantity} */}
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{
-                        paddingX: { md: "5rem" },
-                      }}
-                       style={{ color: "white" }}
-                    >{/* {addressProps.address.firstName} */}</TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{
-                        paddingX: { md: "5rem" },
-                      }}
-                       style={{ color: "white" }}
-                    >{/* {addressProps.address.lastName} */}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow >
                     <TableCell align="center"  style={{ color: "white" }}>
-                      {/* {addressProps.address.street} */}</TableCell>
+                    NAME:{props.order.deliveryAddress?.firstName} {props.order.deliveryAddress?.lastName}</TableCell>
                   </TableRow>
                   <TableRow>
+                    
                     <TableCell
                      style={{ color: "white" }}
                     >
-                    {/*   {addressProps.address.zipcode} */}
+                     STREET:{props.order.deliveryAddress?.street}
                     </TableCell>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                     {/*  {addressProps.address.city} */}
+                    CITY:{props.order.deliveryAddress?.city}
                     </TableCell>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                    {/*   {addressProps.address.number} */}
+                    ZIPCODE:{props.order.deliveryAddress?.zipcode}
                     </TableCell>
                   </TableRow>
                 </TableBody>
