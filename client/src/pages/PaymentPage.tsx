@@ -37,12 +37,12 @@ function PaymentPage(props: Props) {
         <div>
           <DeliveryInfoTable />
         </div>
-        <div>
+        {/* <div>
           <TotalSumWithShipping
             finalTotalSum={finalTotalSum}
             setFinalTotalSum={setFinalTotalSum}
           />
-        </div>
+        </div> */}
         <form onSubmit={formik.handleSubmit}>
           <h2 style={paymentDetailsTextStyle}>Payment details</h2>
           <Box style={boxStyle}>

@@ -8,11 +8,11 @@ import {
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
-import DeliveryBox from "./shipping/deliveryBox";
+// import DeliveryBox from "./shipping/deliveryBox";
 import { useOrder } from "../context/OrderContext";
 import { useUser } from "../context/LoginContext";
 import { DeliveryOption, useDelivery } from "../context/DeliveryOptionContext";
@@ -33,9 +33,16 @@ const validationSchema = yup.object({
 function CheckoutForm() {
   const { currentUser } = useUser();
   const { deliveryInfo, setDeliveryInfo } = useOrder();
-  const { deliveryOptions, setSelectedDeliveryOption, selectedDeliveryOption } =
-    useDelivery();
+  const {
+    deliveryOptions,
+    setSelectedDeliveryOption,
+    selectedDeliveryOption,
+    getDeliveryOptions,
+  } = useDelivery();
 
+  useEffect(() => {
+    getDeliveryOptions();
+  }, []);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -44,7 +51,6 @@ function CheckoutForm() {
       lastName: "",
       email: "",
       number: "",
-      deliveryMethod: {},
       address: "",
       zipCode: "",
       city: "",
@@ -52,7 +58,6 @@ function CheckoutForm() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      setSelectedDeliveryOption(values.deliveryMethod);
       setDeliveryInfo(values);
 
       // kolla om användaren är inloggad annars navigera till sign in
@@ -168,6 +173,7 @@ function CheckoutForm() {
                   label="Delivery Option"
                   onChange={handleSelectedDelivery}
                   required
+                  defaultValue={""}
                 >
                   {deliveryOptions.map((deliveryOption: DeliveryOption) => (
                     <MenuItem
@@ -196,9 +202,6 @@ function CheckoutForm() {
                   ))}
                 </Select>
               </FormControl>
-              {/* <div style={deliveryBox}>
-                <DeliveryBox deliveryOption={deliveryOption} />
-              </div> */}
             </Box>
 
             <Button
@@ -279,6 +282,6 @@ const menuItemStyle: CSSProperties = {
   // width: "10rem",
   gap: ".5rem",
   flexWrap: "wrap",
-  background: "rgb(48, 51, 57)",
-  color: "white",
+  // background: "rgb(48, 51, 57)",
+  // color: "white",
 };

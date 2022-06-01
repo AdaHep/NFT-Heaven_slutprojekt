@@ -49,10 +49,6 @@ export const DeliveryOptionProvider: FC = (props) => {
       });
   };
 
-  useEffect(() => {
-    getDeliveryOptions();
-  }, []);
-
   return (
     <DeliveryOptionContext.Provider
       value={{

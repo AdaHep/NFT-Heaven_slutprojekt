@@ -2,13 +2,21 @@ import { CSSProperties, useEffect } from "react";
 import { useDelivery } from "../components/context/DeliveryOptionContext";
 import { useOrder } from "../components/context/OrderContext";
 import { useProducts } from "../components/context/ProductContext";
+import ProductCard from "../components/ProductCard";
+import { Product } from "../ProductInterface";
 
 // import CategoryCard from "../components/CategoryCard";
 
 function StartPage(startPageProps: any) {
-  const { products } = useProducts();
+  const { products, fetchProductsFromDb } = useProducts();
 
-  // let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
+  useEffect(() => {
+    fetchProductsFromDb();
+  }, []);
+
+  let randomList = products
+    .sort(() => Math.random() - Math.random())
+    .slice(0, 6);
 
   return (
     <div style={rootStyle}>
@@ -23,31 +31,15 @@ function StartPage(startPageProps: any) {
             handpicked the best NFTS for you! Enjoy!
           </p>
         </div>
-
-        {/* <div style={hottestStyle}>
-          <div style={hottestTitle}>
-            <h1>HOTTEST COLLECTIONS RIGHT NOW</h1>
-          </div>
-          <div style={flexProducts}>
-            {products.map((collection, index) => (
-              <CategoryCard key={index} collectionCard={collection} />
-            ))}
-          </div>
-        </div> */}
         <div style={hottestStyle}>
           <div style={hottestTitle}>
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
           </div>
-          {/* <div style={flexItems}>
-            {products.map((collection, index) => (
-              <CategoryCard
-                key={index}
-                nftCard={collection.NFTS[0]}
-                nftHeader={collection?.header}
-                collectionName={collection?.name}
-              />
+          <div style={flexItems}>
+            {randomList.map((product, index) => (
+              <ProductCard product={product} key={index} />
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
@@ -89,9 +81,9 @@ const flexProducts: CSSProperties = {
 const flexItems: CSSProperties = {
   display: "flex",
   flexWrap: "wrap",
-  gap: "2rem",
   justifyContent: "space-evenly",
   margin: "1rem 1rem",
+  width: "75%",
 };
 
 const startPageWelcomeText: CSSProperties = {
