@@ -4,6 +4,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import {
   Box,
   Collapse,
+  Container,
   IconButton,
   Table,
   TableBody,
@@ -29,10 +30,10 @@ function OrderPage(props: Props, addressProps: AddressProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset", backgroundColor: "rgb(48, 51, 57)", color: "white" } }}>
+    <Container sx={{ minWidth: "360px", maxWidht: "800px", padding: "0", margin: "0" }}>
+      <TableRow sx={{ "& > *": { borderBottom: "unset", color: "white" } }}>
         <TableCell>
-          <IconButton style={{ color: "white" }}
+          <IconButton style={{ color: "white", width: "1rem" }}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
@@ -40,32 +41,29 @@ function OrderPage(props: Props, addressProps: AddressProps) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          
-        </TableCell>
-        <TableCell style={{color: "#fff"}}>{props.order._id}</TableCell>
-        <TableCell style={{color: "#fff"}}>{props.order.createdAt}</TableCell>
+        <TableCell style={{color: "#fff", position: "absolute", left: "10%", border: "none"}}>
+          {props.order._id}</TableCell>
+        <TableCell style={{color: "#fff", position: "absolute", right: "8%", border: "none"}}>
+         {props.order.createdAt.toString().substring(0,10)}</TableCell>
       </TableRow >
       {/* All info om produkten som är klickad*/}
       <TableRow>
         <TableCell
           style={{
-            padding: 0,
-            backgroundColor: "rgb(48, 51, 57)",
+            padding: 0
           }}
-          colSpan={6}
+          colSpan={4}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box>
-              <Table size="small" aria-label="purchases" style={{ border: "none"}}>
+              <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    
                     <TableCell align="center" style={{ color: "white" }}>
                       {props.order.products.map((product) => (
                         <TableRow key={product.name}>
                           <TableCell style={{ color: "white", position: "absolute", left: "50%", border: "none"}}>
-                           PRODUCT: {product.name}
+                           PRODUCT NAME {product.name}
                             </TableCell>
                         </TableRow>    
                       ))}
@@ -75,24 +73,25 @@ function OrderPage(props: Props, addressProps: AddressProps) {
                 <TableBody>
                   <TableRow >
                     <TableCell align="center"  style={{ color: "white", border: "none" }}>
-                    NAME:{props.order.deliveryAddress?.firstName} {props.order.deliveryAddress?.lastName}</TableCell>
+                    CUSTOMER    {props.order.deliveryAddress?.firstName} {props.order.deliveryAddress?.lastName}</TableCell>
                   </TableRow>
-                  <TableRow>
+                  <TableRow sx={{ border: "none"}}>
                     
                     <TableCell
                      style={{ color: "white" }}
                     >
-                     STREET:{props.order.deliveryAddress?.street}
+                   STREET {props.order.deliveryAddress?.street}
                     </TableCell>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                    CITY:{props.order.deliveryAddress?.city}
+                    CITY {props.order.deliveryAddress?.city}
                     </TableCell>
                     <TableCell
                      style={{ color: "white" }}
                     >
-                    ZIPCODE:{props.order.deliveryAddress?.zipcode}
+                    ZIPCODE {props.order.deliveryAddress?.zipcode}
+                    
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -101,7 +100,7 @@ function OrderPage(props: Props, addressProps: AddressProps) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </Fragment>
+    </Container>
   )
 }
 

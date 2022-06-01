@@ -1,4 +1,5 @@
 import {
+  Container,
   Divider,
   Paper,
   Table,
@@ -22,19 +23,20 @@ function AdminOrderList() {
   }, []);
 
   return (
-    <TableContainer component={Paper} sx={{ my: "1.5rem" }}>
+    <div>
+    <TableContainer>
       <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow style={{ backgroundColor: "rgb(32, 129, 226)" }}>
+        <TableHead style={{ height: "4rem"}}>
+          <TableRow style={{ backgroundColor: "rgb(32, 129, 226)", position: "absolute", left: "1%", right: "1%", padding: "1rem"}}>
             <TableCell />
             <TableCell align="left"></TableCell>
             <TableCell align="left">
-              <Typography variant="subtitle1" fontWeight="bold" color="white">
+              <Typography variant="subtitle1" fontWeight="bold" color="white" sx={{position: "absolute", left: "20%", top: "15%"}}>
                 ORDER NUMBER
               </Typography>
             </TableCell>
             <TableCell align="left">
-              <Typography variant="subtitle1" fontWeight="bold" color="white">
+              <Typography variant="subtitle1" fontWeight="bold" color="white" sx={{position: "absolute", right: "20%", top: "15%"}}>
                 DATE
               </Typography>
             </TableCell>
@@ -49,6 +51,7 @@ function AdminOrderList() {
       </Table>
       
     </TableContainer>
+    </div>
   );
 }
 
