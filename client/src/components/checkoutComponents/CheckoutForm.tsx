@@ -181,8 +181,14 @@ function CheckoutForm() {
                       key={deliveryOption.title}
                       style={menuItemStyle}
                     >
-                      <div style={{ fontWeight: "bold" }}>
-                        {deliveryOption.title}
+                      <div
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "1.5rem",
+                          marginBottom: ".2rem",
+                        }}
+                      >
+                        {deliveryOption.title}:
                       </div>
                       <div
                         style={{
@@ -191,7 +197,7 @@ function CheckoutForm() {
                           justifyContent: "center",
                         }}
                       >
-                        <div>Price: {deliveryOption.price}</div>
+                        <div>Price: {deliveryOption.price} -</div>
                         <div>
                           Delivery time: {deliveryOption.expectedDeliveryTime}{" "}
                           {""}
