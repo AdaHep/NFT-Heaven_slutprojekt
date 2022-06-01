@@ -1,4 +1,5 @@
 import {
+  Divider,
   Paper,
   Table,
   TableBody,
@@ -8,14 +9,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { CSSProperties } from "react";
-import OrderPage from "../../pages/OrderPage";
+import { useEffect } from "react";
+import OrderPage from "../../pages/Admin/OrderPage";
+import { useOrder } from "../context/OrderContext";
 
-// import product context
-//import AdminProductList from "./AdminProductList";
 
 function AdminOrderList() {
-  //const { products } = useAdmin();
+  const { getOrders, orders } = useOrder();
+  useEffect(() => {
+    getOrders();
+      console.log(orders)
+  }, []);
 
   return (
     <TableContainer component={Paper} sx={{ my: "1.5rem" }}>
@@ -36,10 +40,14 @@ function AdminOrderList() {
             </TableCell>
           </TableRow>
         </TableHead>
+        
         <TableBody>
-          <OrderPage />
-        </TableBody>
+          {orders.map((order) => {
+            return <OrderPage key={order._id} order={order}/>
+          })} 
+            </TableBody>
       </Table>
+      
     </TableContainer>
   );
 }

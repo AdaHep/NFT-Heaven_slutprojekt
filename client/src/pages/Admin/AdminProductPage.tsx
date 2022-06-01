@@ -1,22 +1,41 @@
-import { CSSProperties, useEffect } from "react";
+import { Button } from "@mui/material";
+import { CSSProperties, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import EditNFT from "../../components/admin/editNFT";
+import { UserContext } from "../../components/context/LoginContext";
 import { useProducts } from "../../components/context/ProductContext";
 import AdminProductCard from "../../components/AdminProductCard";
 
 function AdminProductPage() {
+   const { currentUser } = useContext(UserContext);
+   const navigate = useNavigate();
+  const { fetchProductsFromDb, products } = useProducts();
+
+  const redirect = () => {
+    navigate('/')
+  }
+
   const { fetchProductsFromDb, products, selectedNFT } = useProducts();
+
   useEffect(() => {
     fetchProductsFromDb();
   }, []);
 
   return (
     <div style={rootStyle}>
+      {currentUser?.isAdmin ? (
       <div style={itemContainer}>
         <EditNFT product={selectedNFT} />
         {products.map((product, index) => (
           <AdminProductCard product={product} key={index} />
         ))}
       </div>
+      ) : (
+        <>
+          <h2>You do not have access to this page</h2>
+          <Button onClick={redirect}>Take me back</Button>
+          </>
+      )}
     </div>
   );
 }

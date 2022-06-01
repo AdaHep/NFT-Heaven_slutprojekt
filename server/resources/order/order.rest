@@ -1,4 +1,4 @@
-GET http://localhost:5500/api/order
+GET http://localhost:5500/api/order/
 
 ###
 
@@ -6,8 +6,55 @@ POST http://localhost:5500/api/order
 Content-Type: application/json
 
 {
-  "customer": "6283598560765e36787c6867",
-  "products": ["Produkt 1", "Produkt 2"]
+  "products": [
+   {
+     "_id": "629616a5d6abaed376628e6b",
+     "name": "PappaNFT #17",
+     "description": "Pappa staring into your soul. He's very disappointed.",
+     "price": "12",
+     "categories": ["628c92af1c4eb76ecbc12f4c"],
+     "quantity": 2,
+     "stock": 100,
+     "imageId": "628ca38e1c4eb76ecbc12fca"
+   },
+   {
+     "_id": "629616a5d6abaed376628e6b",
+     "name": "PappaNFT #17",
+     "description": "Pappa staring into your soul. He's very disappointed.",
+     "price": "12",
+     "categories": ["628c92af1c4eb76ecbc12f4c"],
+     "quantity": 2,
+     "stock": 100,
+     "imageId": "628ca38e1c4eb76ecbc12fca"
+   },
+   {
+     "_id": "629616a5d6abaed376628e6b",
+     "name": "PappaNFT #17",
+     "description": "Pappa staring into your soul. He's very disappointed.",
+     "price": "12",
+     "categories": ["628c92af1c4eb76ecbc12f4c"],
+     "quantity": 2,
+     "stock": 100,
+     "imageId": "628ca38e1c4eb76ecbc12fca"
+   }
+  ],
+  "deliveryAddress": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "street": "Teststraße",
+    "number": "1",
+    "zipcode": "12345",
+    "city": "Teststadt"
+  },
+  "paymentMethod": "Swish",
+  "deliveryMethod":  {
+    "_id": "6290a0ec5cd89c155e260fea",
+    "title": "DHL agent",
+    "price": "2",
+    "description": "Your order will be delivered to the nearest postal agent based on your…",
+    "expectedDeliveryTime": "3",
+    "imageId": "628c9d6d1c4eb76ecbc12f89"
+  }
 }
 
 ###

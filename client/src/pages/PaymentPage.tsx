@@ -1,10 +1,11 @@
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTable";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
+import { useOrder } from "../components/context/OrderContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
@@ -16,6 +17,7 @@ interface Props {
 // const navigate = useNavigate();
 
 function PaymentPage(props: Props) {
+  const { createOrder } = useOrder();
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
   };
@@ -25,6 +27,7 @@ function PaymentPage(props: Props) {
     },
     onSubmit: (values) => {
       // navigate("/PaymentPage");
+      createOrder()
     },
   });
   const [paymentOption, setPaymentOption] = useState("");
@@ -81,7 +84,6 @@ const rootStyle: CSSProperties = {
   alignItems: "center",
   margin: "0 auto",
   width: "100%",
-  // border: "2px solid #88D9E6",
 };
 
 const checkoutContainer: CSSProperties = {
@@ -102,3 +104,4 @@ const headlineStyle: CSSProperties = {
 const paymentDetailsTextStyle: CSSProperties = { textAlign: "center" };
 
 const boxStyle: CSSProperties = { minWidth: 250 };
+

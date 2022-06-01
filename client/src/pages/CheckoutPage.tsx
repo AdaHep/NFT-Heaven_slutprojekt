@@ -1,21 +1,27 @@
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../components/context/CartContext";
+import { UserContext } from "../components/context/LoginContext";
 // import { NftItem } from "../data/collections/collection";
 // import { useProducts } from "../components/context/ProductContext";
 
 import { Product } from "../ProductInterface";
+import LogInPage from "./LogInPage";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
+  const { currentUser } = useContext(UserContext);
   // const { collections, product } = useProducts();
 
   return (
     <div>
-      <div style={rootStyle}>
+      {!currentUser ? (
+        <LogInPage />
+      ) : (
+        <div style={rootStyle}>
         <div style={purchaseCompleteContainer}>
           <h1>Checkout</h1>
           <h2>Your purchase:</h2>
@@ -65,6 +71,8 @@ function CheckoutPage() {
           </Link>
         </div>
       </div>
+      )}
+      
     </div>
   );
 }

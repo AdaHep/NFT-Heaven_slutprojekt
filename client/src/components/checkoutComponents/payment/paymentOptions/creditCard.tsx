@@ -5,7 +5,17 @@ import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import * as yup from "yup";
 import { useCart } from "../../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useOrder } from "../../../context/OrderContext";
 
+export interface FormValues {
+  creditCard: {
+  CardNumber: string;
+  ExpMonth: string;
+  ExpYear: string;
+  Cvc: string;
+  CardHolder: string;
+  };
+}
 interface Props {
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: any;
@@ -37,6 +47,7 @@ const validationSchema = yup.object({
 
 function CreditCard(props: Props) {
   const navigate = useNavigate();
+  const { createOrder } = useOrder();
   const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
     useCart();
   const closeModal = () =>
@@ -61,6 +72,7 @@ function CreditCard(props: Props) {
       props.setPaymentModal(true);
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
+      //createOrder(values);
       clearCart();
       closeModal();
     },
