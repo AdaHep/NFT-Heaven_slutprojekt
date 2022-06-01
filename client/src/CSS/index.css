@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #202225;
@@ -86,11 +86,11 @@ code {
 }
 
 .popupOpen {
-  display: block
+  display: block;
 }
 
 .popupClosed {
-  display: none
+  display: none;
 }
 * {
   color: white m !important;
@@ -99,7 +99,6 @@ code {
 :root {
   --toastify-color-success: white !important;
   color: white !important;
-  
 }
 ::-webkit-scrollbar {
   width: 0;
@@ -111,4 +110,8 @@ code {
 }
 .MuiOutlinedInput-notchedOutline {
   border-color: white;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  background-color: rgb(48, 51, 57);
 }

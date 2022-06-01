@@ -1,13 +1,16 @@
-import { getDelivery } from "./deliverySwitch";
 import { CSSProperties } from "react";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDelivery } from "../../context/DeliveryOptionContext";
+import { GetDelivery } from "./deliverySwitch";
 
 interface deliveryItem {
   deliveryOption: string;
 }
 
 function DeliveryBox(props: deliveryItem) {
+  const { deliveryOptions, getDeliveryOptions } = useDelivery();
+
   return (
     <div>
       {props.deliveryOption && (
@@ -15,21 +18,21 @@ function DeliveryBox(props: deliveryItem) {
           <div style={deliveryOptionContainer}>
             <img
               style={deliveryOptionThumbnail}
-              srcSet={getDelivery(props.deliveryOption).image}
+              srcSet={GetDelivery(props.deliveryOption).image}
               alt="ICON"
             />
             <p style={deliveryDescription}>
-              {getDelivery(props.deliveryOption).description}
+              {GetDelivery(props.deliveryOption).description}
             </p>
           </div>
           <div style={shippingPriceContainer}>
-            <p> Shipping price: {getDelivery(props.deliveryOption).price} </p>
+            <p> Shipping price: {GetDelivery(props.deliveryOption).price} </p>
             <FontAwesomeIcon icon={faCoins} style={coinIcon} />
           </div>
         </div>
       )}
       <div style={deliveryDateText}>
-        <p>{getDelivery(props.deliveryOption).time}</p>
+        <p>{GetDelivery(props.deliveryOption).time}</p>
       </div>
     </div>
   );

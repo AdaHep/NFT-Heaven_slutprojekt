@@ -15,22 +15,7 @@ import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "./shipping/deliveryBox";
 import { useOrder } from "../context/OrderContext";
 import { useUser } from "../context/LoginContext";
-
-export interface FormValues {
-  user: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    number: string;
-  };
-  deliveryAddress: {
-    street: string;
-    city: string;
-    zipCode: number;
-  };
-  deliveryMethod: string;
-  paymentMethod: string;
-}
+import { DeliveryOption, useDelivery } from "../context/DeliveryOptionContext";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Please enter first name").min(2),
@@ -47,12 +32,9 @@ const validationSchema = yup.object({
 
 function CheckoutForm() {
   const { currentUser } = useUser();
-  const [deliveryOption, setDeliveryOption] = useState("");
   const { deliveryInfo, setDeliveryInfo } = useOrder();
-
-  const handleChange = (event: any) => {
-    setDeliveryOption(event.target.value);
-  };
+  const { deliveryOptions, setSelectedDeliveryOption, selectedDeliveryOption } =
+    useDelivery();
 
   const navigate = useNavigate();
 
@@ -62,7 +44,7 @@ function CheckoutForm() {
       lastName: "",
       email: "",
       number: "",
-      deliveryMethod: "",
+      deliveryMethod: {},
       address: "",
       zipCode: "",
       city: "",
@@ -70,7 +52,7 @@ function CheckoutForm() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      values.deliveryMethod = deliveryOption;
+      setSelectedDeliveryOption(values.deliveryMethod);
       setDeliveryInfo(values);
 
       // kolla om användaren är inloggad annars navigera till sign in
@@ -81,6 +63,10 @@ function CheckoutForm() {
       }
     },
   });
+
+  const handleSelectedDelivery = (event: any) => {
+    setSelectedDeliveryOption(event.target.value);
+  };
   return (
     <div style={rootStyle}>
       <div style={detailFormContainer}>
@@ -178,28 +164,41 @@ function CheckoutForm() {
                 <Select
                   labelId="deliveryOptionLabel"
                   id="deliveryOption"
-                  value={deliveryOption}
+                  value={selectedDeliveryOption}
                   label="Delivery Option"
-                  onChange={handleChange}
+                  onChange={handleSelectedDelivery}
                   required
                 >
-                  <MenuItem value={"Postnord agent"}>
-                    Postnord - Postal agent - Free!
-                  </MenuItem>
-                  <MenuItem value={"DHL agent"}>
-                    DHL - Postal agent - 2 ETH{" "}
-                  </MenuItem>
-                  <MenuItem value={"Postnord home delivery"}>
-                    Postnord - Home delivery day/evening - 4 ETH
-                  </MenuItem>
-                  <MenuItem value={"DHL express"}>
-                    DHL express - Home delivery within 24h - 6 ETH
-                  </MenuItem>
+                  {deliveryOptions.map((deliveryOption: DeliveryOption) => (
+                    <MenuItem
+                      value={deliveryOption.title}
+                      key={deliveryOption.title}
+                      style={menuItemStyle}
+                    >
+                      <div style={{ fontWeight: "bold" }}>
+                        {deliveryOption.title}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: ".5rem",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div>Price: {deliveryOption.price}</div>
+                        <div>
+                          Delivery time: {deliveryOption.expectedDeliveryTime}{" "}
+                          {""}
+                          days
+                        </div>
+                      </div>
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-              <div style={deliveryBox}>
+              {/* <div style={deliveryBox}>
                 <DeliveryBox deliveryOption={deliveryOption} />
-              </div>
+              </div> */}
             </Box>
 
             <Button
@@ -271,4 +270,15 @@ const nextButtonStyle: CSSProperties = {
   width: "40vmin",
   background: "#2081e2",
   fontWeight: "bold",
+};
+
+const menuItemStyle: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  textAlign: "center",
+  // width: "10rem",
+  gap: ".5rem",
+  flexWrap: "wrap",
+  background: "rgb(48, 51, 57)",
+  color: "white",
 };

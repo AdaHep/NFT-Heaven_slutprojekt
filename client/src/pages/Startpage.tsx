@@ -1,6 +1,8 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
+import { useDelivery } from "../components/context/DeliveryOptionContext";
 import { useOrder } from "../components/context/OrderContext";
 import { useProducts } from "../components/context/ProductContext";
+
 // import CategoryCard from "../components/CategoryCard";
 
 function StartPage(startPageProps: any) {
@@ -21,6 +23,7 @@ function StartPage(startPageProps: any) {
             handpicked the best NFTS for you! Enjoy!
           </p>
         </div>
+
         {/* <div style={hottestStyle}>
           <div style={hottestTitle}>
             <h1>HOTTEST COLLECTIONS RIGHT NOW</h1>

@@ -1,23 +1,28 @@
-import { createContext, FC, useContext, useState } from "react";
-import { makeReq } from "../../helper";
+import { createContext, FC, useContext, useEffect, useState } from "react";
+// import { makeReq } from "../../helper";
 
 export interface DeliveryOption {
   title: string;
-  price: string | number;
+  price: number;
   description: string;
-  expectedDeliveryTime: string;
+  expectedDeliveryTime: number;
   imageId: string;
+  /** Virtual */ imageURL: string;
 }
 
-interface DeliveryOptionContext {
+interface DeliveryOptionsContext {
+  getDeliveryOptions: () => void;
+  deliveryOptions: DeliveryOption[];
+
   setSelectedDeliveryOption: Function;
-  getAllDeliveryOptions: () => Promise<any>;
   selectedDeliveryOption: DeliveryOption | any;
 }
 
-export const DeliveryOptionContext = createContext<DeliveryOptionContext>({
-  setSelectedDeliveryOption: () => void {},
-  getAllDeliveryOptions: async () => void [],
+export const DeliveryOptionContext = createContext<DeliveryOptionsContext>({
+  getDeliveryOptions: () => {},
+  deliveryOptions: [],
+
+  setSelectedDeliveryOption: () => {},
   selectedDeliveryOption: {
     title: "test",
     price: "123",
@@ -31,21 +36,30 @@ export const DeliveryOptionProvider: FC = (props) => {
   const [selectedDeliveryOption, setSelectedDeliveryOption] =
     useState<DeliveryOption>();
 
-  const getAllDeliveryOptions = async () => {
-    try {
-      let data = await makeReq("/api/delivery", "GET");
-      return data;
-    } catch (err) {
-      return console.log(err);
-    }
+  const [deliveryOptions, setDeliveryOptions] = useState<DeliveryOption[]>([]);
+
+  const getDeliveryOptions = async () => {
+    let data = fetch("http://localhost:5500/api/delivery")
+      .then((res) => res.json())
+      .then((data) => {
+        setDeliveryOptions(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
+
+  useEffect(() => {
+    getDeliveryOptions();
+  }, []);
 
   return (
     <DeliveryOptionContext.Provider
       value={{
         setSelectedDeliveryOption,
-        getAllDeliveryOptions,
+        getDeliveryOptions,
         selectedDeliveryOption,
+        deliveryOptions,
       }}
     >
       {props.children}
