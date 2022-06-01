@@ -45,7 +45,7 @@ function OrderPage(props: Props, addressProps: AddressProps) {
         </TableCell>
         <TableCell style={{color: "#fff"}}>{props.order._id}</TableCell>
         <TableCell style={{color: "#fff"}}>{props.order.createdAt}</TableCell>
-      </TableRow>
+      </TableRow >
       {/* All info om produkten som är klickad*/}
       <TableRow>
         <TableCell
@@ -57,26 +57,24 @@ function OrderPage(props: Props, addressProps: AddressProps) {
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box>
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label="purchases" style={{ border: "none"}}>
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center" style={{ color: "white" }}>
                     
-                    </TableCell>
                     <TableCell align="center" style={{ color: "white" }}>
                       {props.order.products.map((product) => (
                         <TableRow key={product.name}>
-                          <TableCell style={{ color: "white", position: "absolute"}}>
+                          <TableCell style={{ color: "white", position: "absolute", left: "50%", border: "none"}}>
                            PRODUCT: {product.name}
                             </TableCell>
                         </TableRow>    
                       ))}
                     </TableCell>
                   </TableRow>
-                </TableHead>
+                </TableHead >
                 <TableBody>
                   <TableRow >
-                    <TableCell align="center"  style={{ color: "white" }}>
+                    <TableCell align="center"  style={{ color: "white", border: "none" }}>
                     NAME:{props.order.deliveryAddress?.firstName} {props.order.deliveryAddress?.lastName}</TableCell>
                   </TableRow>
                   <TableRow>
