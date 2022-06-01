@@ -4,10 +4,14 @@ import { User } from "../user";
 import { OrderModel, Order } from "./order.model";
 
 export const getAllOrders = async (req: Request, res: Response) => {
-  const orders = await OrderModel.find({}).populate<{ customer: User }>(
-    "customer"
-  );
-  res.status(200).json(orders);
+  try {
+    const orders = await OrderModel.find({});
+    res.status(200).json(orders);
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json(err.message);
+    }
+  }
 };
 export const addOrder = async (
   req: Request<{}, {}, Order>,
