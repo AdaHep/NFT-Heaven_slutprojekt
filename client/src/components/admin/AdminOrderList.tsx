@@ -39,12 +39,14 @@ function AdminOrderList() {
             </TableCell>
           </TableRow>
         </TableHead>
+        
         <TableBody>
           {orders.map((order) => {
             <OrderPage key={order._id} order={order} />
           })} 
             </TableBody>
       </Table>
+      <button onClick={getOrders}>HÄMTA ORDERS</button>
     </TableContainer>
   );
 }

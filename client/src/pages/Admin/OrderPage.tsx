@@ -11,10 +11,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TextareaAutosize,
-  TextField,
 } from "@mui/material";
-// import { title } from "process";
 import { Fragment, useState } from "react";
 import { Order, UserOrder} from "../../components/context/OrderContext";
 
@@ -89,7 +86,8 @@ function OrderPage(props: Props, userProps: UserProps) {
                 </TableHead>
                 <TableBody>
                   <TableRow >
-                    <TableCell align="center"  style={{ color: "white" }}> {userProps.userOrder.isSent}</TableCell>
+                    <TableCell align="center"  style={{ color: "white" }}>
+                      {userProps.userOrder.isSent}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell

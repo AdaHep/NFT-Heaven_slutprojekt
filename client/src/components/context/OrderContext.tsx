@@ -76,9 +76,6 @@ const OrderProvider: FC = (props: any) => {
         console.log(err);
         console.log('test')
       });
-      // let order = await makeReq("/api/orders", "GET");
-      //   setOrders(order); 
-
       };
 
     const createOrder = async () => {
