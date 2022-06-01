@@ -55,6 +55,7 @@ function CheckoutForm() {
       zipCode: "",
       city: "",
       paymentMethod: "",
+      deliveryMethod: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -72,6 +73,7 @@ function CheckoutForm() {
   const handleSelectedDelivery = (event: any) => {
     setSelectedDeliveryOption(event.target.value);
   };
+
   return (
     <div style={rootStyle}>
       <div style={detailFormContainer}>
@@ -169,7 +171,7 @@ function CheckoutForm() {
                 <Select
                   labelId="deliveryOptionLabel"
                   id="deliveryOption"
-                  value={selectedDeliveryOption}
+                  value={selectedDeliveryOption.title}
                   label="Delivery Option"
                   onChange={handleSelectedDelivery}
                   required
@@ -179,7 +181,7 @@ function CheckoutForm() {
                     <MenuItem
                       value={deliveryOption.title}
                       key={deliveryOption.title}
-                      style={menuItemStyle}
+                      style={deliveryOptionStyle}
                     >
                       <div
                         style={{
@@ -281,13 +283,10 @@ const nextButtonStyle: CSSProperties = {
   fontWeight: "bold",
 };
 
-const menuItemStyle: CSSProperties = {
+const deliveryOptionStyle: CSSProperties = {
   display: "flex",
   justifyContent: "center",
   textAlign: "center",
-  // width: "10rem",
   gap: ".5rem",
   flexWrap: "wrap",
-  // background: "rgb(48, 51, 57)",
-  // color: "white",
 };

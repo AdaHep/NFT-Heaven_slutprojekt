@@ -15,7 +15,7 @@ interface DeliveryOptionsContext {
   deliveryOptions: DeliveryOption[];
 
   setSelectedDeliveryOption: Function;
-  selectedDeliveryOption: DeliveryOption | any;
+  selectedDeliveryOption: DeliveryOption;
 }
 
 export const DeliveryOptionContext = createContext<DeliveryOptionsContext>({
@@ -25,10 +25,11 @@ export const DeliveryOptionContext = createContext<DeliveryOptionsContext>({
   setSelectedDeliveryOption: () => {},
   selectedDeliveryOption: {
     title: "test",
-    price: "123",
+    price: 123,
     description: "test",
-    expectedDeliveryTime: "2 dagar",
+    expectedDeliveryTime: 2,
     imageId: "test",
+    imageURL: "test",
   },
 });
 

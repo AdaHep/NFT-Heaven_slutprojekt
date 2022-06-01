@@ -17,6 +17,7 @@ import {
 } from "../../data/collections/deliveryData";
 import { useCart } from "./CartContext";
 import { useUser } from "./LoginContext";
+import { useDelivery } from "./DeliveryOptionContext";
 
 export interface Order {
   _id?: string;
@@ -77,6 +78,7 @@ const OrderProvider: FC = (props: any) => {
   const [deliveryAddress] = useState<UserOrder>();
   const [orders, setOrders] = useState<Order[]>([]);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
+  const { selectedDeliveryOption } = useDelivery();
 
   const { cart, totalPrice } = useCart();
 
@@ -95,16 +97,6 @@ const OrderProvider: FC = (props: any) => {
       });
   };
 
-  // const createOrder = async () => {
-  //   const order = {
-  //     purchaseList,
-  //     purchaseTotal,
-  //     deliveryAddress,
-  //   };
-  //   let newOrder = await makeReq("/api/orders", "POST", order);
-  //   setOrders(newOrder);
-  // };
-
   const createOrder = async () => {
     const address = {
       firstName: deliveryInfo.firstName,
@@ -116,11 +108,11 @@ const OrderProvider: FC = (props: any) => {
     };
 
     const deliveryMethod = {
-      title: deliveryInfo.deliveryMethod.title,
-      price: deliveryInfo.deliveryMethod.price,
-      description: deliveryInfo.deliveryMethod.description,
-      expectedDeliveryTime: deliveryInfo.deliveryMethod.expectedDeliveryTime,
-      imageId: deliveryInfo.deliveryMethod.imageId,
+      title: selectedDeliveryOption.title,
+      price: selectedDeliveryOption.price,
+      description: selectedDeliveryOption.description,
+      expectedDeliveryTime: selectedDeliveryOption.expectedDeliveryTime,
+      imageId: selectedDeliveryOption.imageId,
     };
     const paymentMethod = deliveryInfo.paymentMethod;
 

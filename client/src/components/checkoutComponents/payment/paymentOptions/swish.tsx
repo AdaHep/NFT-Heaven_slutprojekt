@@ -51,7 +51,7 @@ function Swish(props: Props) {
       closeModal();
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
-      createOrder();
+      // createOrder();
 
       clearCart();
     },
