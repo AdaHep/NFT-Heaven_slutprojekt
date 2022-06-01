@@ -1,22 +1,29 @@
 import { Button } from "@mui/material";
+import { fontWeight, display } from "@mui/system";
 import React, { CSSProperties, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/LoginContext";
 import { useOrder } from "../../components/context/OrderContext";
 
 const AdminPage = () => {
   const { currentUser } = useContext(UserContext);
   const { getOrders } = useOrder();
+  const navigate = useNavigate();
+
+  const redirect = () => {
+    navigate('/');
+  }
 
   const handleGetOrders = () => {
     getOrders();
   }
   return (
     <div>
-      <div style={adminStyle}>
+      {currentUser?.isAdmin ? (
+        <>
+        <div style={adminStyle}>
         <h2>Admin Page</h2>
       </div>
-
       <div style={buttonDivStyle}>
         <Button style={buttonStyle} variant="contained">
           <Link style={linkStyle} to="/adminProductPage">
@@ -29,6 +36,13 @@ const AdminPage = () => {
           </Link>
         </Button>
       </div>
+      </>
+      ) : (
+        <>
+          <h2>You do not have access to this page</h2>
+          <Button onClick={redirect}>Take me back</Button>
+          </>
+        )}
     </div>
   );
 };
