@@ -17,7 +17,6 @@ export const getOneDeliveryOption = async (
 ) => {
   try {
     const DeliveryOption = await deliveryModel.findById(req.params.id);
-    console.log(DeliveryOption);
     res.status(200).json(DeliveryOption);
   } catch (err) {
     next(err);
@@ -48,7 +47,6 @@ export const deleteDeliveryOption = async (
 ) => {
   try {
     const foundDeliveryOption = await deliveryModel.findOne(req.params);
-    console.log(foundDeliveryOption);
     foundDeliveryOption?.delete();
     res.status(200).json("DELETED CATEGORY");
   } catch (err) {

@@ -71,7 +71,6 @@ export const updateProductStock = async (
   res: Response
 ) => {
   const productToBeUpdated = await ProductModel.findById(req.params.id);
-  console.log(productToBeUpdated);
   try {
     let { stock } = req.body;
     const updatedProduct = await ProductModel.findByIdAndUpdate(
@@ -96,7 +95,6 @@ export const addProduct = async (req: Request, res: Response) => {
       price: req.body.price,
     });
     await newProduct.save();
-    console.log(newProduct);
     res.status(200).json(newProduct);
   } catch (err: unknown) {
     if (err instanceof Error) {

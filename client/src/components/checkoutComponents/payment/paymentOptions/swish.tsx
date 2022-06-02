@@ -48,11 +48,9 @@ function Swish(props: Props) {
       newObject.paymentMethod = "Swish";
       setDeliveryInfo(newObject);
       props.setPaymentModal(true);
-      console.log(props.paymentModalOpen);
       closeModal();
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
-      console.log(selectedDeliveryOption);
       createOrder();
 
       clearCart();

@@ -115,25 +115,6 @@ export const ProductProvider: FC = (props) => {
     setEditNftModal(false);
   };
 
-  // const editNft = (nft: Product, collectionID?: number) => {
-  //   let updatedList = collections.map((collection: collectionDataItem) => {
-  //     if (collection.id === collectionID) {
-  //       collection.NFTS = collection.NFTS.map((nftItem: Product) => {
-  //         if (nftItem.NFTid === nft.NFTid) {
-  //           nftItem = nft;
-  //           // console.log(nftItem)
-  //           return nftItem;
-  //         }
-  //         return nftItem;
-  //       });
-  //     }
-  //     return collection;
-  //   });
-  //   console.log(updatedList);
-
-  //   localStorage.setItem("collections", JSON.stringify(updatedList));
-  // };
-
   return (
     <ProductsContext.Provider
       value={{

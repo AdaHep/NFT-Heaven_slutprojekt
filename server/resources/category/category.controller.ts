@@ -17,7 +17,6 @@ export const getOneCategory = async (
 ) => {
   try {
     const oneCategory = await CategoryModel.findOne(req.body);
-    console.log(oneCategory);
     res.status(200).json(oneCategory);
   } catch (err) {
     next(err);
@@ -34,23 +33,11 @@ export const addCategory = async (
   try {
     const category = new CategoryModel(req.body);
     await category.save();
-    console.log(category);
     res.status(200).json(category);
   } catch (err) {
     next(err);
   }
 };
-
-/// Update a category
-
-// export const updateUser = async (
-//   req: Request<{ id: string }>,
-//   res: Response
-// ) => {
-//   const user = await UserModel.findById(req.params.id).select("+password");
-//   console.log(user);
-//   res.status(200).json(user);
-// };
 
 // Delete a category
 export const deleteCategory = async (
@@ -60,7 +47,6 @@ export const deleteCategory = async (
 ) => {
   try {
     const foundCategory = await CategoryModel.findOne(req.params);
-    console.log(foundCategory);
     foundCategory?.delete();
     res.status(200).json("DELETED CATEGORY");
   } catch (err) {

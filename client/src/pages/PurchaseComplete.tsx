@@ -157,15 +157,6 @@ const cardFooter: CSSProperties = {
   textAlign: "center",
   fontSize: "clamp(2vmin, 2.5vmin, 1.2rem)",
 };
-const cardHeader: CSSProperties = {
-  width: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "clamp(2vmin, 3vmin, 1.2rem)",
-};
-
-const cardHeaderTextStyle: CSSProperties = { margin: 0 };
 
 const cardImageContainer: CSSProperties = { width: "100%" };
 

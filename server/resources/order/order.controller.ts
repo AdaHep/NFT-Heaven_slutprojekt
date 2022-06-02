@@ -39,7 +39,6 @@ export const updateOrder = async (
   res: Response
 ) => {
   const order = await OrderModel.findById(req.params.id);
-  console.log(order);
   res.status(200).json(order);
 };
 export const deleteOrder = (req: Request, res: Response) => {

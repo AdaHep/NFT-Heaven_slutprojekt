@@ -73,11 +73,9 @@ const OrderProvider: FC = (props: any) => {
       .then((res) => res.json())
       .then((order) => {
         setOrders(order);
-        console.log(orders);
       })
       .catch((err) => {
         console.log(err);
-        console.log("failed to fetch orders");
       });
   };
 
@@ -93,7 +91,6 @@ const OrderProvider: FC = (props: any) => {
 
     try {
       let sendToDB = await makeReq<Order>(`/api/order`, "POST", order);
-      console.log(sendToDB);
     } catch (err) {
       return console.log(err);
     }

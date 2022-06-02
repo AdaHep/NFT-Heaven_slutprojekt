@@ -2,46 +2,48 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { makeReq } from "../../helper";
 
 export interface User {
-    email: string,
-    isAdmin: boolean
+  email: string;
+  isAdmin: boolean;
 }
 interface UserContext {
-    signUp: (email: string, password: string) => Promise<boolean>;
-    logIn: (email: string, password: string) => Promise<boolean>;
-    signOut: () => Promise<void>;
-    currentUser?: User;
+  signUp: (email: string, password: string) => Promise<boolean>;
+  logIn: (email: string, password: string) => Promise<boolean>;
+  signOut: () => Promise<void>;
+  currentUser?: User;
 }
 
-
 export const UserContext = createContext<UserContext>({
-    signUp: () => Promise.resolve(true),
-    logIn: () => Promise.resolve(true),
-    signOut: () => Promise.resolve()
+  signUp: () => Promise.resolve(true),
+  logIn: () => Promise.resolve(true),
+  signOut: () => Promise.resolve(),
 });
 
 export function UserProvider(props: any) {
-  const [currentUser, setCurrentUser] = useState<User>()
-  
+  const [currentUser, setCurrentUser] = useState<User>();
+
   const logIn = async (email: string, password: string) => {
     try {
-      const user = await makeReq<User>('api/login', 'POST', { email, password });
-      setCurrentUser(user)
+      const user = await makeReq<User>("api/login", "POST", {
+        email,
+        password,
+      });
+      setCurrentUser(user);
       return true;
-    } catch(err: any) {
+    } catch (err: any) {
       console.error(err);
       setCurrentUser(undefined);
       return false;
     }
   };
 
-  const signUp = async ( email: string, password: string) => {
+  const signUp = async (email: string, password: string) => {
     const newUser = { email, password };
     try {
-      await makeReq<User>('api/user', 'POST', newUser);
-      const user = await makeReq<User>('api/login', 'POST', newUser);
+      await makeReq<User>("api/user", "POST", newUser);
+      const user = await makeReq<User>("api/login", "POST", newUser);
       setCurrentUser(user);
       return true;
-    } catch(err: any) {
+    } catch (err: any) {
       setCurrentUser(undefined);
       console.error(err);
       return false;
@@ -51,8 +53,7 @@ export function UserProvider(props: any) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        let user = await makeReq<User>(`api/auth`, 'GET');
-        console.log(user);
+        let user = await makeReq<User>(`api/auth`, "GET");
         setCurrentUser(user);
       } catch (err) {
         setCurrentUser(undefined);
@@ -62,25 +63,23 @@ export function UserProvider(props: any) {
     fetchUser();
   }, []);
 
-
   const signOut = async () => {
-      await makeReq('api/logout', 'DELETE')
-      setCurrentUser(undefined);
-      // window.location.reload();
-  }
-
+    await makeReq("api/logout", "DELETE");
+    setCurrentUser(undefined);
+    // window.location.reload();
+  };
 
   return (
-      <UserContext.Provider
-          value={{
-              logIn,
-              signUp,
-              signOut,
-              currentUser
-          }}
-      >
-          {props.children}
-      </UserContext.Provider>
+    <UserContext.Provider
+      value={{
+        logIn,
+        signUp,
+        signOut,
+        currentUser,
+      }}
+    >
+      {props.children}
+    </UserContext.Provider>
   );
 }
 

@@ -37,7 +37,6 @@ function CategoryPages() {
   };
 
   setCategeoryDescription();
-  console.log(categoryDescription);
 
   useEffect(() => {
     // setProductList([]);
@@ -47,8 +46,6 @@ function CategoryPages() {
     };
     fetchData();
   }, [params]);
-
-  console.log(params);
 
   return (
     <div style={rootStyle}>

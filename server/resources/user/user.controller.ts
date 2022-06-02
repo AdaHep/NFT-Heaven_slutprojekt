@@ -83,7 +83,6 @@ export const updateUser = async (
   res: Response
 ) => {
   const user = await UserModel.findById(req.params.id).select("+password");
-  console.log(user);
   res.status(200).json(user);
 };
 export const deleteUser = (req: Request, res: Response) => {

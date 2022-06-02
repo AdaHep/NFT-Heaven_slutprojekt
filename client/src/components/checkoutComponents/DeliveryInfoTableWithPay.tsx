@@ -1,10 +1,9 @@
 import { CSSProperties } from "react";
-import { useDelivery } from "../context/DeliveryOptionContext";
+
 import { useOrder } from "../context/OrderContext";
 
 function DeliveryInfoTable() {
   const { deliveryInfo } = useOrder();
-  const { selectedDeliveryOption } = useDelivery();
   return (
     <div>
       <table style={tableStyle}>
