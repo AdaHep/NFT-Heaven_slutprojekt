@@ -15,6 +15,7 @@ function AdminProductPage() {
     navigate("/");
   };
 
+
   useEffect(() => {
     fetchProductsFromDb();
   }, []);

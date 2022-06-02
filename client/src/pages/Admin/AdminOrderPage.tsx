@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminOrderList from "../../components/admin/AdminOrderList";
@@ -13,7 +13,8 @@ function AdminOrderPage() {
   };
   
   return (
-    <div>
+    <div style={{ minWidth: "360px", maxWidth: "1000px"}}>
+      <Container>
       {currentUser?.isAdmin ? (
       <AdminOrderList />
       ) : (
@@ -22,6 +23,7 @@ function AdminOrderPage() {
           <Button onClick={redirect}>Take me back</Button>
           </>
       )}
+      </Container>
     </div>
   );
 }
