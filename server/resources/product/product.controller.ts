@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { CategoryModel } from "../category";
+import { Order } from "../order";
 import { Product, ProductModel } from "./product.model";
 
 export const getOneProduct = async (req: Request, res: Response) => {
@@ -101,5 +102,13 @@ export const addProduct = async (req: Request, res: Response) => {
     if (err instanceof Error) {
       return res.status(500).json(err.message);
     }
+  }
+};
+
+export const updateStock = async (order: Order) => {
+  for (const product of order.products) {
+    await ProductModel.findByIdAndUpdate(product._id, {
+      $inc: { stock: -product.quantity! },
+    });
   }
 };

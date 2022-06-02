@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { ProductModel, Product } from "../product";
-import { User } from "../user";
-import { OrderModel, Order } from "./order.model";
+import { updateStock } from "../product";
+import { Order, OrderModel } from "./order.model";
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
@@ -18,22 +17,12 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  // req.body.products.map(async (product: Product) => {
-  //   let orderedProduct = await ProductModel.find(product.name);
-  //   if (!orderedProduct) res.status(404).json({ message: "Product not found" });
-  //   // if (orderedProduct.stock < product.quantity!) {
-  //   //   res.status(400).json({ message: "Not enough stock" });
-  //   // }
-  //   await ProductModel.findOneAndUpdate(product.name, {
-  //     $inc: { stock: -product.quantity! },
-  //   });
-  // });
-
   try {
     const order = new OrderModel({
       ...req.body,
       customer: req.session?.user,
     });
+    await updateStock(order);
     await order.save();
     return res.status(201).json(order);
   } catch (err) {

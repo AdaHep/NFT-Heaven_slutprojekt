@@ -1,11 +1,12 @@
 import mongoose, { ObjectId, Schema, Types } from "mongoose";
 
 export interface Product {
+  _id: String;
   categories: Types.ObjectId[];
   name: String;
   description: String;
   price: Number;
-  stock?: Number;
+  stock: Number;
   quantity?: Number;
   imageId: Types.ObjectId;
   /** Virtual */ imageURL: string;

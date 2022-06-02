@@ -39,8 +39,8 @@ Content-Type: application/json
    }
   ],
   "deliveryAddress": {
-    "firstName": "John",
-    "lastName": "Doe",
+    "firstName": "Miranda",
+    "lastName": "Nilhag",
     "street": "Teststraße",
     "number": "1",
     "zipcode": "12345",
