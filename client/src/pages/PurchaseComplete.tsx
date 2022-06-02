@@ -4,26 +4,28 @@ import { CSSProperties } from "react";
 import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
 import { useCart } from "../components/context/CartContext";
-import { useProducts } from "../components/context/ProductContext";
-import { NftItem } from "../data/collections/collection";
-import { DeliveryDataInfo } from "../data/collections/deliveryData";
+import { useDelivery } from "../components/context/DeliveryOptionContext";
+import { useOrder } from "../components/context/OrderContext";
+// import { useProducts } from "../components/context/ProductContext";
+// import { NftItem } from "../data/collections/collection";
+// import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import { Product } from "../ProductInterface";
 
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
   finalTotalSum: number;
 }
 
 function PurchaseComplete(props: Props) {
   const { purchaseList, purchaseTotal } = useCart();
+  const { selectedDeliveryOption } = useDelivery();
 
   let totalSumWithShipping = 0;
 
-  if (props.deliveryInfo.deliveryMethod === "DHL agent") {
+  if (selectedDeliveryOption!.title === "DHL agent") {
     totalSumWithShipping = purchaseTotal + 2;
-  } else if (props.deliveryInfo.deliveryMethod === "DHL express") {
+  } else if (selectedDeliveryOption!.title === "DHL express") {
     totalSumWithShipping = purchaseTotal + 6;
-  } else if (props.deliveryInfo.deliveryMethod === "Postnord home delivery") {
+  } else if (selectedDeliveryOption!.title === "Postnord home delivery") {
     totalSumWithShipping = purchaseTotal + 4;
   }
 
@@ -35,7 +37,7 @@ function PurchaseComplete(props: Props) {
           <div>
             <GenerateOrderNumber />
             <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
-            <DeliveryInfoTableWithPay deliveryInfo={props.deliveryInfo} />
+            <DeliveryInfoTableWithPay />
           </div>
           <div style={totalPriceContainer}>
             <h2 style={totalPriceTextStyle}>
@@ -51,15 +53,6 @@ function PurchaseComplete(props: Props) {
                   <div style={itemCountBadge}>
                     <p style={itemCountTextStyle}>{item.quantity}</p>
                   </div>
-                  {/* <div style={cardHeader}>
-                    <h3 style={cardHeaderTextStyle}>
-                      {
-                        collections.find((col) => col.id === item.collectionID)
-                          ?.name
-                      }
-                      &nbsp;#{item.NFTid}
-                    </h3>
-                  </div> */}
                   <div style={cardBody}>
                     <div style={cardImageContainer}>
                       <img

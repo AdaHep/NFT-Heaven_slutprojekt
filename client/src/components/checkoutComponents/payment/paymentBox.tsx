@@ -9,11 +9,10 @@ import CreditCard from "./paymentOptions/creditCard";
 import Swish from "./paymentOptions/swish";
 import Invoice from "./paymentOptions/invoice";
 import PaymentModal from "./PaymentModal";
+import { useOrder } from "../../context/OrderContext";
 
 interface Props {
   paymentOption: string;
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
 }
 
 function PaymentBox(props: Props) {
@@ -30,8 +29,6 @@ function PaymentBox(props: Props) {
             />
           </div>
           <Swish
-            deliveryInfo={props.deliveryInfo}
-            setDeliveryInfo={props.setDeliveryInfo}
             paymentModalOpen={paymentModalOpen}
             setPaymentModal={setPaymentModalOpen}
           />
@@ -43,8 +40,6 @@ function PaymentBox(props: Props) {
             <FontAwesomeIcon style={CardImg} icon={faCreditCardAlt} />
           </div>
           <CreditCard
-            deliveryInfo={props.deliveryInfo}
-            setDeliveryInfo={props.setDeliveryInfo}
             paymentModalOpen={paymentModalOpen}
             setPaymentModal={setPaymentModalOpen}
           />
@@ -55,10 +50,7 @@ function PaymentBox(props: Props) {
           <div style={paymentIcon}>
             <FontAwesomeIcon style={CardImg} icon={faFileInvoice} />
           </div>
-          <Invoice
-            deliveryInfo={props.deliveryInfo}
-            setDeliveryInfo={props.setDeliveryInfo}
-          />
+          <Invoice />
         </div>
       )}
       {paymentModalOpen === true && <PaymentModal />}

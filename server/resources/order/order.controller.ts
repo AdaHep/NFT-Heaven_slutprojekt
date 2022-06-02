@@ -17,18 +17,23 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
+  const order = new OrderModel({
+    customer: req.session?.user.id,
+    products: req.body.products,
+    deliveryAddress: req.body.deliveryAddress,
+    deliveryMethod: req.body.deliveryMethod,
+    paymentMethod: req.body.paymentMethod,
+  });
+
   try {
-    const order = new OrderModel({
-      ...req.body,
-      customer: req.session?.user,
-    });
-    await updateStock(order);
     await order.save();
-    return res.status(201).json(order);
+    await updateStock(order);
+    res.status(200).json(order);
   } catch (err) {
     next(err);
   }
 };
+
 export const updateOrder = async (
   req: Request<{ id: string }>,
   res: Response

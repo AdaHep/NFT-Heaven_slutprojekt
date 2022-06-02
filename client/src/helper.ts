@@ -3,6 +3,7 @@ export const makeReq = async <T = any>(
   method: RequestInit["method"],
   body?: any
 ): Promise<T> => {
+  console.log(JSON.stringify(body));
   let response = await fetch(url, {
     method,
     body: JSON.stringify(body),

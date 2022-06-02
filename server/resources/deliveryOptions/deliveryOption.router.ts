@@ -15,5 +15,3 @@ export const deliveryOptionRouter = express
   // For dev
   .post("/delivery", addDeliveryOption)
   .delete("/delivery/:id", deleteDeliveryOption);
-
-// .put("/category/:id", updateCategory)

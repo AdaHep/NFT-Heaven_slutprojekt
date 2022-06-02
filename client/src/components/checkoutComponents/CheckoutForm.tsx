@@ -5,89 +5,79 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
-import DeliveryBox from "./shipping/deliveryBox";
+// import DeliveryBox from "./shipping/deliveryBox";
 import { useOrder } from "../context/OrderContext";
 import { useUser } from "../context/LoginContext";
+import { DeliveryOption, useDelivery } from "../context/DeliveryOptionContext";
 
-export interface FormValues {
-  user: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    number: string;
-  },
-  deliveryAddress: {
-    street: string;
-    city: string;
-    zipCode: number;
-  },
-  deliveryMethod: string;
-  paymentMethod: string;
-}
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
-}
+type FormikFields = Omit<DeliveryDataInfo, "paymentMethod">;
 
-const validationSchema = yup.object({
-  firstName: yup.string().required("Please enter first name").min(2),
-  lastName: yup.string().required("Please enter last name").min(2),
-  email: yup
-    .string()
-    .email("Please enter a valid email")
-    .required("Email is required"),
-  number: yup.number().required("Please enter number").min(10),
-  zipCode: yup.number().required("Please enter zipcode").min(4),
-  city: yup.string().required("Please enter your city").min(2),
-  address: yup.string().required("Please enter your adress").min(8),
-  country: yup.string().required("Please enter your country").min(2),
-});
+const validationSchema = yup
+  .object()
+  .shape<Record<keyof FormikFields, yup.AnySchema>>({
+    firstName: yup.string().required("Please enter first name").min(2),
+    lastName: yup.string().required("Please enter last name").min(2),
+    email: yup
+      .string()
+      .email("Please enter a valid email")
+      .required("Email is required"),
+    number: yup.number().required("Please enter number").min(10),
+    zipcode: yup.number().required("Please enter zipcode").min(4),
+    city: yup.string().required("Please enter your city").min(2),
+    address: yup.string().required("Please enter your adress").min(8),
+    deliveryMethod: yup.object().required(""),
+  });
 
-function CheckoutForm(props: Props) {
-  const { createOrder } = useOrder();
+function CheckoutForm() {
   const { currentUser } = useUser();
-  const [deliveryOption, setDeliveryOption] = useState("");
-  const handleChange = (event: any) => {
-    setDeliveryOption(event.target.value);
-  };
+  const { setDeliveryInfo } = useOrder();
+  const { deliveryOptions, selectedDeliveryOption, getDeliveryOptions } =
+    useDelivery();
 
+  useEffect(() => {
+    getDeliveryOptions();
+  }, []);
   const navigate = useNavigate();
 
-  const formik = useFormik({
+  const formik = useFormik<Partial<DeliveryDataInfo>>({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       number: "",
-      deliveryMethod: "",
       address: "",
-      zipCode: "",
+      zipcode: "",
       city: "",
-      country: "",
-      paymentMethod: "",
-    },
+      deliveryMethod: "",
+    } as any as DeliveryDataInfo,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      values.deliveryMethod = deliveryOption;
-      createOrder();
-      // props.setDeliveryInfo(values);
-      console.log(values);
+      setDeliveryInfo(values as DeliveryDataInfo);
+
       // kolla om användaren är inloggad annars navigera till sign in
       if (!currentUser) {
         navigate("/login");
       } else {
         navigate("/PaymentPage");
       }
-       // TODO: vänta med att navigera tills det att order är lagd.
     },
   });
+
+  const handleSelectedDelivery = (event: SelectChangeEvent) => {
+    const deliveryOption = deliveryOptions.find(
+      (d) => d.title === event.target.value
+    );
+    formik.setFieldValue("deliveryMethod", deliveryOption);
+  };
+
   return (
     <div style={rootStyle}>
       <div style={detailFormContainer}>
@@ -157,13 +147,13 @@ function CheckoutForm(props: Props) {
               <TextField
                 style={textFieldStyle}
                 fullWidth
-                id="zipCode"
-                name="zipCode"
+                id="zipcode"
+                name="zipcode"
                 label="Zip code"
-                value={formik.values.zipCode}
+                value={formik.values.zipcode}
                 onChange={formik.handleChange}
-                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
-                helperText={formik.touched.zipCode && formik.errors.zipCode}
+                error={formik.touched.zipcode && Boolean(formik.errors.zipcode)}
+                helperText={formik.touched.zipcode && formik.errors.zipcode}
               />
               <TextField
                 style={textFieldStyle}
@@ -176,17 +166,6 @@ function CheckoutForm(props: Props) {
                 error={formik.touched.city && Boolean(formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city}
               />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                id="country"
-                name="country"
-                label="Country"
-                value={formik.values.country}
-                onChange={formik.handleChange}
-                error={formik.touched.country && Boolean(formik.errors.country)}
-                helperText={formik.touched.country && formik.errors.country}
-              />
             </div>
 
             <Box style={deliveryBox}>
@@ -196,28 +175,49 @@ function CheckoutForm(props: Props) {
                 <Select
                   labelId="deliveryOptionLabel"
                   id="deliveryOption"
-                  value={deliveryOption}
+                  value={selectedDeliveryOption?.title}
                   label="Delivery Option"
-                  onChange={handleChange}
+                  onChange={handleSelectedDelivery}
+                  defaultValue={""}
+                  error={
+                    formik.touched.deliveryMethod &&
+                    Boolean(formik.errors.deliveryMethod)
+                  }
                   required
                 >
-                  <MenuItem value={"Postnord agent"}>
-                    Postnord - Postal agent - Free!
-                  </MenuItem>
-                  <MenuItem value={"DHL agent"}>
-                    DHL - Postal agent - 2 ETH{" "}
-                  </MenuItem>
-                  <MenuItem value={"Postnord home delivery"}>
-                    Postnord - Home delivery day/evening - 4 ETH
-                  </MenuItem>
-                  <MenuItem value={"DHL express"}>
-                    DHL express - Home delivery within 24h - 6 ETH
-                  </MenuItem>
+                  {deliveryOptions.map((deliveryOption: DeliveryOption) => (
+                    <MenuItem
+                      value={deliveryOption.title}
+                      key={deliveryOption.title}
+                      style={deliveryOptionStyle}
+                    >
+                      <div
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "1.5rem",
+                          marginBottom: ".2rem",
+                        }}
+                      >
+                        {deliveryOption.title}:
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: ".5rem",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div>Price: {deliveryOption.price} -</div>
+                        <div>
+                          Delivery time: {deliveryOption.expectedDeliveryTime}{" "}
+                          {""}
+                          days
+                        </div>
+                      </div>
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-              <div style={deliveryBox}>
-                <DeliveryBox deliveryOption={deliveryOption} />
-              </div>
             </Box>
 
             <Button
@@ -289,4 +289,12 @@ const nextButtonStyle: CSSProperties = {
   width: "40vmin",
   background: "#2081e2",
   fontWeight: "bold",
+};
+
+const deliveryOptionStyle: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  textAlign: "center",
+  gap: ".5rem",
+  flexWrap: "wrap",
 };

@@ -14,13 +14,10 @@ interface Product {
   /** Virtual */ imageURL: string;
 }
 
-interface Category {
-  name: string;
-}
-
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
+
   fetchCategoriesFromDb: () => void;
   categories: string[];
   // editNft: (nft: Product) => void;
@@ -37,7 +34,6 @@ const ProductsContext = createContext<ProductContext>({
   products: [],
   fetchCategoriesFromDb: () => [],
   categories: [],
-  // editNft: (nft: Product) => {},
   selectedNftID: 0,
   editNftModal: false,
   openEditNftModal: (nft: Product) => {},

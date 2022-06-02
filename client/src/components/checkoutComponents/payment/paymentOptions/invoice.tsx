@@ -1,27 +1,25 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, Props } from "react";
 import { useNavigate } from "react-router-dom";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import { useCart } from "../../../context/CartContext";
+import { useOrder } from "../../../context/OrderContext";
 
 export interface FormValues {
-  invoice: number | '';
-}
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
+  invoice: number | "";
 }
 
-function Invoice(props: Props) {
+function Invoice() {
+  const { deliveryInfo, setDeliveryInfo, createOrder } = useOrder();
   const navigate = useNavigate();
   const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
     useCart();
-  const completePayment = (props: Props) => {
-    let newObject = props.deliveryInfo;
+  const completePayment = () => {
+    let newObject = deliveryInfo;
     newObject.paymentMethod = "Card";
-    props.setDeliveryInfo(newObject);
+    setDeliveryInfo(newObject);
     addPurchaseList(cart);
     newPurchaseTotal(totalPrice);
+    createOrder();
     clearCart();
     navigate("/PurchaseComplete");
   };
@@ -36,7 +34,7 @@ function Invoice(props: Props) {
         color="primary"
         variant="contained"
         fullWidth
-        onClick={() => completePayment(props)}
+        onClick={() => completePayment()}
       >
         Complete purchase
       </Button>
