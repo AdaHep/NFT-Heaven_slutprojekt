@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { ProductModel, Product } from "../product";
-import { User } from "../user";
-import { OrderModel, Order } from "./order.model";
+import { updateStock } from "../product";
+import { Order, OrderModel } from "./order.model";
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
@@ -18,7 +17,6 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("Hej hej ");
   const order = new OrderModel({
     customer: req.session?.user.id,
     products: req.body.products,
@@ -29,6 +27,7 @@ export const addOrder = async (
 
   try {
     await order.save();
+    await updateStock(order);
     res.status(200).json(order);
   } catch (err) {
     next(err);
