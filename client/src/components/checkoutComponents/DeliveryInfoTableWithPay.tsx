@@ -37,7 +37,7 @@ function DeliveryInfoTable() {
           </tr>
           <tr>
             <td>Delivery method</td>
-            <td style={tableDataStyle}>{selectedDeliveryOption}</td>
+            <td style={tableDataStyle}>{deliveryInfo.deliveryMethod.title}</td>
           </tr>
           <tr>
             <td>Payment method</td>
