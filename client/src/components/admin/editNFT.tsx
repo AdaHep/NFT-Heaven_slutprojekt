@@ -1,25 +1,60 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import { Field, useFormik } from "formik";
 import * as yup from "yup";
 import { CSSProperties, useEffect } from "react";
-import { Product } from "../../ProductInterface";
+import { Category, Product } from "../../ProductInterface";
 import { useProducts } from "../context/ProductContext";
 import React from "react";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 interface Props {
   product: Product;
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 function EditNFT(props: Props) {
+  const handleChange = (
+    event: SelectChangeEvent<typeof selectedCategories>
+  ) => {
+    const {
+      target: { value },
+    } = event;
+  };
+
+  const [selectedCategories, setSelectedCategories] = React.useState<
+    Category[]
+  >([]);
   useEffect(() => {
     fetchProductsFromDb();
+    fetchCategoriesFromDb();
   }, []);
   const {
     closeEditNftModal,
     editNftModal,
     selectedNFT,
     editProduct,
+    categories,
     fetchProductsFromDb,
+    fetchCategoriesFromDb,
   } = useProducts();
 
   let categoryName = [""];
@@ -131,31 +166,26 @@ function EditNFT(props: Props) {
                   error={formik.touched.stock && Boolean(formik.errors.stock)}
                   helperText={formik.touched.stock && formik.errors.stock}
                 />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="categories"
-                  name="categories"
-                  label="Categories"
-                  value={formik.values.categories}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.categories &&
-                    Boolean(formik.errors.categories)
-                  }
-                  helperText={
-                    formik.touched.categories && formik.errors.categories
-                  }
-                />
-                {/* <Field as="select" id="categories" name="categories" multiple>
-                  <option value="628c92cd1c4eb76ecbc12f55">MeinerNFT</option>
-                  <option value="628c92c41c4eb76ecbc12f53">BakkumNFT</option>
-                  <option value="628c92bc1c4eb76ecbc12f50">NoccoNFT</option>
-                  <option value="628c92b71c4eb76ecbc12f4e">DCNFT</option>
-                  <option value="628c92af1c4eb76ecbc12f4c">PappaNFT</option>
-                  <option value="628c92aa1c4eb76ecbc12f4a">Formula1NFT</option>
-                </Field> */}
+                <div>
+                  <FormControl sx={{ m: 1, width: 300, zIndex: "200" }}>
+                    <InputLabel id="categories">Categories</InputLabel>
+                    <Select
+                      labelId="categories"
+                      id="categories"
+                      multiple
+                      value={selectedCategories}
+                      onChange={handleChange}
+                      input={<OutlinedInput label="categories" />}
+                      MenuProps={MenuProps}
+                    >
+                      {categories.map((category, index) => (
+                        <MenuItem key={index} value={selectedCategories}>
+                          {category}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
               <Button
                 style={saveCloseEditButton}

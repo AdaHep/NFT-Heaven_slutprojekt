@@ -1,6 +1,4 @@
-import { METHODS } from "http";
 import { createContext, FC, useContext, useState } from "react";
-import { json } from "stream/consumers";
 
 interface Product {
   id: string;
@@ -17,10 +15,8 @@ interface Product {
 interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
-
   fetchCategoriesFromDb: () => void;
   categories: string[];
-  // editNft: (nft: Product) => void;
   selectedNftID: number;
   editNftModal: boolean;
   openEditNftModal: (nft: Product) => void;
@@ -55,11 +51,7 @@ const ProductsContext = createContext<ProductContext>({
 export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  // let localData = localStorage.getItem("collections");
   const [editNftModal, setEditNftModal] = useState(false);
-  // const [collections, setCollections] = useState(
-  //   localData ? JSON.parse(localData) : collectionData
-  // );
   const [selectedNftID, setSelectedNftID] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState({
     id: "",
@@ -123,7 +115,6 @@ export const ProductProvider: FC = (props) => {
         categories,
         fetchCategoriesFromDb,
         selectedNFT,
-        // collections,
         editProduct,
         editNftModal,
         openEditNftModal,

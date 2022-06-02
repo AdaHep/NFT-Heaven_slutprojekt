@@ -53,7 +53,6 @@ app.use(errorRequestHandler);
 
 const db = mongoose.connection;
 db.on("error", (err) => {
-  console.log("Mongoose Error");
   console.log(err);
 });
 
