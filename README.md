@@ -24,22 +24,22 @@ Developers 👩‍💻👨‍💻👩‍💻
 
 [Elin Arntén](https://github.com/elinarnten),
 [Adam Hepsever](https://github.com/AdaHep) ,
-[Miranda Nilhag](http://github.com/mirrenil) &
+[Miranda Nilhag](http://github.com/mirrenil) 
 
 
 
 ## G-KRAV:
-- [ ] Alla sidor skall vara responsiva.
+- [X] Alla sidor skall vara responsiva.
 - [X] Arbetet ska implementeras med en React frontend och en Express backend.
 - [X] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet.
 - [X] Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet.
-- [ ] All data som programmet utnyttjar ska vara sparat i en Mongo-databas (produkter, beställningar, konton mm).
+- [X] All data som programmet utnyttjar ska vara sparat i en Mongo-databas (produkter, beställningar, konton mm).
 - [X] Man ska kunna logga in som administratör i systemet.
 - [X] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.
 - [X] Inga Lösenord får sparas i klartext i databasen.
-- [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.
+- [X] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.
 - [X] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.
-- [ ] Administratörer ska kunna se en lista på alla gjorda beställningar.
+- [X] Administratörer ska kunna se en lista på alla gjorda beställningar.
 - [x] Tillgängliga fraktalternativ ska vara hämtade från databasen.
 - [x] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera.
 - [x] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori.
