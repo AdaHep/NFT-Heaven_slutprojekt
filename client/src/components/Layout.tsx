@@ -20,93 +20,91 @@ import AdminOrderPage from "../pages/Admin/AdminOrderPage";
 import AdminPage from "../pages/Admin/AdminPage";
 import AdminProductPage from "../pages/Admin/AdminProductPage";
 import OrderProvider from "./context/OrderContext";
+import { DeliveryOptionProvider } from "./context/DeliveryOptionContext";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject); // TODO: move to order context or remove
+  // const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject); // TODO: move to order context or remove
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
 
   return (
     <div>
       <UserProvider>
-        <CartProvider>
-          <ProductProvider>
-            <OrderProvider>
-            <BrowserRouter>
-              <Header
-                modalState={modalState}
-                setModalState={setModalState}
-                searchBarFocused={searchFocused}
-                searchBarFocusOut={() => setSearchFocused(false)}
-              />
-              <CartModal
-                modalState={modalState}
-                setModalState={setModalState}
-              />
-              <div style={rootStyle}>
-                <Routes>
-                  <Route path="/" element={<StartPage />} />
-                  <Route
-                    path="/products/category/:category"
-                    element={<CategoryPages />}
+        <DeliveryOptionProvider>
+          <CartProvider>
+            <ProductProvider>
+              <OrderProvider>
+                <BrowserRouter>
+                  <Header
+                    modalState={modalState}
+                    setModalState={setModalState}
+                    searchBarFocused={searchFocused}
+                    searchBarFocusOut={() => setSearchFocused(false)}
                   />
-                  <Route path="/LogInPage" element={<LogInPage />} />
-                  <Route path="/products" element={<ProductPage />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/adminOrderPage" element={<AdminOrderPage />} />
-                  <Route
-                    path="/adminProductPage"
-                    element={<AdminProductPage />}
+                  <CartModal
+                    modalState={modalState}
+                    setModalState={setModalState}
                   />
-
-                  <Route path="/LogInPage" element={<LogInPage />} />
-
-                  <Route
-                    path="/"
-                    element={
-                      <StartPage focusHeader={() => setSearchFocused(true)} />
-                    }
-                  />
-                  <Route path="/Checkout" element={<CheckoutPage />} />
-                  <Route
-                    path="/CheckoutDetails"
-                    element={
-                      <CheckoutPageDetails
-                        deliveryInfo={deliveryInfo}
-                        setDeliveryInfo={setDeliveryInfo}
+                  <div style={rootStyle}>
+                    <Routes>
+                      <Route path="/" element={<StartPage />} />
+                      <Route
+                        path="/products/category/:category"
+                        element={<CategoryPages />}
                       />
-                    }
-                  />
-                  <Route
-                    path="/PaymentPage"
-                    element={
-                      <PaymentPage
-                        deliveryInfo={deliveryInfo}
-                        setDeliveryInfo={setDeliveryInfo}
-                        finalTotalSum={finalTotalSum}
-                        setFinalTotalSum={setFinalTotalSum}
+                      <Route path="/LogInPage" element={<LogInPage />} />
+                      <Route path="/products" element={<ProductPage />} />
+                      <Route path="/admin" element={<AdminPage />} />
+                      <Route
+                        path="/adminOrderPage"
+                        element={<AdminOrderPage />}
                       />
-                    }
-                  />
+                      <Route
+                        path="/adminProductPage"
+                        element={<AdminProductPage />}
+                      />
 
-                  <Route
-                    path="/PurchaseComplete"
-                    element={
-                      <PurchaseComplete
-                        deliveryInfo={deliveryInfo}
-                        finalTotalSum={finalTotalSum}
+                      <Route path="/LogInPage" element={<LogInPage />} />
+
+                      <Route
+                        path="/"
+                        element={
+                          <StartPage
+                            focusHeader={() => setSearchFocused(true)}
+                          />
+                        }
                       />
-                    }
-                  />
-                </Routes>
-                <Footer />
-              </div>
-              <ToastContainer />
-            </BrowserRouter>
-            </OrderProvider>
-          </ProductProvider>
-        </CartProvider>
+                      <Route path="/Checkout" element={<CheckoutPage />} />
+                      <Route
+                        path="/CheckoutDetails"
+                        element={<CheckoutPageDetails />}
+                      />
+                      <Route
+                        path="/PaymentPage"
+                        element={
+                          <PaymentPage
+                            finalTotalSum={finalTotalSum}
+                            setFinalTotalSum={setFinalTotalSum}
+                          />
+                        }
+                      />
+
+                      <Route
+                        path="/PurchaseComplete"
+                        element={
+                          <PurchaseComplete finalTotalSum={finalTotalSum} />
+                        }
+                      />
+                    </Routes>
+                    <Footer />
+                  </div>
+                  <ToastContainer />
+                </BrowserRouter>
+              </OrderProvider>
+            </ProductProvider>
+          </CartProvider>
+        </DeliveryOptionProvider>
       </UserProvider>
     </div>
   );

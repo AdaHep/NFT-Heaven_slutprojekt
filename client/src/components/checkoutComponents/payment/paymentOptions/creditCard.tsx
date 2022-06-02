@@ -9,16 +9,14 @@ import { useOrder } from "../../../context/OrderContext";
 
 export interface FormValues {
   creditCard: {
-  CardNumber: string;
-  ExpMonth: string;
-  ExpYear: string;
-  Cvc: string;
-  CardHolder: string;
+    CardNumber: string;
+    ExpMonth: string;
+    ExpYear: string;
+    Cvc: string;
+    CardHolder: string;
   };
 }
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   paymentModalOpen: boolean;
   setPaymentModal: any;
 }
@@ -46,6 +44,7 @@ const validationSchema = yup.object({
 });
 
 function CreditCard(props: Props) {
+  const { deliveryInfo, setDeliveryInfo } = useOrder();
   const navigate = useNavigate();
   const { createOrder } = useOrder();
   const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
@@ -65,14 +64,14 @@ function CreditCard(props: Props) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newObject = props.deliveryInfo;
+      let newObject = deliveryInfo;
       newObject.paymentMethod = "Card";
-      props.setDeliveryInfo(newObject);
-      console.log(props.deliveryInfo);
+      setDeliveryInfo(newObject);
+      console.log(deliveryInfo);
       props.setPaymentModal(true);
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
-      //createOrder(values);
+      createOrder();
       clearCart();
       closeModal();
     },

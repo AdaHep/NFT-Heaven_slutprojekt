@@ -1,20 +1,18 @@
 import { useFormik } from "formik";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import * as yup from "yup";
 import { Button, TextField } from "@mui/material";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import { useOrder } from "../../../context/OrderContext";
+import { useDelivery } from "../../../context/DeliveryOptionContext";
 
 export interface FormValues {
   swish: {
-    number: number |'';
+    number: number | "";
   };
 }
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   paymentModalOpen: boolean;
   setPaymentModal: any;
 }
@@ -30,8 +28,9 @@ const validationSchema = yup.object({
 });
 
 function Swish(props: Props) {
+  const { deliveryInfo, setDeliveryInfo, createOrder } = useOrder();
+  const { selectedDeliveryOption } = useDelivery();
   const navigate = useNavigate();
-  const { createOrder } = useOrder();
   const { addPurchaseList, cart, clearCart, newPurchaseTotal, totalPrice } =
     useCart();
   const closeModal = () =>
@@ -41,18 +40,21 @@ function Swish(props: Props) {
     }, 5000);
   const formik = useFormik({
     initialValues: {
-      number: props.deliveryInfo.number,
+      number: deliveryInfo.number,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newObject = props.deliveryInfo;
+      let newObject = deliveryInfo;
       newObject.paymentMethod = "Swish";
-      props.setDeliveryInfo(newObject);
+      setDeliveryInfo(newObject);
       props.setPaymentModal(true);
       console.log(props.paymentModalOpen);
       closeModal();
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
+      console.log(selectedDeliveryOption);
+      createOrder();
+
       clearCart();
     },
   });
@@ -87,7 +89,7 @@ function Swish(props: Props) {
 export default Swish;
 
 const swishForm: CSSProperties = {
-margin: '0 1rem'
+  margin: "0 1rem",
 };
 
 const textFieldStyle: CSSProperties = {

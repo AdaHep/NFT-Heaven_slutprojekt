@@ -1,22 +1,17 @@
 import { CSSProperties } from "react";
 import CheckoutForm from "../components/checkoutComponents/CheckoutForm";
+import { useOrder } from "../components/context/OrderContext";
 
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
-}
+interface Props {}
 
 function CheckoutPageDetails(props: Props) {
   return (
     <div style={rootStyle}>
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
-        <CheckoutForm
-          deliveryInfo={props.deliveryInfo}
-          setDeliveryInfo={props.setDeliveryInfo}
-        />
+        <CheckoutForm />
       </div>
     </div>
   );
