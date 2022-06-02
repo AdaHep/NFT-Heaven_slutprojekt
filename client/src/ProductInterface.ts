@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  categories: string[];
+  categories: Category[];
   name: string;
   description: string;
   price: number;
@@ -11,6 +11,7 @@ export interface Product {
 }
 
 export interface Category {
+  _id: string;
   name: string;
 }
 

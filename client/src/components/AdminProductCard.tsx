@@ -9,38 +9,14 @@ import { useProducts } from "./context/ProductContext";
 interface Props {
   product: Product;
 }
-let categoryName = [""];
 
 function AdminProductCard(props: Props) {
-  const convertCategory = (props: Props) => {
-    if (props.product.categories[0] === "628c92cd1c4eb76ecbc12f55") {
-      categoryName = ["MeinerNFT"];
-    }
-    if (props.product.categories[0] === "628c92c41c4eb76ecbc12f53") {
-      categoryName = ["BakkumNFT"];
-    }
-    if (props.product.categories[0] === "628c92bc1c4eb76ecbc12f50") {
-      categoryName = ["NoccoNFT"];
-    }
-    if (props.product.categories[0] === "628c92b71c4eb76ecbc12f4e") {
-      categoryName = ["DCNFT"];
-    }
-    if (props.product.categories[0] === "628c92af1c4eb76ecbc12f4c") {
-      categoryName = ["PappaNFT"];
-    }
-    if (props.product.categories[0] === "628c92aa1c4eb76ecbc12f4a") {
-      categoryName = ["Formula1NFT"];
-    }
-  };
-
-  convertCategory(props);
-
   const { openEditNftModal } = useProducts();
   return (
     <div style={cardContainer}>
       <div style={cardHeader}>
         <div style={headerText}>
-          <div>{categoryName}</div>
+          <div>{props.product.categories._id}</div>
           <div>{props.product.name}</div>
           <div style={priceStyle}>
             Price:

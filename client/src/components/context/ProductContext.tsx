@@ -1,8 +1,9 @@
 import { createContext, FC, useContext, useState } from "react";
+import { Category } from "../../ProductInterface";
 
 interface Product {
   id: string;
-  categories: string[];
+  categories: Category[];
   name: string;
   description: string;
   price: number;
@@ -16,7 +17,7 @@ interface ProductContext {
   fetchProductsFromDb: () => void;
   products: Product[];
   fetchCategoriesFromDb: () => void;
-  categories: string[];
+  categories: Category[];
   selectedNftID: number;
   editNftModal: boolean;
   openEditNftModal: (nft: Product) => void;
@@ -36,7 +37,7 @@ const ProductsContext = createContext<ProductContext>({
   closeEditNftModal: () => {},
   selectedNFT: {
     id: "",
-    categories: ["test"],
+    categories: [],
     name: "test",
     description: "test",
     price: 420,

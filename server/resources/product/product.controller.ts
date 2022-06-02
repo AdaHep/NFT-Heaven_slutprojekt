@@ -6,7 +6,9 @@ import { Product, ProductModel } from "./product.model";
 export const getOneProduct = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
-    const product = await ProductModel.findById(req.params.id);
+    const product = await ProductModel.findById(req.params.id).populate(
+      "categories"
+    );
     res.status(200).json(product);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -18,7 +20,7 @@ export const getOneProduct = async (req: Request, res: Response) => {
 export const getAllProducts = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
-    const products = await ProductModel.find({});
+    const products = await ProductModel.find({}).populate("categories");
     res.status(200).json(products);
   } catch (err: unknown) {
     if (err instanceof Error) {

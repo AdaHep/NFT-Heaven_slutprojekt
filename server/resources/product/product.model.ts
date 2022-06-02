@@ -1,4 +1,5 @@
 import mongoose, { ObjectId, Schema, Types } from "mongoose";
+import { CategoryModel } from "../category";
 
 export interface Product {
   _id: String;
@@ -14,7 +15,11 @@ export interface Product {
 
 export const ProductSchema = new mongoose.Schema<Product>(
   {
-    categories: { type: [Schema.Types.ObjectId], required: true },
+    categories: {
+      type: [Schema.Types.ObjectId],
+      ref: "category",
+      required: true,
+    },
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },

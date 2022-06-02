@@ -15,6 +15,7 @@ import { Category, Product } from "../../ProductInterface";
 import { useProducts } from "../context/ProductContext";
 import React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { CLIENT_RENEG_LIMIT } from "tls";
 
 interface Props {
   product: Product;
@@ -32,17 +33,10 @@ const MenuProps = {
 };
 
 function EditNFT(props: Props) {
-  const handleChange = (
-    event: SelectChangeEvent<typeof selectedCategories>
-  ) => {
-    const {
-      target: { value },
-    } = event;
-  };
-
   const [selectedCategories, setSelectedCategories] = React.useState<
     Category[]
   >([]);
+
   useEffect(() => {
     fetchProductsFromDb();
     fetchCategoriesFromDb();
@@ -56,30 +50,6 @@ function EditNFT(props: Props) {
     fetchProductsFromDb,
     fetchCategoriesFromDb,
   } = useProducts();
-
-  let categoryName = [""];
-
-  const convertCategoryIdToName = () => {
-    if (selectedNFT.categories[0] === "628c92cd1c4eb76ecbc12f55") {
-      categoryName = ["MeinerNFT"];
-    }
-    if (selectedNFT.categories[0] === "628c92c41c4eb76ecbc12f53") {
-      categoryName = ["BakkumNFT"];
-    }
-    if (selectedNFT.categories[0] === "628c92bc1c4eb76ecbc12f50") {
-      categoryName = ["NoccoNFT"];
-    }
-    if (selectedNFT.categories[0] === "628c92b71c4eb76ecbc12f4e") {
-      categoryName = ["DCNFT"];
-    }
-    if (selectedNFT.categories[0] === "628c92af1c4eb76ecbc12f4c") {
-      categoryName = ["PappaNFT"];
-    }
-    if (selectedNFT.categories[0] === "628c92aa1c4eb76ecbc12f4a") {
-      categoryName = ["Formula1NFT"];
-    }
-  };
-  convertCategoryIdToName();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -110,6 +80,14 @@ function EditNFT(props: Props) {
       closeEditNftModal();
     },
   });
+
+  const handleChange = (
+    event: SelectChangeEvent<typeof selectedCategories>
+  ) => {
+    const ids = event.target.value;
+    const newCategories = ids.map((id) => categories.find((c) => c._id === id));
+    formik.setFieldValue("categories", newCategories);
+  };
 
   return (
     <div>
@@ -173,14 +151,14 @@ function EditNFT(props: Props) {
                       labelId="categories"
                       id="categories"
                       multiple
-                      value={selectedCategories}
+                      value={formik.values.categories}
                       onChange={handleChange}
                       input={<OutlinedInput label="categories" />}
                       MenuProps={MenuProps}
                     >
                       {categories.map((category, index) => (
-                        <MenuItem key={index} value={selectedCategories}>
-                          {category}
+                        <MenuItem key={index} value={category._id}>
+                          {category.name}
                         </MenuItem>
                       ))}
                     </Select>
