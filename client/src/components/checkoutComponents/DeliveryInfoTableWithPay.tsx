@@ -1,9 +1,9 @@
-import { CSSProperties, Props } from "react";
+import { CSSProperties } from "react";
 import { useDelivery } from "../context/DeliveryOptionContext";
 import { useOrder } from "../context/OrderContext";
 
 function DeliveryInfoTable() {
-  const { deliveryInfo, setDeliveryInfo } = useOrder();
+  const { deliveryInfo } = useOrder();
   const { selectedDeliveryOption } = useDelivery();
   return (
     <div>
@@ -29,7 +29,7 @@ function DeliveryInfoTable() {
           </tr>
           <tr>
             <td>Zipcode</td>
-            <td style={tableDataStyle}>{deliveryInfo.zipCode}</td>
+            <td style={tableDataStyle}>{deliveryInfo.zipcode}</td>
           </tr>
           <tr>
             <td>City</td>

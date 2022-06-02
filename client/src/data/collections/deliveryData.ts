@@ -11,7 +11,7 @@ export interface DeliveryDataInfo {
   };
   number: number;
   address: string;
-  zipCode: number;
+  zipcode: number;
   city: string;
   paymentMethod: string;
 }
@@ -29,7 +29,7 @@ export const DeliveryDataInfoObject: DeliveryDataInfo = {
   },
   number: 1,
   address: "",
-  zipCode: 1,
+  zipcode: 1,
   city: "",
   paymentMethod: "",
 };

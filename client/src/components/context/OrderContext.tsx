@@ -1,23 +1,12 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  FC,
-  useCallback,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { createContext, useContext, useState, FC } from "react";
 import { makeReq } from "../../helper";
-import { ObjectId, PromiseProvider, Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 import { Product } from "../../ProductInterface";
 import {
   DeliveryDataInfo,
   DeliveryDataInfoObject,
 } from "../../data/collections/deliveryData";
 import { useCart } from "./CartContext";
-import { useUser } from "./LoginContext";
-import { useDelivery } from "./DeliveryOptionContext";
 
 export interface Order {
   _id?: string;
@@ -62,7 +51,7 @@ interface OrderContext {
   getOrders: () => void;
   createOrder: () => void;
   deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: Function;
+  setDeliveryInfo: (deliveryInfo: DeliveryDataInfo) => void;
 }
 
 export const OrderContext = createContext<OrderContext>({
@@ -74,15 +63,10 @@ export const OrderContext = createContext<OrderContext>({
 });
 
 const OrderProvider: FC = (props: any) => {
-  const { purchaseList, purchaseTotal } = useCart();
-  const [deliveryAddress] = useState<UserOrder>();
   const [orders, setOrders] = useState<Order[]>([]);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
-  const { selectedDeliveryOption } = useDelivery();
 
-  const { cart, totalPrice } = useCart();
-
-  const [quantity, setQuantity] = useState<Product>();
+  const { cart } = useCart();
 
   const getOrders = async () => {
     let order = fetch("http://localhost:5500/api/order")
@@ -98,23 +82,7 @@ const OrderProvider: FC = (props: any) => {
   };
 
   const createOrder = async () => {
-    const address = {
-      firstName: deliveryInfo.firstName,
-      lastName: deliveryInfo.lastName,
-      number: deliveryInfo.number,
-      street: deliveryInfo.address,
-      zipcode: deliveryInfo.zipCode,
-      city: deliveryInfo.city,
-    };
-
-    const deliveryMethod = {
-      title: selectedDeliveryOption.title,
-      price: selectedDeliveryOption.price,
-      description: selectedDeliveryOption.description,
-      expectedDeliveryTime: selectedDeliveryOption.expectedDeliveryTime,
-      imageId: selectedDeliveryOption.imageId,
-    };
-    const paymentMethod = deliveryInfo.paymentMethod;
+    const { paymentMethod, deliveryMethod, ...address } = deliveryInfo;
 
     const order = {
       products: cart,
@@ -123,16 +91,12 @@ const OrderProvider: FC = (props: any) => {
       paymentMethod: paymentMethod,
     };
 
-    console.log(order);
-
     try {
       let sendToDB = await makeReq<Order>(`/api/order`, "POST", order);
       console.log(sendToDB);
     } catch (err) {
       return console.log(err);
     }
-
-    createOrder();
   };
 
   return (

@@ -21,11 +21,11 @@ function PurchaseComplete(props: Props) {
 
   let totalSumWithShipping = 0;
 
-  if (selectedDeliveryOption.title === "DHL agent") {
+  if (selectedDeliveryOption!.title === "DHL agent") {
     totalSumWithShipping = purchaseTotal + 2;
-  } else if (selectedDeliveryOption.title === "DHL express") {
+  } else if (selectedDeliveryOption!.title === "DHL express") {
     totalSumWithShipping = purchaseTotal + 6;
-  } else if (selectedDeliveryOption.title === "Postnord home delivery") {
+  } else if (selectedDeliveryOption!.title === "Postnord home delivery") {
     totalSumWithShipping = purchaseTotal + 4;
   }
 

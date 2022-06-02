@@ -18,6 +18,7 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("Hej hej ");
   const order = new OrderModel({
     customer: req.session?.user.id,
     products: req.body.products,
@@ -26,9 +27,14 @@ export const addOrder = async (
     paymentMethod: req.body.paymentMethod,
   });
 
-  await order.save();
-  res.status(200).json(order);
+  try {
+    await order.save();
+    res.status(200).json(order);
+  } catch (err) {
+    next(err);
+  }
 };
+
 export const updateOrder = async (
   req: Request<{ id: string }>,
   res: Response

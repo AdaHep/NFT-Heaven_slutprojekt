@@ -5,10 +5,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
@@ -17,49 +18,49 @@ import { useOrder } from "../context/OrderContext";
 import { useUser } from "../context/LoginContext";
 import { DeliveryOption, useDelivery } from "../context/DeliveryOptionContext";
 
-const validationSchema = yup.object({
-  firstName: yup.string().required("Please enter first name").min(2),
-  lastName: yup.string().required("Please enter last name").min(2),
-  email: yup
-    .string()
-    .email("Please enter a valid email")
-    .required("Email is required"),
-  number: yup.number().required("Please enter number").min(10),
-  zipCode: yup.number().required("Please enter zipcode").min(4),
-  city: yup.string().required("Please enter your city").min(2),
-  address: yup.string().required("Please enter your adress").min(8),
-});
+type FormikFields = Omit<DeliveryDataInfo, "paymentMethod">;
+
+const validationSchema = yup
+  .object()
+  .shape<Record<keyof FormikFields, yup.AnySchema>>({
+    firstName: yup.string().required("Please enter first name").min(2),
+    lastName: yup.string().required("Please enter last name").min(2),
+    email: yup
+      .string()
+      .email("Please enter a valid email")
+      .required("Email is required"),
+    number: yup.number().required("Please enter number").min(10),
+    zipcode: yup.number().required("Please enter zipcode").min(4),
+    city: yup.string().required("Please enter your city").min(2),
+    address: yup.string().required("Please enter your adress").min(8),
+    deliveryMethod: yup.object().required(""),
+  });
 
 function CheckoutForm() {
   const { currentUser } = useUser();
-  const { deliveryInfo, setDeliveryInfo } = useOrder();
-  const {
-    deliveryOptions,
-    setSelectedDeliveryOption,
-    selectedDeliveryOption,
-    getDeliveryOptions,
-  } = useDelivery();
+  const { setDeliveryInfo } = useOrder();
+  const { deliveryOptions, selectedDeliveryOption, getDeliveryOptions } =
+    useDelivery();
 
   useEffect(() => {
     getDeliveryOptions();
   }, []);
   const navigate = useNavigate();
 
-  const formik = useFormik({
+  const formik = useFormik<Partial<DeliveryDataInfo>>({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       number: "",
       address: "",
-      zipCode: "",
+      zipcode: "",
       city: "",
-      paymentMethod: "",
       deliveryMethod: "",
-    },
+    } as any as DeliveryDataInfo,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      setDeliveryInfo(values);
+      setDeliveryInfo(values as DeliveryDataInfo);
 
       // kolla om användaren är inloggad annars navigera till sign in
       if (!currentUser) {
@@ -70,8 +71,11 @@ function CheckoutForm() {
     },
   });
 
-  const handleSelectedDelivery = (event: any) => {
-    setSelectedDeliveryOption(event.target.value);
+  const handleSelectedDelivery = (event: SelectChangeEvent) => {
+    const deliveryOption = deliveryOptions.find(
+      (d) => d.title === event.target.value
+    );
+    formik.setFieldValue("deliveryMethod", deliveryOption);
   };
 
   return (
@@ -143,13 +147,13 @@ function CheckoutForm() {
               <TextField
                 style={textFieldStyle}
                 fullWidth
-                id="zipCode"
-                name="zipCode"
+                id="zipcode"
+                name="zipcode"
                 label="Zip code"
-                value={formik.values.zipCode}
+                value={formik.values.zipcode}
                 onChange={formik.handleChange}
-                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
-                helperText={formik.touched.zipCode && formik.errors.zipCode}
+                error={formik.touched.zipcode && Boolean(formik.errors.zipcode)}
+                helperText={formik.touched.zipcode && formik.errors.zipcode}
               />
               <TextField
                 style={textFieldStyle}
@@ -171,11 +175,15 @@ function CheckoutForm() {
                 <Select
                   labelId="deliveryOptionLabel"
                   id="deliveryOption"
-                  value={selectedDeliveryOption.title}
+                  value={selectedDeliveryOption?.title}
                   label="Delivery Option"
                   onChange={handleSelectedDelivery}
-                  required
                   defaultValue={""}
+                  error={
+                    formik.touched.deliveryMethod &&
+                    Boolean(formik.errors.deliveryMethod)
+                  }
+                  required
                 >
                   {deliveryOptions.map((deliveryOption: DeliveryOption) => (
                     <MenuItem

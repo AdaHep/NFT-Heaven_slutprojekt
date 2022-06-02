@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import * as yup from "yup";
 import { Button, TextField } from "@mui/material";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import { useOrder } from "../../../context/OrderContext";
+import { useDelivery } from "../../../context/DeliveryOptionContext";
 
 export interface FormValues {
   swish: {
@@ -29,6 +29,7 @@ const validationSchema = yup.object({
 
 function Swish(props: Props) {
   const { deliveryInfo, setDeliveryInfo, createOrder } = useOrder();
+  const { selectedDeliveryOption } = useDelivery();
   const navigate = useNavigate();
   const { addPurchaseList, cart, clearCart, newPurchaseTotal, totalPrice } =
     useCart();
@@ -51,7 +52,8 @@ function Swish(props: Props) {
       closeModal();
       addPurchaseList(cart);
       newPurchaseTotal(totalPrice);
-      // createOrder();
+      console.log(selectedDeliveryOption);
+      createOrder();
 
       clearCart();
     },

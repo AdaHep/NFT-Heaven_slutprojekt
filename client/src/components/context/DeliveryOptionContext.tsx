@@ -1,5 +1,4 @@
-import { createContext, FC, useContext, useEffect, useState } from "react";
-// import { makeReq } from "../../helper";
+import { createContext, FC, useContext, useState } from "react";
 
 export interface DeliveryOption {
   title: string;
@@ -15,7 +14,7 @@ interface DeliveryOptionsContext {
   deliveryOptions: DeliveryOption[];
 
   setSelectedDeliveryOption: Function;
-  selectedDeliveryOption: DeliveryOption;
+  selectedDeliveryOption?: DeliveryOption;
 }
 
 export const DeliveryOptionContext = createContext<DeliveryOptionsContext>({
