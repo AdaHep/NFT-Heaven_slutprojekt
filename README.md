@@ -19,7 +19,6 @@ Run the client on http://localhost:3000
 
 Welcome to our webshop! Here you can find the latest and greatest NFTs for sale in cyberspace.
 
-You can find the website here: [Netlify](nftheaven.netlify.app).
 
 Developers 👩‍💻👨‍💻👩‍💻
 
