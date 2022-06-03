@@ -85,8 +85,9 @@ function EditNFT(props: Props) {
     event: SelectChangeEvent<typeof selectedCategories>
   ) => {
     const ids = event.target.value;
-    const newCategories = ids.map((id) => categories.find((c) => c._id === id));
-    formik.setFieldValue("categories", newCategories);
+    // console.log(formik.values.categories);
+    // const newCategories = ids.map((id) => categories.find((c) => c._id === id));
+    formik.setFieldValue("categories", ids);
   };
 
   return (

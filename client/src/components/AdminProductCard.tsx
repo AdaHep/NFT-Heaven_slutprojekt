@@ -16,7 +16,6 @@ function AdminProductCard(props: Props) {
     <div style={cardContainer}>
       <div style={cardHeader}>
         <div style={headerText}>
-          <div>{props.product.categories._id}</div>
           <div>{props.product.name}</div>
           <div style={priceStyle}>
             Price:
@@ -29,6 +28,14 @@ function AdminProductCard(props: Props) {
         <img style={cardPicture} src={props.product.imageURL} alt="" />
       </div>
       <div style={itemDescription}>{props.product.description}</div>
+      <div>
+        <p>
+          Categories:
+          {props.product.categories.map((category, index) => (
+            <p style={{ margin: "0" }}>{category.name}</p>
+          ))}
+        </p>
+      </div>
       <Button
         onClick={() => openEditNftModal(props.product)}
         variant="contained"

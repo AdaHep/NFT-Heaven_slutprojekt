@@ -43,7 +43,7 @@ PUT http://localhost:5500/api/product/629521fd9eefa46f12c96b4b
 Content-Type: application/json
 
 {
-  "categories": ["628c92bc1c4eb76ecbc12f50", "628c92cd1c4eb76ecbc12f55", "628c92af1c4eb76ecbc12f4c"],
+  "categories": ["628c92bc1c4eb76ecbc12f50"],
   "name": "TEST-ÄNDRAD",
   "description": "TEST-ÄNDRAD",
   "price": 1337,

@@ -37,7 +37,12 @@ const ProductsContext = createContext<ProductContext>({
   closeEditNftModal: () => {},
   selectedNFT: {
     id: "",
-    categories: [],
+    categories: [
+      {
+        _id: "hej",
+        name: "hej",
+      },
+    ],
     name: "test",
     description: "test",
     price: 420,
@@ -56,7 +61,12 @@ export const ProductProvider: FC = (props) => {
   const [selectedNftID, setSelectedNftID] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState({
     id: "",
-    categories: ["test"],
+    categories: [
+      {
+        _id: "hej",
+        name: "hej",
+      },
+    ],
     name: "test",
     description: "test",
     price: 420,
