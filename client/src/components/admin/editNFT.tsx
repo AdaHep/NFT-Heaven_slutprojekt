@@ -139,7 +139,7 @@ function EditNFT(props: Props) {
                   name="categories"
                   label="Categories"
                   value={formik.values.categories}
-                  onChange={formik.handleChange}
+                  onChange={(e) => formik.setFieldValue('categories', e.target.value.split(','))}
                   error={
                     formik.touched.categories &&
                     Boolean(formik.errors.categories)
@@ -148,14 +148,7 @@ function EditNFT(props: Props) {
                     formik.touched.categories && formik.errors.categories
                   }
                 />
-                {/* <Field as="select" id="categories" name="categories" multiple>
-                  <option value="628c92cd1c4eb76ecbc12f55">MeinerNFT</option>
-                  <option value="628c92c41c4eb76ecbc12f53">BakkumNFT</option>
-                  <option value="628c92bc1c4eb76ecbc12f50">NoccoNFT</option>
-                  <option value="628c92b71c4eb76ecbc12f4e">DCNFT</option>
-                  <option value="628c92af1c4eb76ecbc12f4c">PappaNFT</option>
-                  <option value="628c92aa1c4eb76ecbc12f4a">Formula1NFT</option>
-                </Field> */}
+                
               </div>
               <Button
                 style={saveCloseEditButton}
