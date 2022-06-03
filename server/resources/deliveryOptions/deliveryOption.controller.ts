@@ -4,7 +4,6 @@ import { deliveryModel, DeliveryOption } from "./deliveryOption.model";
 
 // Get ALL Delivery options
 export const getAllDeliveryOptions = async (req: Request, res: Response) => {
-  // TODO: Who is allowed to use this endpoint?
   const categories = await deliveryModel.find({});
   res.status(200).json(categories);
 };
@@ -34,21 +33,6 @@ export const addDeliveryOption = async (
     const deliveryOption = new deliveryModel(req.body);
     await deliveryOption.save();
     res.status(200).json(deliveryOption);
-  } catch (err) {
-    next(err);
-  }
-};
-
-// Delete a delivery option
-export const deleteDeliveryOption = async (
-  req: Request<{}, {}, DeliveryOption>,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const foundDeliveryOption = await deliveryModel.findOne(req.params);
-    foundDeliveryOption?.delete();
-    res.status(200).json("DELETED CATEGORY");
   } catch (err) {
     next(err);
   }

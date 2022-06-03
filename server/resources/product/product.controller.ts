@@ -66,6 +66,14 @@ export const updateProduct = async (
   }
 };
 
+export const updateStock = async (order: Order) => {
+  for (const product of order.products) {
+    await ProductModel.findByIdAndUpdate(product._id, {
+      $inc: { stock: -product.quantity! },
+    });
+  }
+};
+
 export const updateProductStock = async (
   req: Request<{ id: string }>,
   res: Response
@@ -83,30 +91,5 @@ export const updateProductStock = async (
     if (err instanceof Error) {
       return res.status(500).json(err.message);
     }
-  }
-};
-
-export const addProduct = async (req: Request, res: Response) => {
-  try {
-    const newProduct = new ProductModel({
-      name: req.body.name,
-      description: req.body.description,
-      image: req.body.image,
-      price: req.body.price,
-    });
-    await newProduct.save();
-    res.status(200).json(newProduct);
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return res.status(500).json(err.message);
-    }
-  }
-};
-
-export const updateStock = async (order: Order) => {
-  for (const product of order.products) {
-    await ProductModel.findByIdAndUpdate(product._id, {
-      $inc: { stock: -product.quantity! },
-    });
   }
 };

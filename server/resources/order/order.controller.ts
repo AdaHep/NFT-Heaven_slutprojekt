@@ -21,7 +21,7 @@ export const addOrder = async (
     customer: req.session?.user.id,
     products: req.body.products,
     deliveryAddress: req.body.deliveryAddress,
-    deliveryMethod: req.body.deliveryMethod,
+    deliveryMethod: req.body.deliveryOption,
     paymentMethod: req.body.paymentMethod,
   });
 
@@ -32,15 +32,4 @@ export const addOrder = async (
   } catch (err) {
     next(err);
   }
-};
-
-export const updateOrder = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
-  const order = await OrderModel.findById(req.params.id);
-  res.status(200).json(order);
-};
-export const deleteOrder = (req: Request, res: Response) => {
-  res.status(200).json("DELETED ORDER");
 };

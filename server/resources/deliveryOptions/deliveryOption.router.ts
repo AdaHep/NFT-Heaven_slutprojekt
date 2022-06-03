@@ -4,7 +4,6 @@ import {
   getAllDeliveryOptions,
   getOneDeliveryOption,
   addDeliveryOption,
-  deleteDeliveryOption,
 } from "./deliveryOption.controller";
 
 export const deliveryOptionRouter = express
@@ -13,5 +12,4 @@ export const deliveryOptionRouter = express
   .get("/delivery/:id", getOneDeliveryOption)
 
   // For dev
-  .post("/delivery", addDeliveryOption)
-  .delete("/delivery/:id", deleteDeliveryOption);
+  .post("/delivery", addDeliveryOption);

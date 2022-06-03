@@ -78,17 +78,6 @@ export const logoutUser = async (
   }
 };
 
-export const updateUser = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
-  const user = await UserModel.findById(req.params.id).select("+password");
-  res.status(200).json(user);
-};
-export const deleteUser = (req: Request, res: Response) => {
-  res.status(200).json("DELETED USER");
-};
-
 export const getCurrentUser = (req: Request, res: Response) => {
   res.status(200).json(req.session?.user);
 };
