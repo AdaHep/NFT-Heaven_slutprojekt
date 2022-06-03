@@ -7,6 +7,7 @@ import {
   addNewProduct,
   getProductsInCategory,
   updateProduct,
+  updateStock,
 } from "./product.controller";
 
 export const productRouter = express
@@ -19,4 +20,6 @@ export const productRouter = express
 
   //Updating products
   .put("/product/:id", updateProductStock)
+  .put("/product/:id", updateStock)
+  //ts.ignore:next-line
   .put("/product/:id", updateProduct);

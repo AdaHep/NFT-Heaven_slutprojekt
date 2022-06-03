@@ -12,7 +12,7 @@ export interface Order {
   customer?: Types.ObjectId;
   products: Product[];
   deliveryAddress: Address;
-  deliveryMethod: DeliveryOption;
+  deliveryOption: DeliveryOption;
   paymentMethod: String;
   isSent: Boolean;
   createdAt: Date;
@@ -24,7 +24,7 @@ const OrderSchema = new mongoose.Schema<Order>(
     customer: { type: Schema.Types.ObjectId, ref: "user", required: false },
     products: { type: [ProductSchema], required: true },
     deliveryAddress: { type: AddressSchema, required: true },
-    deliveryMethod: { type: deliveryOptionSchema, required: true },
+    deliveryOption: { type: deliveryOptionSchema, required: true },
     paymentMethod: { type: String, required: true },
     isSent: { type: Boolean, required: true, default: false },
     createdAt: { type: Date, required: true, default: Date.now },

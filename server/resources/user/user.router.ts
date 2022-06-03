@@ -3,8 +3,6 @@ import { adminSecure, secure } from "../middlewares";
 import {
   getAllUsers,
   addUser,
-  updateUser,
-  deleteUser,
   loginUser,
   logoutUser,
   getCurrentUser,
@@ -16,6 +14,4 @@ export const userRouter = express
   .post("/user", addUser)
   .get("/auth", secure, getCurrentUser)
   .post("/login", loginUser)
-  .delete("/logout", logoutUser)
-  .put("/user/:id", updateUser)
-  .delete("/user/:id", deleteUser);
+  .delete("/logout", logoutUser);

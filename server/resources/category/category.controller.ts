@@ -38,18 +38,3 @@ export const addCategory = async (
     next(err);
   }
 };
-
-// Delete a category
-export const deleteCategory = async (
-  req: Request<{}, {}, Category>,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const foundCategory = await CategoryModel.findOne(req.params);
-    foundCategory?.delete();
-    res.status(200).json("DELETED CATEGORY");
-  } catch (err) {
-    next(err);
-  }
-};
